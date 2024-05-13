@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="bc263a0b4742021086ea87fe016d437e" label="Parking List" max_length="40" name="x_1230661_parking_list" type="collection">
+        <element label="Location" mandatory="true" max_length="150" name="location" type="string"/>
+        <element label="Name" mandatory="true" max_length="50" name="name" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element label="Parking places" mandatory="true" max_length="40" name="parking_places" type="string"/>
+    </element>
+</database>

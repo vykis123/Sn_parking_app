@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role">
+    <sys_user_role action="DELETE">
+        <assignable_by/>
+        <can_delegate>true</can_delegate>
+        <description/>
+        <elevated_privilege>false</elevated_privilege>
+        <grantable>true</grantable>
+        <includes_roles/>
+        <name>x_1230661_parking_requests_user</name>
+        <scoped_admin>false</scoped_admin>
+        <suffix/>
+        <sys_class_name>sys_user_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-13 12:16:44</sys_created_on>
+        <sys_id>31a043874782021086ea87fe016d43ae</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1230661_parking_requests_user</sys_name>
+        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sys_user_role_31a043874782021086ea87fe016d43ae</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-13 12:16:44</sys_updated_on>
+    </sys_user_role>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</application>
+        <file_path/>
+        <instance_id>b44b05acdb9679584162684e139619cd</instance_id>
+        <instance_name>dev199787</instance_name>
+        <name>sys_user_role_31a043874782021086ea87fe016d43ae</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role"><sys_user_role action="INSERT_OR_UPDATE"><assignable_by/><can_delegate>true</can_delegate><description/><elevated_privilege>false</elevated_privilege><grantable>true</grantable><includes_roles/><name>x_1230661_parking_requests_user</name><scoped_admin>false</scoped_admin><suffix/><sys_class_name>sys_user_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-05-13 12:16:44</sys_created_on><sys_id>31a043874782021086ea87fe016d43ae</sys_id><sys_mod_count>0</sys_mod_count><sys_name>x_1230661_parking_requests_user</sys_name><sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package><sys_policy/><sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope><sys_update_name>sys_user_role_31a043874782021086ea87fe016d43ae</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-05-13 12:16:44</sys_updated_on></sys_user_role></record_update>]]></payload>
+        <payload_hash>-850082539</payload_hash>
+        <record_name>x_1230661_parking_requests_user</record_name>
+        <reverted_from/>
+        <source>acd57ac74742021086ea87fe016d43c8</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-13 12:16:44</sys_created_on>
+        <sys_id>f9a0c3c74782021086ea87fe016d4322</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18f71e2419f0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-13 12:16:44</sys_updated_on>
+        <type>Role</type>
+        <update_guid>fda0c3c7c882021030221657ef111721</update_guid>
+        <update_guid_history>fda0c3c7c882021030221657ef111721:-850082539</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="x_1230661_parking_requests_user">e6715b8f47c2021086ea87fe016d43ee</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-13 13:30:15</sys_created_on>
+        <sys_db_object display_value="" name="sys_user_role">sys_user_role</sys_db_object>
+        <sys_id>29de6bf605164c7e8b14beab14b51951</sys_id>
+        <sys_metadata>31a043874782021086ea87fe016d43ae</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1230661_parking_requests_user</sys_name>
+        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_scope_delete display_value="">0dca61e1b1904fe3bb87f7886d66ff29</sys_scope_delete>
+        <sys_update_name>sys_user_role_31a043874782021086ea87fe016d43ae</sys_update_name>
+        <sys_update_version display_value="sys_user_role_31a043874782021086ea87fe016d43ae">f9a0c3c74782021086ea87fe016d4322</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-13 13:30:15</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
