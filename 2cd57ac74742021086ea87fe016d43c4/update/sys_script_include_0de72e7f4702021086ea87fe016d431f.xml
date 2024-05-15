@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_1230661_parking.parkingAppUtils</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>parkingAppUtils</name>
+        <script><![CDATA[var parkingAppUtils = Class.create();
+parkingAppUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+    /**
+     * 
+     */
+    validateDateChoice: function() {
+        const responseObj = {
+            reservationExists: false,
+            availableParkingPlace: true
+        };
+
+        let plateNumber = this.getParameter('sysparm_plate_number') || "";
+        let reservationDate = this.getParameter('sysparm_reservation_date') || "";
+        let parking = this.getParameter("sysparm_parking") || "";
+
+        //Check if registration already exists for that day and that palteNumber
+        const reservationCount = this.checkIfReservationExists(plateNumber, reservationDate, parking);
+
+		gs.info(`luba ${reservationCount}`)
+
+        if (reservationCount > 0) {
+            const result = {
+                ...responseObj,
+                reservationExists: true
+            };
+            return JSON.stringify(result);
+        }
+
+        //Check if there is any parking left
+        const availableParking = this.checkForAvailableParking(reservationDate, parking);
+
+        if (!availableParking) {
+
+            const result = {
+                ...responseObj,
+                availableParkingPlace: false
+            };
+            return JSON.stringify(result);
+        }
+
+        return JSON.stringify(responseObj);
+
+    },
+
+    /**
+     * 
+     */
+    checkIfReservationExists: function(plateNumber, reservationDate, parking) {
+
+        const parkingRequestGr = new GlideAggregate("x_1230661_parking_requests");
+        parkingRequestGr.addEncodedQuery(`plate_numberSTARTSWITH${plateNumber}^reservation_date=${reservationDate}^parking_name=${parking}^approve_status=approved`)
+        parkingRequestGr.addAggregate('COUNT');
+        parkingRequestGr.query();
+
+        if (parkingRequestGr.next()) {
+			gs.info("sup")
+            return parkingRequestGr.getAggregate('COUNT');
+        }
+
+        return 0;
+    },
+
+    /**
+     * 
+     */
+    checkForAvailableParking: function(reservationDate, parking) {
+
+        const parkingRequestGr = new GlideAggregate("x_1230661_parking_requests");
+        parkingRequestGr.addEncodedQuery(`reservation_dateON${reservationDate}^parking_name=${parking}^approve_status=approved`);
+        parkingRequestGr.addAggregate('COUNT');
+        parkingRequestGr.query();
+
+        if (parkingRequestGr.next()) {
+			
+            const parkingGr = new GlideRecord("x_1230661_parking_list");
+            parkingGr.get(parking);
+
+            return +parkingGr.parking_places > +parkingRequestGr.getAggregate('COUNT') ? true : false;
+        }
+
+    },
+
+    type: 'parkingAppUtils'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-15 18:24:47</sys_created_on>
+        <sys_id>0de72e7f4702021086ea87fe016d431f</sys_id>
+        <sys_mod_count>20</sys_mod_count>
+        <sys_name>parkingAppUtils</sys_name>
+        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sys_script_include_0de72e7f4702021086ea87fe016d431f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-15 20:01:42</sys_updated_on>
+    </sys_script_include>
+</record_update>
