@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_header_footer">
+    <sp_header_footer action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  var c = this;
+  
+  c.currentPath = window.location.pathname;
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&amp;display=swap');&#13;
+&#13;
+.nav {&#13;
+	padding: 2rem;&#13;
+  	display: flex;&#13;
+  	align-items: center;&#13;
+  	gap: 2rem;  	&#13;
+  	background: $background-color-blue-1;&#13;
+}&#13;
+&#13;
+.img-wrapper {&#13;
+	min-width: 4rem;&#13;
+  	aspect-ratio: 1;&#13;
+}&#13;
+&#13;
+.img-wrapper:hover .img,&#13;
+.img-wrapper:focus-within .img {&#13;
+	outline: transparent;&#13;
+  	-webkit-filter: drop-shadow( 0px 0px 4px rgba(0, 0, 0, .7));&#13;
+  	filter: drop-shadow( 0px 0px 4px rgba(0, 0, 0, .7));&#13;
+}&#13;
+&#13;
+.img {&#13;
+	width: 100%;&#13;
+  	mix-blend-mode: multiply;&#13;
+  	transition: all .15s ease-in;&#13;
+}&#13;
+&#13;
+.title {&#13;
+	font-size: clamp(.85rem, 2vw, 1rem);&#13;
+    font-family: $main-font-family;&#13;
+  	color: $text-color-black-1;&#13;
+  	margin: 0;&#13;
+  	font-style: italic;&#13;
+  &#13;
+}&#13;
+.links {&#13;
+	display: flex;&#13;
+  	align-items: center;&#13;
+  	justify-content:center;&#13;
+  	gap: 2rem;&#13;
+  	margin: 0;&#13;
+}&#13;
+&#13;
+.links__link {&#13;
+	list-style: none;&#13;
+}&#13;
+&#13;
+.links__link-anchor {&#13;
+	color: $text-color-black-1;&#13;
+  	text-decoration: none;&#13;
+  	font-family: $main-font-family;&#13;
+  	font-weight: 500;&#13;
+  	font-size: clamp( 1.25rem, 2.5vw, 1.5rem);&#13;
+  	position: relative;&#13;
+  	transition: color .15s ease-in;&#13;
+}&#13;
+&#13;
+.links__link-anchor:hover,&#13;
+.links__link-anchor:focus-visible {&#13;
+	color: $text-color-active-1;&#13;
+}&#13;
+&#13;
+.active {&#13;
+  color: $text-color-active-1;&#13;
+}&#13;
+&#13;
+.links__link-anchor::after {&#13;
+	content: "";&#13;
+  	width: 100%;&#13;
+  	scale: 0;&#13;
+  	height: 2px;&#13;
+  	background: $text-color-active-1;&#13;
+  	position: absolute;&#13;
+  	bottom: -.3rem;&#13;
+  	left: 0;&#13;
+  	transition: scale .15s ease-in;&#13;
+}&#13;
+&#13;
+.links__link:focus-within .links__link-anchor::after,&#13;
+.links__link:hover .links__link-anchor::after {&#13;
+  	scale: 1;&#13;
+}&#13;
+&#13;
+.active.links__link-anchor::after {&#13;
+ 	scale: 1;&#13;
+}&#13;
+&#13;
+.user {&#13;
+	margin-inline: auto 0;&#13;
+}&#13;
+&#13;
+.user__name {&#13;
+ 	padding: 0;&#13;
+  	margin: 0;&#13;
+ 	font-family: $main-font-family;&#13;
+  	color: $text-color-black-1;&#13;
+  	font-size: clamp( 1.25rem, 2.5vw, 1.5rem);&#13;
+}&#13;
+&#13;
+@media only screen and (max-width: 375px) {&#13;
+&#13;
+  .nav {&#13;
+    flex-direction: column;&#13;
+  }&#13;
+  &#13;
+  .links {&#13;
+  	flex-direction: column;&#13;
+    padding: 0;&#13;
+  }&#13;
+  &#13;
+  .user {&#13;
+	margin-inline: auto;&#13;
+}&#13;
+&#13;
+}&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>p_menu_header</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Parking app header</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+ data.currentUser = gs.getUserDisplayName() || "Guest";
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <static>false</static>
+        <sys_class_name>sp_header_footer</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-16 13:00:01</sys_created_on>
+        <sys_id>dc4766404796421086ea87fe016d433c</sys_id>
+        <sys_mod_count>104</sys_mod_count>
+        <sys_name>Parking app header</sys_name>
+        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sp_header_footer_dc4766404796421086ea87fe016d433c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-17 13:24:52</sys_updated_on>
+        <template><![CDATA[<nav class="nav">
+  <figure class="img-wrapper">
+    <a href="/parking" class="img-link" title="Click to get to home page">
+      <img class="img" ng-src="{{::portal.logo}}"  alt="Company logo" height="50" width="50"/>
+    </a>
+    <p class="title">Parking App</p>
+   </figure>
+     
+     <ul class="links">
+     	<li class="links__link">
+          <a href="/parking" ng-class="c.currentPath == '/parking' ? 'links__link-anchor active' : 'links__link-anchor'" title="Home">Home</a>
+       	</li>
+       <li class="links__link">
+          <a href="#" class="links__link-anchor" title="My reservation">My Reservations</a>
+       	</li>
+     </ul>
+  
+  <div class="user">
+    <p class="user__name">{{data.currentUser}}</p>
+  </div>
+</nav>]]></template>
+    </sp_header_footer>
+</record_update>

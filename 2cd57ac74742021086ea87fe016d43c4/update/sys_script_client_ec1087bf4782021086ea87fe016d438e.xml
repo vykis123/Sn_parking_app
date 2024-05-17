@@ -17,6 +17,8 @@
 
     if (g_form.getValue("reservation_date") === "") return;
 
+    if (g_form.getValue('parking_name') === "") return;
+
     const parkingUtilAjax = new GlideAjax("x_1230661_parking.parkingAppUtils");
     parkingUtilAjax.addParam("sysparm_name", "validateDateChoice");
     parkingUtilAjax.addParam("sysparm_plate_number", newValue);
@@ -47,7 +49,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>ec1087bf4782021086ea87fe016d438e</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name>plate_number validation</sys_name>
         <sys_overrides/>
         <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
@@ -55,7 +57,7 @@
         <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_script_client_ec1087bf4782021086ea87fe016d438e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-15 20:16:09</sys_updated_on>
+        <sys_updated_on>2024-05-16 11:34:10</sys_updated_on>
         <table>x_1230661_parking_requests</table>
         <type>onChange</type>
         <ui_type>10</ui_type>

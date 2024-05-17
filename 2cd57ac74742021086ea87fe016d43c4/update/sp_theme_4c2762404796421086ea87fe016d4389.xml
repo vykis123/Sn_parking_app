@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_theme">
+    <sp_theme action="INSERT_OR_UPDATE">
+        <css_variables>$text-color-black-1: #1c1c1e;&#13;
+$text-color-active-1: #010159;&#13;
+$background-color-blue-1: rgb(41,164,195);&#13;
+$main-font-family: "Roboto Mono", monospace, sans-serif;&#13;
+</css_variables>
+        <footer/>
+        <footer_fixed>true</footer_fixed>
+        <header display_value="Parking app header">dc4766404796421086ea87fe016d433c</header>
+        <name>Parking portal theme</name>
+        <navbar_fixed>true</navbar_fixed>
+        <sys_class_name>sp_theme</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-16 12:59:19</sys_created_on>
+        <sys_id>4c2762404796421086ea87fe016d4389</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Parking portal theme</sys_name>
+        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sp_theme_4c2762404796421086ea87fe016d4389</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-17 13:16:56</sys_updated_on>
+        <turn_off_scss_compilation>false</turn_off_scss_compilation>
+    </sp_theme>
+</record_update>
