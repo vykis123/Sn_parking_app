@@ -1,10 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_theme">
     <sp_theme action="INSERT_OR_UPDATE">
         <css_variables>$text-color-black-1: #1c1c1e;&#13;
-$text-color-active-1: #010159;&#13;
+&#13;
+$link-color-active-1: #010159;&#13;
+&#13;
 $background-color-blue-1: rgb(41,164,195);&#13;
-$main-font-family: "Roboto Mono", monospace, sans-serif;&#13;
-</css_variables>
+$bakcground-color-blue-2: rgb(8, 92, 113);&#13;
+&#13;
+$white-color-1: rgb(241, 238, 238);&#13;
+&#13;
+$green-color-1: rgba(50, 139, 26, 0.459);&#13;
+$green-color-2: rgb(89, 189, 80);&#13;
+&#13;
+$red-color-1: #fd3737;&#13;
+&#13;
+*, *::before, *::after {&#13;
+	margin: 0;&#13;
+    padding: 0;&#13;
+    box-sizing: border-box;&#13;
+}&#13;
+&#13;
+body {&#13;
+	font-family: "Roboto Mono", monospace, sans-serif;&#13;
+}&#13;
+&#13;
+@mixin btn-mixin($color-value, $background-value, $stroke-value) {&#13;
+  color: $color-value;&#13;
+  cursor: pointer;&#13;
+  font-size: clamp(1.45rem, 2.5vw, 1.6rem);&#13;
+  line-height: 4.5rem;&#13;
+  margin: 0 0 2em;&#13;
+  max-width: 17rem;&#13;
+  position: relative;&#13;
+  text-decoration: none;&#13;
+  width: 100%;&#13;
+  background: darken($background-value, 4%);&#13;
+  font-weight: 100;&#13;
+  text-align: center;&#13;
+  display: block;&#13;
+  margin: 2rem auto;&#13;
+  transition: letter-spacing 0.3s ease-in;&#13;
+  border: none;&#13;
+&#13;
+  svg {&#13;
+    height: 4.6rem;&#13;
+    left: 0;&#13;
+    position: absolute;&#13;
+    top: 0;&#13;
+    width: 100%;&#13;
+  }&#13;
+&#13;
+  rect {&#13;
+    fill: none;&#13;
+    stroke: $stroke-value;&#13;
+    stroke-width: 2;&#13;
+    stroke-dasharray: 422, 0;&#13;
+    transition: all 0.35s linear;&#13;
+  }&#13;
+  &amp;:hover,&#13;
+  &amp;:focus-visible,&#13;
+  &amp;:focus {&#13;
+    text-decoration: none;&#13;
+    outline: transparent;&#13;
+    box-shadow: none;&#13;
+&#13;
+    background: darken($background-value, 10%);&#13;
+    font-weight: 900;&#13;
+    letter-spacing: 1px;&#13;
+&#13;
+    rect {&#13;
+      stroke-width: 5;&#13;
+      stroke-dasharray: 22, 310;&#13;
+      stroke-dashoffset: 48;&#13;
+      transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);&#13;
+    }&#13;
+  }&#13;
+}</css_variables>
         <footer/>
         <footer_fixed>true</footer_fixed>
         <header display_value="Parking app header">dc4766404796421086ea87fe016d433c</header>
@@ -14,14 +85,14 @@ $main-font-family: "Roboto Mono", monospace, sans-serif;&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-16 12:59:19</sys_created_on>
         <sys_id>4c2762404796421086ea87fe016d4389</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>19</sys_mod_count>
         <sys_name>Parking portal theme</sys_name>
         <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_theme_4c2762404796421086ea87fe016d4389</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-17 13:16:56</sys_updated_on>
+        <sys_updated_on>2024-05-22 07:56:12</sys_updated_on>
         <turn_off_scss_compilation>false</turn_off_scss_compilation>
     </sp_theme>
 </record_update>

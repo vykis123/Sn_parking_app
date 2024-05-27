@@ -1,9 +1,291 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function() {  /* widget controller */  var c = this;};]]></client_script>
+        <client_script><![CDATA[api.controller = function () {
+  let c = this;
+  const dialog = document.querySelector("dialog");
+  const selectErrorEl = document.querySelector(".select");
+  const dateErrorEl = document.querySelector(".date");
+  const plateErrorEl = document.querySelector(".plate");
+
+  c.openModal = () => dialog.showModal();
+  c.closeModal = () => dialog.close();
+
+  c.checkIfReservationAvailable = (parking) => {
+    console.log(!parking);
+  };
+
+  c.checkSelectOnBlur = (value) => {
+    if (!value) {
+      selectErrorEl.classList.add("error-active");
+      c.selectError = "Please select parking";
+    } else {
+      selectErrorEl.classList.remove("error-active");
+      c.selectError = "";
+    }
+  };
+  c.checkDateOnBlur = (value) => {
+    if (!value) {
+      dateErrorEl.classList.add("error-active");
+      c.dateErrorMsg = "Please select date";
+    } else {
+      dateErrorEl.classList.remove("error-active");
+      c.dateErrorMsg = "";
+    }
+  };
+  c.checkPlateOnBlur = (value) => {
+    if (!value) {
+      plateErrorEl.classList.add("error-active");
+      c.plateErrorMsg = "Enter car plate number";
+    } else {
+      plateErrorEl.classList.remove("error-active");
+      c.plateErrorMsg = "";
+    }
+  };
+};
+]]></client_script>
         <controller_as>c</controller_as>
-        <css/>
+        <css>*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 1rem;
+  width: 100%;
+}
+
+.heading {
+  color: $text-color-black-1;
+  font-size: clamp(1.85rem, 2.5vw, 2.5rem);
+  margin-bottom: 2rem;
+}
+
+.reservation {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0;
+
+  .reservation__notfound {
+    color: $text-color-black-1;
+    font-style: italic;
+  }
+
+  .reservation__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+
+    box-shadow: inset 0 0rem 0.1rem rgba($text-color-black-1, 0.5);
+    padding: 1.5rem 3rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    transition: box-shadow 0.15s ease-in;
+
+    @media only screen and (max-width: 510px) {
+      padding: 0.5rem 1rem;
+    }
+
+    &amp;:hover,
+    &amp;:focus-within {
+      box-shadow: inset 0 0rem 1rem rgba($background-color-blue-1, 1);
+    }
+    &amp;:hover .reservation__item-link,
+    &amp;:focus-within .reservation__item-link {
+      color: $text-color-active-1;
+    }
+
+    .reservation__item-link {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      color: $text-color-black-1;
+      font-weight: 600;
+      font-size: clamp(1.25rem, 2.5vw, 1.55rem);
+      transition: color 0.15s ease-in;
+    }
+
+    .reservation__item-cancel {
+      color: $text-color-black-1;
+      border: none;
+      font-weight: 600;
+      font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+      border-radius: 1.5rem;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 0 0 0.1rem $red-color-1;
+      transition: box-shadow 0.15s ease-in, color 0.15s ease-in,
+        letter-spacing 0.15s ease-in;
+
+      &amp;:hover,
+      &amp;:focus {
+        box-shadow: 0 0 0 0.1rem $red-color-1,
+          inset 0 0rem 2rem rgba($red-color-1, 1);
+        color: $text-color-active-1;
+        letter-spacing: 1px;
+      }
+    }
+  }
+}
+
+.actions {
+  display: flex;
+
+  @media only screen and (max-width: 510px) {
+    flex-direction: column;
+  }
+
+  .primary-btn {
+    @include btn-mixin(
+      $bakcground-color-blue-2,
+      $white-color-1,
+      $background-color-blue-1
+    );
+  }
+
+  .secondary-btn {
+    @include btn-mixin($text-color-black-1, $green-color-1, $green-color-2);
+  }
+}
+
+dialog {
+  display: none;
+  opacity: 0;
+  margin: auto;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem $background-color-blue-1;
+  background: transparent;
+  min-width: 25%;
+
+  /*Works in 75% browsers*/
+  translate: 0 25vh;
+  transition-property: overlay display opacity;
+  transition-duration: 0.5s;
+  transition-behavior: allow-discrete;
+}
+
+dialog[open] {
+  opacity: 1;
+  display: block;
+  border: none;
+  translate: 0 0;
+
+  /*Works in 75% browsers*/
+  @starting-style {
+    opacity: 0;
+    translate: 0 -25vh;
+  }
+}
+
+dialog[open]::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(0.5rem);
+  -webkit-backdrop-filter: blur(0.5rem);
+}
+
+.dialog {
+  .dialog__heading {
+    color: $white-color-1;
+    margin-bottom: 1rem;
+    font-size: clamp(2rem, 2.5vw, 2.5rem);
+  }
+}
+
+.form {
+  .error-message {
+    color: $red-color-1;
+    font-size: clamp(0.85rem, 2.5vw, 1.25rem);
+    font-weight: 300;
+    translate: -1rem;
+    visibility: hidden;
+    display: block;
+    transition: all 0.15s ease-in;
+  }
+
+  .error-active {
+    visibility: visible;
+    translate: 0rem;
+  }
+
+  .form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 100%;
+    margin-bottom: 1rem;
+
+    label {
+      color: $white-color-1;
+      font-size: clamp(0.95rem, 2.5vw, 1.35rem);
+    }
+
+    select,
+    input,
+    input[type="date"] {
+      border: none;
+      background: $background-color-blue-1;
+      padding: 0.5rem 1rem;
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      border-radius: 1rem;
+      transition: box-shadow 0.1s ease-in;
+      color: $text-color-black-1;
+
+      &amp;:focus {
+        box-shadow: 0 0 0.2rem 0.2rem rgba(249, 249, 249, 0.801);
+      }
+    }
+  }
+
+  .form__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      background: none;
+      font-weight: 600;
+      font-size: clamp(1.2rem, 2.5vw, 1.44rem);
+      border-radius: 2.4rem;
+      transition: box-shadow 0.15s ease-in, background 0.125s ease-out;
+      color: $white-color-1;
+    }
+
+    .create {
+      box-shadow: 0 0 0 0.1rem $green-color-1;
+
+      &amp;:focus-visible,
+      &amp;:hover {
+        background: $green-color-2;
+        box-shadow: 0 0 0.3rem $green-color-2, 0 0 0.6rem $green-color-2,
+          0 0 0.9rem $green-color-2, 0 0 1.2rem $green-color-2,
+          0 0 1.5rem $green-color-2;
+      }
+    }
+
+    .cancel {
+      box-shadow: 0 0 0 0.1rem $red-color-1;
+
+      &amp;:focus-visible,
+      &amp;:hover {
+        background: $red-color-1;
+        box-shadow: 0 0 0.3rem $red-color-1, 0 0 0.6rem $red-color-1,
+          0 0 0.9rem $red-color-1, 0 0 1.2rem $red-color-1,
+          0 0 1.5rem $red-color-1;
+      }
+    }
+  }
+}
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description/>
@@ -17,21 +299,166 @@
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {  /* populate the 'data' object */  /* e.g., data.table = $sp.getValue('table'); */})();]]></script>
+        <script><![CDATA[(function () {
+  getClosestReservation();
+  getParkingList();
+
+  //Helper Functions
+  function getClosestReservation() {
+    const parkingRequestGr = new GlideRecord("x_1230661_parking_requests");
+    parkingRequestGr.addQuery("requested_by", gs.getUserID());
+    parkingRequestGr.addQuery("approve_status", "approved");
+    parkingRequestGr
+      .addQuery("reservation_date", gs.beginningOfToday())
+      .addOrCondition("reservation_date", ">", gs.beginningOfToday());
+    parkingRequestGr.setLimit(1);
+    parkingRequestGr.orderBy("reservation_date");
+    parkingRequestGr.query();
+
+    if (parkingRequestGr.next()) {
+      return (data.closestReservation = {
+        date: parkingRequestGr.reservation_date.toString(),
+        parkingName: parkingRequestGr.parking_name.name.toString(),
+        sysId: parkingRequestGr.sys_id.toString(),
+        reservationExist: true,
+      });
+    }
+
+    return (data.closestReservation = {
+      reservationExist: false,
+    });
+  }
+
+  function getParkingList() {
+    data.parkingList = [];
+
+    const parkingTableGr = new GlideRecord("x_1230661_parking_list");
+    parkingTableGr.query();
+
+    while (parkingTableGr.next()) {
+      data.parkingList.push(parkingTableGr.name.toString());
+    }
+  }
+})();
+]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-16 12:51:58</sys_created_on>
         <sys_id>3e756a4c4756421086ea87fe016d43ce</sys_id>
-        <sys_mod_count>1</sys_mod_count>
+        <sys_mod_count>485</sys_mod_count>
         <sys_name>parking_reservations</sys_name>
         <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_widget_3e756a4c4756421086ea87fe016d43ce</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-16 12:52:21</sys_updated_on>
-        <template><![CDATA[<div>
-This is widget for parking reservations which I currently have</div>]]></template>
+        <sys_updated_on>2024-05-27 12:27:39</sys_updated_on>
+        <template><![CDATA[<div class="container">
+  <h2 class="heading">My Next reservation</h2>
+  <ul class="reservation">
+    <p
+      class="reservation__notfound"
+      ng-if="data.closestReservation.reservationExist == false"
+    >
+      There are no upcoming reservations for you.
+    </p>
+    <li
+      class="reservation__item"
+      ng-if="data.closestReservation.reservationExist == true"
+      id="{{data.closestReservation.sysId}}"
+    >
+      <p href="#" class="reservation__item-link">
+        <span class="date">{{data.closestReservation.date}}</span>
+        <span class="place">{{data.closestReservation.parkingName}}</span>
+      </p>
+      <button
+        class="reservation__item-cancel"
+        title="Cancel reservation"
+        type="button"
+      >
+        Cancel
+      </button>
+    </li>
+  </ul>
+
+  <div class="actions">
+    <a class="primary-btn" href="#" title="Link to all reservations">
+      <svg>
+        <rect x="0" y="0" fill="none" width="100%" height="100%" />
+      </svg>
+      My Reservations
+    </a>
+
+    <a
+      class="secondary-btn"
+      href="#"
+      title="Create new reservation"
+      role="button"
+      ng-click="c.openModal()"
+    >
+      <svg>
+        <rect x="0" y="0" fill="none" width="100%" height="100%" />
+      </svg>
+      New Reservation
+    </a>
+  </div>
+
+  <dialog class="dialog">
+    <h3 class="dialog__heading">Create Reservation</h3>
+    <form class="form" method="dialog">
+      <div class="form__group">
+        <label for="select_parking">Select Parking</label>
+        <select
+          name="select_parking"
+          id="select_parking"
+          title="All parking selection"
+          ng-require="true"
+          ng-model="c.data.selectedParking"
+          ng-blur="c.checkSelectOnBlur(c.data.selectedParking)"
+        >
+          <option value="" selected disabled hidden>Choose Parking</option>
+          <option ng-repeat="parking in c.data.parkingList" value="{{parking}}">
+            {{parking}}
+          </option>
+        </select>
+        <span class="error-message select">{{c.selectError}}</span>
+      </div>
+      <div class="form__group">
+        <label for="select_date">Select Date</label>
+        <input
+          type="date"
+          name="select_date"
+          id="select_date"
+          ng-require="true"
+          ng-model="c.data.dateValue"
+          ng-blur="c.checkDateOnBlur(c.data.dateValue)"
+        />
+        <span class="error-message date">{{c.dateErrorMsg}}</span>
+      </div>
+      <div class="form__group">
+        <label for="car_plate">Car plate</label>
+        <input
+          type="text"
+          name="car_plate"
+          id="car_plate"
+          maxlength="10"
+          title="Plate number of the car."
+          placeholder="Eg: DDD000"
+          ng-require="true"
+          ng-model="c.data.plateValue"
+          ng-blur=" c.checkPlateOnBlur(c.data.plateValue)"
+        />
+        <span class="error-message plate">{{c.plateErrorMsg}}</span>
+      </div>
+      <div class="form__actions">
+        <button ng-click="c.closeModal()" class="btn cancel">Cancel</button>
+        <button ng-click="c.closeModal()" class="btn create">Create</button>
+      </div>
+      <span class="error-message form">Error message</span>
+    </form>
+  </dialog>
+</div>
+]]></template>
     </sp_widget>
 </record_update>

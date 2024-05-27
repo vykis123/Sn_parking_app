@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>1</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="2">6a52b539475e021086ea87fe016d43b2</sp_column>
+        <sp_widget display_value="Actions Widget">38a3a159530201101865ddeeff7b1263</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-21 19:38:28</sys_created_on>
+        <sys_id>ae727939475e021086ea87fe016d4366</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sp_instance_ae727939475e021086ea87fe016d4366</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-21 19:38:28</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=ae727939475e021086ea87fe016d4366"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</application>
+        <file_path/>
+        <instance_id>b44b05acdb9679584162684e139619cd</instance_id>
+        <instance_name>dev199787</instance_name>
+        <name>sp_instance_ae727939475e021086ea87fe016d4366</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance"><sp_instance action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><glyph/><id/><order>1</order><roles/><short_description/><size>md</size><sp_column display_value="2">6a52b539475e021086ea87fe016d43b2</sp_column><sp_widget display_value="Actions Widget">38a3a159530201101865ddeeff7b1263</sp_widget><sys_class_name>sp_instance</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-05-21 19:38:28</sys_created_on><sys_id>ae727939475e021086ea87fe016d4366</sys_id><sys_mod_count>0</sys_mod_count><sys_name/><sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package><sys_policy/><sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope><sys_update_name>sp_instance_ae727939475e021086ea87fe016d4366</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-05-21 19:38:28</sys_updated_on><title/><url/><widget_parameters/></sp_instance><sys_translated_text action="delete_multiple" query="documentkey=ae727939475e021086ea87fe016d4366"/></record_update>]]></payload>
+        <payload_hash>-1805728050</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>d79613474706021086ea87fe016d430a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-21 19:38:28</sys_created_on>
+        <sys_id>aa727939475e021086ea87fe016d4369</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18f9ca98d0e0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-21 19:38:28</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>ae7279398a5e021023ea588f323da868</update_guid>
+        <update_guid_history>ae7279398a5e021023ea588f323da868:-1805728050</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">0a92f539475e021086ea87fe016d43a5</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-21 19:38:59</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>5d297c3190c1446d8035cf8bd95d9881</sys_id>
+        <sys_metadata>ae727939475e021086ea87fe016d4366</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_scope_delete display_value="">0dca61e1b1904fe3bb87f7886d66ff29</sys_scope_delete>
+        <sys_update_name>sp_instance_ae727939475e021086ea87fe016d4366</sys_update_name>
+        <sys_update_version display_value="sp_instance_ae727939475e021086ea87fe016d4366">aa727939475e021086ea87fe016d4369</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-21 19:38:59</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

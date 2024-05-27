@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_theme_css_include">
+    <m2m_sp_theme_css_include action="INSERT_OR_UPDATE">
+        <order/>
+        <sp_css_include display_value="Mono font">9440e931471e021086ea87fe016d434e</sp_css_include>
+        <sp_theme display_value="Parking portal theme">4c2762404796421086ea87fe016d4389</sp_theme>
+        <sys_class_name>m2m_sp_theme_css_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-21 18:19:28</sys_created_on>
+        <sys_id>8560ad31471e021086ea87fe016d4344</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Mono font.Parking portal theme</sys_name>
+        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>m2m_sp_theme_css_include_8560ad31471e021086ea87fe016d4344</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-21 18:19:28</sys_updated_on>
+    </m2m_sp_theme_css_include>
+</record_update>
