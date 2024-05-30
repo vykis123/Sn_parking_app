@@ -7,12 +7,71 @@
   const selectErrorEl = document.querySelector(".select");
   const dateErrorEl = document.querySelector(".date");
   const plateErrorEl = document.querySelector(".plate");
+  const formErrorEl = document.querySelector(".form-info");
+  const dateInput = document.querySelector("#select_date");
 
+  //Valitae not to select date in past
+  //dONT ALLOW TO SUBMIT with empty values
   c.openModal = () => dialog.showModal();
-  c.closeModal = () => dialog.close();
+  const closeModal = () => dialog.close();
 
-  c.checkIfReservationAvailable = (parking) => {
-    console.log(!parking);
+  c.onSubmit = () => {
+    const date = buildDate(c.data.dateValue);
+    let serverRequest = {};
+    formErrorEl.classList.add("info-active");
+    c.formMessage = "Submiting.....";
+
+    serverRequest.action = "parking_submition";
+    serverRequest.parkingValues = {
+      parking: c.data.selectedParking,
+      date,
+      plateNumber: c.data.plateValue,
+    };
+
+    c.server.get(serverRequest).then(function (response) {
+      const { status, message } = response.data;
+      if (status === "success") {
+        c.formMessage = message;
+
+        setTimeout(() => {
+          c.formMessage = "";
+          formErrorEl.classList.remove("info-active");
+          location.reload();
+          closeModal();
+        }, 2000);
+      } else {
+        formErrorEl.classList.remove("info-active");
+        formErrorEl.classList.add("error-active");
+        c.formMessage = message;
+      }
+    });
+  };
+
+  c.onCancel = () => {
+    //Reset all to basic
+    formErrorEl.classList.remove("error-active");
+    formErrorEl.classList.remove("info-active");
+    c.plateErrorMsg = "";
+    c.dateErrorMsg = "";
+    c.selectError = "";
+    c.data.plateValue = "";
+    c.data.dateValue = "";
+    c.data.selectedParking = "";
+    closeModal();
+  };
+
+  c.validateDateField = (date) => {
+    const currentDate = new Date();
+    if (!date) return;
+
+    if (date < currentDate) {
+      dateErrorEl.classList.add("error-active");
+      c.dateErrorMsg = "Date can't be in the past!";
+      dateInput.value = "";
+    } else {
+      dateErrorEl.classList.remove("error-active");
+      c.dateErrorMsg = "";
+    }
   };
 
   c.checkSelectOnBlur = (value) => {
@@ -25,12 +84,12 @@
     }
   };
   c.checkDateOnBlur = (value) => {
+    console.log(value);
     if (!value) {
       dateErrorEl.classList.add("error-active");
       c.dateErrorMsg = "Please select date";
     } else {
-      dateErrorEl.classList.remove("error-active");
-      c.dateErrorMsg = "";
+      c.validateDateField(value);
     }
   };
   c.checkPlateOnBlur = (value) => {
@@ -42,6 +101,17 @@
       c.plateErrorMsg = "";
     }
   };
+
+  function buildDate(datebject) {
+    const newDate = new Date(datebject);
+    let year = newDate.getFullYear();
+    let month = +newDate.getMonth() + 1;
+    let correctMonth = month < 10 ? "0" + month : month;
+    let day =
+      newDate.getDate() < 10 ? "0" + newDate.getDate() : newDate.getDate();
+
+    return year + "-" + correctMonth + "-" + day;
+  }
 };
 ]]></client_script>
         <controller_as>c</controller_as>
@@ -163,6 +233,7 @@ dialog {
   box-shadow: 0 0 1rem $background-color-blue-1;
   background: transparent;
   min-width: 25%;
+  width: 40rem;
 
   /*Works in 75% browsers*/
   translate: 0 25vh;
@@ -182,15 +253,13 @@ dialog[open] {
     opacity: 0;
     translate: 0 -25vh;
   }
-}
 
-dialog[open]::backdrop {
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(0.5rem);
-  -webkit-backdrop-filter: blur(0.5rem);
-}
+  &amp;::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
+  }
 
-.dialog {
   .dialog__heading {
     color: $white-color-1;
     margin-bottom: 1rem;
@@ -200,16 +269,28 @@ dialog[open]::backdrop {
 
 .form {
   .error-message {
-    color: $red-color-1;
-    font-size: clamp(0.85rem, 2.5vw, 1.25rem);
-    font-weight: 300;
+    font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+    font-weight: 400;
     translate: -1rem;
     visibility: hidden;
     display: block;
     transition: all 0.15s ease-in;
   }
 
+  .form-info {
+    width: 80%;
+    margin: 1rem auto 0;
+    text-align: center;
+  }
+
   .error-active {
+    visibility: visible;
+    translate: 0rem;
+    color: $red-color-1;
+  }
+
+  .info-active {
+    color: $green-color-1;
     visibility: visible;
     translate: 0rem;
   }
@@ -300,10 +381,70 @@ dialog[open]::backdrop {
         <public>false</public>
         <roles/>
         <script><![CDATA[(function () {
-  getClosestReservation();
-  getParkingList();
+  //Load data on initial render
 
-  //Helper Functions
+  getParkingList();
+  getClosestReservation();
+
+  if (input && input.action === "parking_submition") {
+    //Validate values
+    const { parking, date, plateNumber } = input.parkingValues;
+
+    if (!parking || !date || !plateNumber) {
+      data.status = "failed";
+      data.message =
+        "parking, reservation date, plate number must be valid and not empty!";
+
+      return;
+    }
+    //Format date before submit by user preference on profile
+    const formatedDate = formatDateByUserPrefference(date);
+
+    //Check if there is any parking left
+    const parkingAvailable =
+      new x_1230661_parking.parkingAppUtils().checkForAvailableParking(
+        formatedDate,
+        parking
+      );
+
+    if (!parkingAvailable) {
+      data.status = "failed";
+      data.message =
+        "There are no parking spots left in selected parking on selected date!";
+      return;
+    }
+
+    //Return if reservation already exists
+    const reservationExists =
+      new x_1230661_parking.parkingAppUtils().checkIfReservationExists(
+        plateNumber,
+        formatedDate,
+        parking
+      );
+
+    if (reservationExists > 0) {
+      data.status = "failed";
+      data.message =
+        "Parking already exists for this car on selected date and parking!";
+      return;
+    }
+
+    const { status, message } = createNewParkingRequest(
+      parking,
+      formatedDate,
+      plateNumber
+    );
+
+    if (status === "success") {
+      data.status = "success";
+      data.message = message;
+    } else {
+      data.status = "failed";
+      data.message = "Something went wrong!";
+    }
+  }
+
+  //Helper Functions------------------------------------------------------------------------
   function getClosestReservation() {
     const parkingRequestGr = new GlideRecord("x_1230661_parking_requests");
     parkingRequestGr.addQuery("requested_by", gs.getUserID());
@@ -336,8 +477,36 @@ dialog[open]::backdrop {
     parkingTableGr.query();
 
     while (parkingTableGr.next()) {
-      data.parkingList.push(parkingTableGr.name.toString());
+      let parkingObject = {};
+      parkingObject.name = parkingTableGr.name.toString();
+      parkingObject.id = parkingTableGr.sys_id.toString();
+
+      data.parkingList.push(parkingObject);
     }
+  }
+
+  function createNewParkingRequest(parking, date, plateNumber) {
+    const parkingRequestGr = new GlideRecord("x_1230661_parking_requests");
+    parkingRequestGr.initialize();
+    parkingRequestGr.requested_by = gs.getUserID();
+    parkingRequestGr.parking_name = parking;
+    parkingRequestGr.plate_number = plateNumber;
+    parkingRequestGr.reservation_date = date;
+    let result = parkingRequestGr.insert();
+
+    if (!result) return { status: "failed" };
+
+    return { status: "success", message: "Request was created!" };
+  }
+
+  function formatDateByUserPrefference(date) {
+    const userGr = new GlideRecord("sys_user");
+    userGr.get(gs.getUserID());
+    const userPrefferedDateFormat = userGr.date_format || "yyyy-MM-dd";
+    const newDate = new GlideDate();
+    newDate.setValue(date);
+    const formatedDate = newDate.getByFormat(userPrefferedDateFormat);
+    return formatedDate;
   }
 })();
 ]]></script>
@@ -346,14 +515,14 @@ dialog[open]::backdrop {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-16 12:51:58</sys_created_on>
         <sys_id>3e756a4c4756421086ea87fe016d43ce</sys_id>
-        <sys_mod_count>485</sys_mod_count>
+        <sys_mod_count>686</sys_mod_count>
         <sys_name>parking_reservations</sys_name>
         <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_widget_3e756a4c4756421086ea87fe016d43ce</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-27 12:27:39</sys_updated_on>
+        <sys_updated_on>2024-05-30 12:22:09</sys_updated_on>
         <template><![CDATA[<div class="container">
   <h2 class="heading">My Next reservation</h2>
   <ul class="reservation">
@@ -418,8 +587,11 @@ dialog[open]::backdrop {
           ng-blur="c.checkSelectOnBlur(c.data.selectedParking)"
         >
           <option value="" selected disabled hidden>Choose Parking</option>
-          <option ng-repeat="parking in c.data.parkingList" value="{{parking}}">
-            {{parking}}
+          <option
+            ng-repeat="parking in c.data.parkingList"
+            value="{{parking.id}}"
+          >
+            {{parking.name}}
           </option>
         </select>
         <span class="error-message select">{{c.selectError}}</span>
@@ -433,6 +605,7 @@ dialog[open]::backdrop {
           ng-require="true"
           ng-model="c.data.dateValue"
           ng-blur="c.checkDateOnBlur(c.data.dateValue)"
+          ng-change="c.validateDateField(c.data.dateValue)"
         />
         <span class="error-message date">{{c.dateErrorMsg}}</span>
       </div>
@@ -452,10 +625,12 @@ dialog[open]::backdrop {
         <span class="error-message plate">{{c.plateErrorMsg}}</span>
       </div>
       <div class="form__actions">
-        <button ng-click="c.closeModal()" class="btn cancel">Cancel</button>
-        <button ng-click="c.closeModal()" class="btn create">Create</button>
+        <button ng-click="c.onCancel()" class="btn cancel">Cancel</button>
+        <button ng-click="c.onSubmit()" class="btn create" type="submit">
+          Create
+        </button>
       </div>
-      <span class="error-message form">Error message</span>
+      <span class="error-message form-info">{{c.formMessage}}</span>
     </form>
   </dialog>
 </div>
