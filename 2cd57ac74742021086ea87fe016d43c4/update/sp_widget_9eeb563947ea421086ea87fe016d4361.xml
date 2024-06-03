@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller=function() {
+  let c = this;
+
+  const dialog = document.querySelector("dialog");
+  const selectErrorEl = document.querySelector(".select");
+  const dateErrorEl = document.querySelector(".date");
+  const plateErrorEl = document.querySelector(".plate");
+  const formErrorEl = document.querySelector(".form-info");
+  const dateInput = document.querySelector("#select_date");
+
+  const closeModal = () => dialog.close();
+
+  /**
+   * Submiting data to server side to create new parking request. Data is taken form ng binding on inputs
+   */
+  c.onSubmit = () => {
+    formErrorEl.classList.remove("error-active");
+    const date = buildDate(c.data.dateValue);
+
+    const validData = validateRequest(
+      date,
+      c.data.selectedParking,
+      c.data.plateValue
+    );
+
+    if (!validData) {
+      formErrorEl.classList.remove("info-active");
+      formErrorEl.classList.add("error-active");
+      c.formMessage = "All fields must be filled in!";
+      return;
+    }
+
+    const serverRequest = {};
+    formErrorEl.classList.add("info-active");
+    c.formMessage = "Submiting.....";
+
+    serverRequest.action = "parking_submition";
+    serverRequest.parkingValues = {
+      parking: c.data.selectedParking,
+      date,
+      plateNumber: c.data.plateValue,
+    };
+    c.server
+      .get(serverRequest)
+      .then(function (response) {
+        const { status, message } = response.data;
+        if (status === "success") {
+          c.formMessage = message;
+
+          //This is a workaround because gs.sleep does not work in scope. Could be done with global script include and then use gs.sleep in scoped from there
+          setTimeout(() => {
+            updateClosestReservation();
+          }, 2000);
+
+          setTimeout(() => {
+            c.formMessage = "";
+            formErrorEl.classList.remove("info-active");
+            c.onCancel();
+            closeModal();
+          }, 2000);
+        } else {
+          formErrorEl.classList.remove("info-active");
+          formErrorEl.classList.add("error-active");
+          c.formMessage = message;
+        }
+      })
+      .catch((error) => {
+        console.error("Something went wrong with onSubmit: " + error);
+      });
+  };
+
+  /**
+   * This function is used because gs.sleep does not work in scope app. If you want to change this, you can create script include in global with gs.sleep and then re-use it isntead of this work arround.
+   */
+  function updateClosestReservation() {
+    const serverRequest = { action: "update_reservation_data" };
+
+    c.server
+      .get(serverRequest)
+      .then(function (response) {		
+		 $rootScope.$broadcast('requestCreated', response.data.newReservation);
+      })
+      .catch((error) => {
+        console.error(
+          "Something went wrong with updateClosestReservation: " + error
+        );
+      });
+  }
+
+  /**
+   *Resets all form data to starting point
+   */
+  c.onCancel = () => {
+    formErrorEl.classList.remove("error-active");
+    formErrorEl.classList.remove("info-active");
+    c.plateErrorMsg = "";
+    c.dateErrorMsg = "";
+    c.selectError = "";
+    c.data.plateValue = "";
+    c.data.dateValue = "";
+    c.data.selectedParking = "";
+    closeModal();
+  };
+
+  /**
+   * Checks if date is in past.
+   * @param {object} date
+   * @returns null
+   */
+  c.validateDateField = (date) => {
+    /* Does not include today date. Might be improved!*/
+    const currentDate = new Date();
+    if (!date) return;
+
+    if (date < currentDate) {
+      dateErrorEl.classList.add("error-active");
+      c.dateErrorMsg = "Date can't be in the past!";
+      dateInput.value = "";
+    } else {
+      dateErrorEl.classList.remove("error-active");
+      c.dateErrorMsg = "";
+    }
+  };
+
+  /**
+   * Checks if value is not empty
+   * @param {string} value
+   */
+  c.checkSelectOnBlur = (value) => {
+    if (!value) {
+      selectErrorEl.classList.add("error-active");
+      c.selectError = "Please select parking";
+    } else {
+      selectErrorEl.classList.remove("error-active");
+      c.selectError = "";
+    }
+  };
+  /**
+   * Checks if value is not empty
+   * @param {string} value
+   */
+  c.checkDateOnBlur = (value) => {
+    console.log(value);
+    if (!value) {
+      dateErrorEl.classList.add("error-active");
+      c.dateErrorMsg = "Please select date";
+    } else {
+      c.validateDateField(value);
+    }
+  };
+  /**
+   * Checks if value is not empty
+   * @param {string} value
+   */
+  c.checkPlateOnBlur = (value) => {
+    if (!value) {
+      plateErrorEl.classList.add("error-active");
+      c.plateErrorMsg = "Enter car plate number";
+    } else {
+      plateErrorEl.classList.remove("error-active");
+      c.plateErrorMsg = "";
+    }
+  };
+
+  /**
+   * Helper to build date
+   * @param {object} datebject
+   * @returns {string}
+   */
+  function buildDate(datebject) {
+    const newDate = new Date(datebject);
+    let year = newDate.getFullYear();
+    let month = +newDate.getMonth() + 1;
+    let correctMonth = month < 10 ? "0" + month : month;
+    let day =
+      newDate.getDate() < 10 ? "0" + newDate.getDate() : newDate.getDate();
+
+    return year + "-" + correctMonth + "-" + day;
+  }
+
+  /**
+   * Helper to validate fields
+   * @param {string} date
+   * @param {string} parking
+   * @param {string} plateNumber
+   * @returns {boolean}
+   */
+  function validateRequest(date, parking, plateNumber) {
+    if (!date || !parking || !plateNumber) return false;
+
+    if (
+      date.trim().length === 0 ||
+      parking.trim().length === 0 ||
+      plateNumber.trim().length === 0
+    )
+      return false;
+
+    return true;
+  }
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.form {&#13;
+  .error-message {&#13;
+    font-size: clamp(0.95rem, 2.5vw, 1.25rem);&#13;
+    font-weight: 400;&#13;
+    translate: -1rem;&#13;
+    visibility: hidden;&#13;
+    display: block;&#13;
+    transition: all 0.15s ease-in;&#13;
+  }&#13;
+&#13;
+  .form-info {&#13;
+    width: 80%;&#13;
+    margin: 1rem auto 0;&#13;
+    text-align: center;&#13;
+  }&#13;
+&#13;
+  .error-active {&#13;
+    visibility: visible;&#13;
+    translate: 0rem;&#13;
+    color: $red-color-1;&#13;
+  }&#13;
+&#13;
+  .info-active {&#13;
+    color: $green-color-2;&#13;
+    visibility: visible;&#13;
+    translate: 0rem;&#13;
+  }&#13;
+&#13;
+  .form__group {&#13;
+    display: flex;&#13;
+    flex-direction: column;&#13;
+    gap: 0.5rem;&#13;
+    min-width: 100%;&#13;
+    margin-bottom: 1rem;&#13;
+&#13;
+    label {&#13;
+      color: $background-color-blue-1;&#13;
+      font-size: clamp(0.95rem, 2.5vw, 1.35rem);&#13;
+    }&#13;
+&#13;
+    select {&#13;
+      cursor: pointer;&#13;
+&#13;
+      option {&#13;
+        background: rgba(36, 33, 33, 0.603);&#13;
+      }&#13;
+    }&#13;
+    select,&#13;
+    input,&#13;
+    input[type="date"] {&#13;
+      border: none;&#13;
+      background: transparent;&#13;
+      padding: 0.5rem 1rem;&#13;
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);&#13;
+      transition: box-shadow 0.1s ease-in;&#13;
+      color: $white-color-1;&#13;
+      border-bottom: 0.1rem solid $background-color-blue-1;&#13;
+&#13;
+      &amp;:focus {&#13;
+        border: 0.1rem solid $background-color-blue-1;&#13;
+      }&#13;
+&#13;
+      &amp;::placeholder {&#13;
+        color: $white-color-1;&#13;
+      }&#13;
+    }&#13;
+  }&#13;
+&#13;
+  .form__actions {&#13;
+    display: flex;&#13;
+    align-items: center;&#13;
+    justify-content: space-between;&#13;
+    gap: 1rem;&#13;
+&#13;
+    .btn {&#13;
+      padding: 1rem 2rem;&#13;
+      border: none;&#13;
+      background: none;&#13;
+      font-weight: 600;&#13;
+      font-size: clamp(1.2rem, 2.5vw, 1.44rem);&#13;
+      border-radius: 2.4rem;&#13;
+      transition: box-shadow 0.15s ease-in, background 0.125s ease-out;&#13;
+      color: $white-color-1;&#13;
+    }&#13;
+&#13;
+    .create {&#13;
+      box-shadow: 0 0 0 0.1rem $green-color-1;&#13;
+&#13;
+      &amp;:focus-visible,&#13;
+      &amp;:hover {&#13;
+        background: $green-color-2;&#13;
+        box-shadow: 0 0 0.3rem $green-color-2, 0 0 0.6rem $green-color-2,&#13;
+          0 0 0.9rem $green-color-2, 0 0 1.2rem $green-color-2,&#13;
+          0 0 1.5rem $green-color-2;&#13;
+      }&#13;
+    }&#13;
+&#13;
+    .cancel {&#13;
+      box-shadow: 0 0 0 0.1rem $red-color-1;&#13;
+&#13;
+      &amp;:focus-visible,&#13;
+      &amp;:hover {&#13;
+        background: $red-color-1;&#13;
+        box-shadow: 0 0 0.3rem $red-color-1, 0 0 0.6rem $red-color-1,&#13;
+          0 0 0.9rem $red-color-1, 0 0 1.2rem $red-color-1,&#13;
+          0 0 1.5rem $red-color-1;&#13;
+      }&#13;
+    }&#13;
+  }&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>requestform</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>requestForm</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+	//Set value on initial load
+    getParkingList();
+
+    if (input) {
+        if (input.action === "parking_submition") {
+            const {
+                parking,
+                date,
+                plateNumber
+            } = input.parkingValues;
+
+            //Validate values
+            if (!parking || !date || !plateNumber) {
+                data.status = "failed";
+                data.message =
+                    "parking, reservation date, plate number must be valid and not empty!";
+
+                return;
+            }
+            //Format date before submit by user preference on profile
+            const formatedDate = formatDateByUserPrefference(date);
+
+            //Check if there is any parking left
+            const parkingAvailable =
+                new x_1230661_parking.parkingAppUtils().checkForAvailableParking(
+                    formatedDate,
+                    parking
+                );
+
+            if (!parkingAvailable) {
+                data.status = "failed";
+                data.message =
+                    "There are no parking spots left in selected parking on selected date!";
+                return;
+            }
+
+            //Return if reservation already exists
+            const reservationExists =
+                new x_1230661_parking.parkingAppUtils().checkIfReservationExists(
+                    plateNumber,
+                    formatedDate,
+                    parking
+                );
+
+            if (reservationExists > 0) {
+                data.status = "failed";
+                data.message =
+                    "Parking already exists for this car on selected date and parking!";
+                return;
+            }
+
+            const {
+                status,
+                message
+            } = createNewParkingRequest(
+                parking,
+                formatedDate,
+                plateNumber
+            );
+
+            if (status === "success") {
+                data.status = "success";
+                data.message = message;
+            } else {
+                data.status = "failed";
+                data.message = "Something went wrong!";
+            }
+        }
+
+        if (input.action === "update_reservation_data") {
+            data.newReservation = getClosestReservation();
+        }
+    }
+
+    //Helper Functions------------------------------------------------------------------------
+    function getClosestReservation() {
+        const parkingRequestGr = new GlideRecord("x_1230661_parking_requests");
+        parkingRequestGr.addQuery("requested_by", gs.getUserID());
+        parkingRequestGr.addQuery("approve_status", "approved");
+        parkingRequestGr
+            .addQuery("reservation_date", gs.beginningOfToday())
+            .addOrCondition("reservation_date", ">", gs.beginningOfToday());
+        parkingRequestGr.setLimit(1);
+        parkingRequestGr.orderBy("reservation_date");
+        parkingRequestGr.query();
+
+        if (parkingRequestGr.next()) {
+            return (data.closestReservation = {
+                date: parkingRequestGr.reservation_date.toString(),
+                parkingName: parkingRequestGr.parking_name.name.toString(),
+                sysId: parkingRequestGr.sys_id.toString(),
+                reservationExist: true,
+            });
+        }
+
+        return (data.closestReservation = {
+            reservationExist: false,
+        });
+    }
+
+
+    function createNewParkingRequest(parking, date, plateNumber) {
+        const parkingRequestGr = new GlideRecord("x_1230661_parking_requests");
+        parkingRequestGr.initialize();
+        parkingRequestGr.requested_by = gs.getUserID();
+        parkingRequestGr.parking_name = parking;
+        parkingRequestGr.plate_number = plateNumber;
+        parkingRequestGr.reservation_date = date;
+        let result = parkingRequestGr.insert();
+
+        if (!result) return {
+            status: "failed"
+        };
+
+        return {
+            status: "success",
+            message: "Request was created!"
+        };
+    }
+
+    function formatDateByUserPrefference(date) {
+        const userGr = new GlideRecord("sys_user");
+        userGr.get(gs.getUserID());
+        const userPrefferedDateFormat = userGr.date_format || "yyyy-MM-dd";
+        const newDate = new GlideDate();
+        newDate.setValue(date);
+        const formatedDate = newDate.getByFormat(userPrefferedDateFormat);
+        return formatedDate;
+    }
+
+    function getParkingList() {
+        data.parkingList = [];
+
+        const parkingTableGr = new GlideRecord("x_1230661_parking_list");
+        parkingTableGr.query();
+
+        while (parkingTableGr.next()) {
+            let parkingObject = {};
+            parkingObject.name = parkingTableGr.name.toString();
+            parkingObject.id = parkingTableGr.sys_id.toString();
+
+            data.parkingList.push(parkingObject);
+        }
+    }
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-03 08:55:12</sys_created_on>
+        <sys_id>9eeb563947ea421086ea87fe016d4361</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>requestForm</sys_name>
+        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sp_widget_9eeb563947ea421086ea87fe016d4361</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-03 10:41:03</sys_updated_on>
+        <template><![CDATA[<div>
+ <h3 class="dialog__heading">Create Reservation</h3>
+    <form class="form" method="dialog">
+      <div class="form__group">
+        <label for="select_parking">Select Parking</label>
+        <select
+          name="select_parking"
+          id="select_parking"
+          title="All parking selection"
+          ng-require="true"
+          ng-model="c.data.selectedParking"
+          ng-blur="c.checkSelectOnBlur(c.data.selectedParking)"
+        >
+          <option value="" selected disabled hidden>Choose Parking</option>
+          <option
+            ng-repeat="parking in c.data.parkingList"
+            value="{{parking.id}}"
+          >
+            {{parking.name}}
+          </option>
+        </select>
+        <span class="error-message select">{{c.selectError}}</span>
+      </div>
+      <div class="form__group">
+        <label for="select_date">Select Date</label>
+        <input
+          type="date"
+          name="select_date"
+          id="select_date"
+          ng-require="true"
+          ng-model="c.data.dateValue"
+          ng-blur="c.checkDateOnBlur(c.data.dateValue)"
+          ng-change="c.validateDateField(c.data.dateValue)"
+        />
+        <span class="error-message date">{{c.dateErrorMsg}}</span>
+      </div>
+      <div class="form__group">
+        <label for="car_plate">Car plate</label>
+        <input
+          type="text"
+          name="car_plate"
+          id="car_plate"
+          maxlength="10"
+          title="Plate number of the car."
+          placeholder="Eg: DDD000"
+          ng-require="true"
+          ng-model="c.data.plateValue"
+          ng-blur=" c.checkPlateOnBlur(c.data.plateValue)"
+        />
+        <span class="error-message plate">{{c.plateErrorMsg}}</span>
+      </div>
+      <div class="form__actions">
+        <button ng-click="c.onCancel()" class="btn cancel">Cancel</button>
+        <button ng-click="c.onSubmit()" class="btn create" type="submit">
+          Create
+        </button>
+      </div>
+      <span class="error-message form-info">{{c.formMessage}}</span>
+  </form>
+</div>]]></template>
+    </sp_widget>
+</record_update>

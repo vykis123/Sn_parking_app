@@ -58,6 +58,25 @@
             <element>approve_status</element>
             <hint/>
             <inactive>false</inactive>
+            <label>Canceled</label>
+            <language>en</language>
+            <name>x_1230661_parking_requests</name>
+            <sequence>3</sequence>
+            <synonyms/>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2024-06-03 07:00:42</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_mod_count>2</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2024-06-03 07:00:54</sys_updated_on>
+            <value>canceled</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>approve_status</element>
+            <hint/>
+            <inactive>false</inactive>
             <label>Rejected</label>
             <language>en</language>
             <name>x_1230661_parking_requests</name>
