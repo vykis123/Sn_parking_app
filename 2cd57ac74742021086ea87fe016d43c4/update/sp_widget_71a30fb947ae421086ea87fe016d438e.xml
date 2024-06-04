@@ -1,10 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller=function() {
-  /* widget controller */
+        <client_script><![CDATA[api.controller = function () {
   var c = this;
-};]]></client_script>
+  c.loading = true;
+
+  loadInitialData();
+
+  function loadInitialData() {
+    c.loading = false;
+    c.reservationsList = c.data.allReservations;
+  }
+  c.defaultSelect = "approved";
+
+  /**
+   * Makes call in server side and fetches array of objects of requests by selected filter value
+   * @param {string} selectedValue
+   */
+  c.filterReservation = (selectedValue) => {
+    const serverRequest = {};
+    serverRequest.action = "status_changed";
+    serverRequest.selectedValue = selectedValue;
+    c.loading = true;
+
+    c.server
+      .get(serverRequest)
+      .then(function (response) {
+        c.loading = false;
+        c.reservationsList = response.data.reservationList;
+      })
+      .catch((error) => {
+        c.loading = false;
+        console.error("Something went wrong with filterReservation: " + error);
+      });
+  };
+
+  /**
+   *Set select request into canceled state
+   * @param {string} id
+   */
+  c.cancelReservation = (id) => {
+    const serverRequest = {};
+    serverRequest.action = "parking_rejection";
+    serverRequest.id = id;
+
+    c.loading = true;
+
+    c.server
+      .get(serverRequest)
+      .then(function (response) {
+        c.reservationsList = response.data.reservationList;
+        c.loading = false;
+      })
+      .catch((error) => {
+        c.loading = false;
+        console.error("Something went wrong with cancelReservation: " + error);
+      });
+  };
+};
+]]></client_script>
         <controller_as>c</controller_as>
         <css>*,&#13;
 *::before,&#13;
@@ -19,11 +73,181 @@
   width: 100%;&#13;
 }&#13;
 &#13;
-.heading {&#13;
-  color: $text-color-black-1;&#13;
-  font-size: clamp(1.85rem, 2.5vw, 2.5rem);&#13;
+.loader {&#13;
+  width: 100%;&#13;
+  font-weight: bold;&#13;
+  font-size: clamp(2rem, 2.5vw, 3rem);&#13;
+  animation: l25 1s infinite;&#13;
+  color: $background-color-blue-1;&#13;
+  text-align: center;&#13;
+}&#13;
+.loader::before {&#13;
+  content: "Loading...";&#13;
+}&#13;
+&#13;
+@keyframes l25 {&#13;
+  0%,&#13;
+  12.5% {&#13;
+    transform: translate(10px, 0);&#13;
+  }&#13;
+  13%,&#13;
+  25% {&#13;
+    transform: translate(4px, -4px);&#13;
+  }&#13;
+  26%,&#13;
+  37.5% {&#13;
+    transform: translate(2px, 8px);&#13;
+  }&#13;
+  38%,&#13;
+  50% {&#13;
+    transform: translate(12px, -6px);&#13;
+  }&#13;
+  51%,&#13;
+  62.5% {&#13;
+    transform: translate(0, 12px);&#13;
+  }&#13;
+  63%,&#13;
+  75% {&#13;
+    transform: translate(-8px, -4px);&#13;
+  }&#13;
+  76%,&#13;
+  86.5% {&#13;
+    transform: translate(-12px, 6px);&#13;
+  }&#13;
+  87%,&#13;
+  100% {&#13;
+    transform: translate(6px, 0);&#13;
+  }&#13;
+}&#13;
+&#13;
+.action-bar {&#13;
+  display: flex;&#13;
+  gap: 1rem;&#13;
+  align-items: center;&#13;
+  justify-content: space-between;&#13;
   margin-bottom: 2rem;&#13;
-}</css>
+  flex-wrap: wrap;&#13;
+  color: $text-color-black-1;&#13;
+&#13;
+  .heading {&#13;
+    font-size: clamp(1.85rem, 2.5vw, 2.5rem);&#13;
+  }&#13;
+&#13;
+  .actions__select {&#13;
+    border: none;&#13;
+    border-radius: 2rem;&#13;
+    background: $background-color-blue-1;&#13;
+    padding: 0.5rem 1rem;&#13;
+    font-size: clamp(1.15rem, 2.5vw, 1.45rem);&#13;
+    transition: box-shadow 0.15s ease-in-out;&#13;
+    color: $white-color-1;&#13;
+    cursor: pointer;&#13;
+&#13;
+    &amp;:focus,&#13;
+    &amp;:hover {&#13;
+      box-shadow: 0 0 0.3rem $background-color-blue-1,&#13;
+        0 0 0.6rem $background-color-blue-1, 0 0 0.9rem $background-color-blue-1;&#13;
+    }&#13;
+  }&#13;
+}&#13;
+&#13;
+.reservations {&#13;
+  list-style: none;&#13;
+  display: grid;&#13;
+  gap: 1rem;&#13;
+}&#13;
+&#13;
+.reservation {&#13;
+  display: flex;&#13;
+  min-width: 100%;&#13;
+  flex-wrap: wrap;&#13;
+  gap: 2rem;&#13;
+  align-items: center;&#13;
+&#13;
+  box-shadow: inset 0 0rem 0.1rem rgba($text-color-black-1, 0.5);&#13;
+  padding: 1.5rem 3rem;&#13;
+  border-radius: 0.4rem;&#13;
+  cursor: pointer;&#13;
+  transition: box-shadow 0.15s ease-in;&#13;
+  color: $text-color-black-1;&#13;
+&#13;
+  animation: animateFromTop 0.2s ease-in forwards;&#13;
+&#13;
+  @media only screen and (max-width: 510px) {&#13;
+    padding: 0.5rem 1rem;&#13;
+  }&#13;
+&#13;
+  &amp;:hover,&#13;
+  &amp;:focus-within {&#13;
+    box-shadow: inset 0 0rem 1rem rgba($background-color-blue-1, 1);&#13;
+  }&#13;
+&#13;
+  .reservation__status {&#13;
+    display: flex;&#13;
+    align-items: center;&#13;
+    justify-content: center;&#13;
+    gap: 1rem;&#13;
+&#13;
+    .reservation__status-orb {&#13;
+      display: inline-block;&#13;
+      width: 1rem;&#13;
+      aspect-ratio: 1;&#13;
+      border-radius: 50%;&#13;
+    }&#13;
+&#13;
+    .canceled {&#13;
+      background-color: $red-color-1;&#13;
+    }&#13;
+    .accepted {&#13;
+      background-color: $green-color-2;&#13;
+    }&#13;
+    .rejected {&#13;
+      background-color: $background-color-blue-1;&#13;
+    }&#13;
+    .submited {&#13;
+      background-color: yellow;&#13;
+    }&#13;
+  }&#13;
+&#13;
+  .reservation__cancel {&#13;
+    margin-inline: auto 0;&#13;
+&#13;
+    color: $text-color-black-1;&#13;
+    border: none;&#13;
+    font-weight: 600;&#13;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);&#13;
+    border-radius: 1.5rem;&#13;
+    padding: 0.5rem 1rem;&#13;
+    box-shadow: 0 0 0 0.1rem $red-color-1;&#13;
+    transition: box-shadow 0.15s ease-in, color 0.15s ease-in,&#13;
+      letter-spacing 0.15s ease-in;&#13;
+&#13;
+    &amp;:hover,&#13;
+    &amp;:focus {&#13;
+      box-shadow: 0 0 0 0.1rem $red-color-1,&#13;
+        inset 0 0rem 2rem rgba($red-color-1, 1);&#13;
+      color: $text-color-active-1;&#13;
+      letter-spacing: 1px;&#13;
+    }&#13;
+&#13;
+    @media only screen and (max-width: 470px) {&#13;
+      margin-inline: auto;&#13;
+      flex-basis: 15rem;&#13;
+    }&#13;
+  }&#13;
+}&#13;
+&#13;
+@keyframes animateFromTop {&#13;
+  0% {&#13;
+    opacity: 0;&#13;
+    translate: 0 -1rem;&#13;
+  }&#13;
+  100% {&#13;
+    opacity: 1;&#13;
+    translate: 0 0;&#13;
+  }&#13;
+}&#13;
+</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
         <description>Widget meant to display all user reservations</description>
@@ -39,26 +263,141 @@
         <option_schema/>
         <public>false</public>
         <roles/>
-        <script><![CDATA[(function() {
-  /* populate the 'data' object */
-  /* e.g., data.table = $sp.getValue('table'); */
+        <script><![CDATA[(function () {
+  const currentUser = $sp.getParameter("sysId") || gs.getUserID();
 
-})();]]></script>
+  getAllReservations();
+
+  if (input) {
+    if (input.action === "parking_rejection") {
+      const requestId = input.id;
+
+      const parkingRequestGr = new GlideRecord("x_1230661_parking_requests");
+      parkingRequestGr.get(requestId);
+      parkingRequestGr.approve_status = "canceled";
+      parkingRequestGr.update();
+      data.reservationList = getAllReservations();
+    }
+
+    if (input.action === "status_changed") {
+      const selectedValue = input.selectedValue;
+      data.reservationList = getAllReservations(selectedValue);
+    }
+  }
+
+  /***********************************************HELPER FUNCTIONS */
+  function getAllReservations(status = "approved") {
+    data.allReservations = [];
+
+    const parkingRequestGr = new GlideRecord("x_1230661_parking_requests");
+    parkingRequestGr.addQuery("requested_by", currentUser);
+    if (status !== "") {
+      parkingRequestGr.addQuery("approve_status", status);
+    }
+    parkingRequestGr
+      .addQuery("reservation_date", gs.beginningOfToday())
+      .addOrCondition("reservation_date", ">", gs.beginningOfToday());
+    parkingRequestGr.orderBy("reservation_date");
+    parkingRequestGr.query();
+
+    while (parkingRequestGr.next()) {
+      data.allReservations.push({
+        date: parkingRequestGr.reservation_date.toString(),
+        parkingName: parkingRequestGr.parking_name.name.toString(),
+        sysId: parkingRequestGr.sys_id.toString(),
+        status: parkingRequestGr.approve_status.getDisplayValue().toString(),
+        plateNumber: parkingRequestGr.plate_number.toString(),
+        rejectionReason: parkingRequestGr.rejection_reason.toString(),
+      });
+    }
+
+    return data.allReservations;
+  }
+})();
+]]></script>
         <servicenow>false</servicenow>
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-03 11:49:27</sys_created_on>
         <sys_id>71a30fb947ae421086ea87fe016d438e</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>210</sys_mod_count>
         <sys_name>My reservations</sys_name>
         <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_widget_71a30fb947ae421086ea87fe016d438e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-03 11:54:04</sys_updated_on>
+        <sys_updated_on>2024-06-04 13:19:54</sys_updated_on>
         <template><![CDATA[<div class="container">
-  <h2 class="heading">My Reservations</h2>
-</div>]]></template>
+  <div class="action-bar">
+    <h2 class="heading">My Reservations</h2>
+    <div class="actions">
+      <span class="actions__total"
+        >Total reservations: {{c.reservationsList.length}}</span
+      >
+      <!-- <button class="acctions__new">Newest ⬆</button>
+      <button class="actions__old">Oldest ⬇</button> -->
+      <select
+        name="state"
+        id="state"
+        class="actions__select"
+        title="Filter requests by state"
+        ng-model="c.defaultSelect"
+        ng-change="c.filterReservation(c.defaultSelect)"
+      >
+        <option value="approved">Approved</option>
+        <option value="">All</option>
+        <option value="rejected">Rejected</option>
+        <option value="canceled">Canceled</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="list">
+    <div ng-show="c.loading">
+      <div class="loader"></div>
+    </div>
+
+    <ul class="reservations" ng-if="c.loading === false">
+      <p ng-if="c.reservationsList.length === 0" class="reservations-empty">
+        No reservations found for you.
+      </p>
+      <li
+        class="reservation"
+        ng-repeat="reservation in c.reservationsList"
+        id="{{reservation.sysId}}"
+      >
+        <h4 class="reservation__parking">{{reservation.parkingName}}</h4>
+        <span class="reservation__date">{{reservation.date}}</span>
+        <span class="reservation__status"
+          >Status: {{reservation.status}}
+          <span
+            ng-class="reservation.status === 'Canceled' ? 'reservation__status-orb canceled' : reservation.status === 'Approved' ? 'reservation__status-orb accepted' : reservation.status === 'Rejected' ? 'reservation__status-orb rejected' : 'reservation__status-orb submited'"
+          ></span
+        ></span>
+        <p class="reservation__plate">
+          Plate number: <b> {{reservation.plateNumber}} </b>
+        </p>
+        <p
+          class="reservation__rejection"
+          ng-if="reservation.status === 'Rejected'"
+        >
+          <b> Rejection Reason: </b>
+          <i> {{reservation.rejectionReason}} </i>
+        </p>
+        <button
+          ng-click="c.cancelReservation(reservation.sysId)"
+          ng-if="reservation.status === 'Approved'"
+          class="reservation__cancel"
+          type="button"
+          title="Cancel reservation"
+        >
+          Cancel
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+]]></template>
     </sp_widget>
 </record_update>
