@@ -166,7 +166,7 @@
   };
 
   /**
-   * Helper to build date
+   * Helper to build date into yyyy-MM-dd format
    * @param {object} datebject
    * @returns {string}
    */
@@ -402,6 +402,11 @@
     }
 
     //Helper Functions------------------------------------------------------------------------
+
+	/**
+	 * Fetches the closest upcoming reservation with status approved for current user
+	 * @return {object}
+	 */
     function getClosestReservation() {
         const parkingRequestGr = new GlideRecord("x_1230661_parking_requests");
         parkingRequestGr.addQuery("requested_by", gs.getUserID());
@@ -427,7 +432,13 @@
         });
     }
 
-
+	/**
+	 * Inserts new parking request
+	 * @param {string} parking
+	 * @param {string} date
+	 * @param {string} plateNumber
+	 * @return {object} 
+	 */
     function createNewParkingRequest(parking, date, plateNumber) {
         const parkingRequestGr = new GlideRecord("x_1230661_parking_requests");
         parkingRequestGr.initialize();
@@ -447,6 +458,11 @@
         };
     }
 
+	/**
+	 * Formats date by user profile preference or if not set on user profile, by default yyy-MM-dd format
+	 * @param {object} date
+	 * @return {string}
+	 */
     function formatDateByUserPrefference(date) {
         const userGr = new GlideRecord("sys_user");
         userGr.get(gs.getUserID());
@@ -457,6 +473,9 @@
         return formatedDate;
     }
 
+	/**
+	 * Gets all parkings and sets them to data.parkingList global variable
+	 */
     function getParkingList() {
         data.parkingList = [];
 
@@ -478,14 +497,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-03 08:55:12</sys_created_on>
         <sys_id>9eeb563947ea421086ea87fe016d4361</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>14</sys_mod_count>
         <sys_name>requestForm</sys_name>
         <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_widget_9eeb563947ea421086ea87fe016d4361</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-03 10:41:03</sys_updated_on>
+        <sys_updated_on>2024-06-05 08:24:19</sys_updated_on>
         <template><![CDATA[<div>
  <h3 class="dialog__heading">Create Reservation</h3>
     <form class="form" method="dialog">
@@ -514,6 +533,7 @@
         <input
           type="date"
           name="select_date"
+          title="Reservation date selection"
           id="select_date"
           ng-require="true"
           ng-model="c.data.dateValue"

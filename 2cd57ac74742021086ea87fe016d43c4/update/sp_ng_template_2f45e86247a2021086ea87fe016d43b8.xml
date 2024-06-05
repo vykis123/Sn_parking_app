@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_ng_template">
+    <sp_ng_template action="INSERT_OR_UPDATE">
+        <id>request-list-item</id>
+        <sp_widget display_value="My reservations">71a30fb947ae421086ea87fe016d438e</sp_widget>
+        <sys_class_name>sp_ng_template</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-05 08:12:57</sys_created_on>
+        <sys_id>2f45e86247a2021086ea87fe016d43b8</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>request-list-item</sys_name>
+        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sp_ng_template_2f45e86247a2021086ea87fe016d43b8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-05 08:19:43</sys_updated_on>
+        <template><![CDATA[
+        <h4 class="reservation__parking">{{reservation.parkingName}}</h4>
+        <span class="reservation__date">{{reservation.date}}</span>
+        <span class="reservation__status"
+          >Status: {{reservation.status}}
+          <span
+            ng-class="reservation.status === 'Canceled' ? 'reservation__status-orb canceled' : reservation.status === 'Approved' ? 'reservation__status-orb accepted' : reservation.status === 'Rejected' ? 'reservation__status-orb rejected' : 'reservation__status-orb submited'"
+          ></span
+        ></span>
+        <p class="reservation__plate">
+          Plate number: <b> {{reservation.plateNumber}} </b>
+        </p>
+        <p
+          class="reservation__rejection"
+          ng-if="reservation.status === 'Rejected'"
+        >
+          <b> Rejection Reason: </b>
+          <i> {{reservation.rejectionReason}} </i>
+        </p>
+        <button
+          ng-click="c.cancelReservation(reservation.sysId)"
+          ng-if="reservation.status === 'Approved'"
+          class="reservation__cancel"
+          type="button"
+          title="Cancel reservation"
+        >
+          Cancel
+        </button>
+]]></template>
+    </sp_ng_template>
+</record_update>
