@@ -41,17 +41,6 @@
   box-sizing: border-box;
 }
 
-.container {
-  padding: 1rem;
-  width: 100%;
-}
-
-.heading {
-  color: $text-color-black-1;
-  font-size: clamp(1.85rem, 2.5vw, 2.5rem);
-  margin-bottom: 2rem;
-}
-
 .reservation {
   list-style: none;
   display: flex;
@@ -124,17 +113,6 @@
   }
 }
 
-@keyframes animateFromTop {
-  0% {
-    opacity: 0;
-    translate: 0 -1rem;
-  }
-  100% {
-    opacity: 1;
-    translate: 0 0;
-  }
-}
-
 .actions {
   display: flex;
 
@@ -154,16 +132,6 @@
   .secondary-btn {
     @include btn-mixin($text-color-black-1, $green-color-1, $green-color-2);
     animation: animateFromBottom 0.2s ease-in forwards;
-  }
-}
-@keyframes animateFromBottom {
-  0% {
-    opacity: 0;
-    translate: 0 1rem;
-  }
-  100% {
-    opacity: 1;
-    translate: 0 0;
   }
 }
 
@@ -273,15 +241,15 @@ dialog[open] {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-16 12:51:58</sys_created_on>
         <sys_id>3e756a4c4756421086ea87fe016d43ce</sys_id>
-        <sys_mod_count>826</sys_mod_count>
+        <sys_mod_count>832</sys_mod_count>
         <sys_name>parking_reservations</sys_name>
         <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_widget_3e756a4c4756421086ea87fe016d43ce</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-03 11:38:45</sys_updated_on>
-        <template><![CDATA[<div class="container">
+        <sys_updated_on>2024-06-09 19:14:50</sys_updated_on>
+        <template><![CDATA[<section class="custom-container">
   <h2 class="heading">My Next reservation</h2>
   <ul class="reservation">
     <p
@@ -311,10 +279,7 @@ dialog[open] {
   </ul>
 
   <div class="actions">
-    <a 
-       class="primary-btn" 
-       ng-href="/parking?id=my_reservations&sysId={{data.currentUserSysId}}" 
-       title="Link to all reservations">
+    <a class="primary-btn" href="/parking?id=my_reservations&sysId={{data.currentUserSysId}}" title="Link to all reservations">
       <svg>
         <rect x="0" y="0" fill="none" width="100%" height="100%" />
       </svg>
@@ -340,7 +305,7 @@ dialog[open] {
       <widget id="requestform"></widget>
     </div>
   </dialog>
-</div>
+</section>
 ]]></template>
     </sp_widget>
 </record_update>

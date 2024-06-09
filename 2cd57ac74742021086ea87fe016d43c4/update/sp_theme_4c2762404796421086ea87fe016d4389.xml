@@ -75,6 +75,39 @@ body {&#13;
       transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);&#13;
     }&#13;
   }&#13;
+}&#13;
+&#13;
+.custom-container {&#13;
+  padding: 1rem;&#13;
+  width: 100%;&#13;
+}&#13;
+&#13;
+.heading {&#13;
+  color: $text-color-black-1;&#13;
+  font-size: clamp(1.85rem, 2.5vw, 2.5rem);&#13;
+  margin-bottom: 2rem;&#13;
+}&#13;
+&#13;
+@keyframes animateFromBottom {&#13;
+  0% {&#13;
+    opacity: 0;&#13;
+    translate: 0 1rem;&#13;
+  }&#13;
+  100% {&#13;
+    opacity: 1;&#13;
+    translate: 0 0;&#13;
+  }&#13;
+}&#13;
+&#13;
+@keyframes animateFromTop {&#13;
+  0% {&#13;
+    opacity: 0;&#13;
+    translate: 0 -1rem;&#13;
+  }&#13;
+  100% {&#13;
+    opacity: 1;&#13;
+    translate: 0 0;&#13;
+  }&#13;
 }</css_variables>
         <footer/>
         <footer_fixed>true</footer_fixed>
@@ -85,14 +118,14 @@ body {&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-16 12:59:19</sys_created_on>
         <sys_id>4c2762404796421086ea87fe016d4389</sys_id>
-        <sys_mod_count>19</sys_mod_count>
+        <sys_mod_count>22</sys_mod_count>
         <sys_name>Parking portal theme</sys_name>
         <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_theme_4c2762404796421086ea87fe016d4389</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-22 07:56:12</sys_updated_on>
+        <sys_updated_on>2024-06-09 19:08:34</sys_updated_on>
         <turn_off_scss_compilation>false</turn_off_scss_compilation>
     </sp_theme>
 </record_update>

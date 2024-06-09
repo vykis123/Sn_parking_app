@@ -68,11 +68,6 @@
   box-sizing: border-box;&#13;
 }&#13;
 &#13;
-.container {&#13;
-  padding: 1rem;&#13;
-  width: 100%;&#13;
-}&#13;
-&#13;
 .loader {&#13;
   width: 100%;&#13;
   font-weight: bold;&#13;
@@ -83,41 +78,6 @@
 }&#13;
 .loader::before {&#13;
   content: "Loading...";&#13;
-}&#13;
-&#13;
-@keyframes l25 {&#13;
-  0%,&#13;
-  12.5% {&#13;
-    transform: translate(10px, 0);&#13;
-  }&#13;
-  13%,&#13;
-  25% {&#13;
-    transform: translate(4px, -4px);&#13;
-  }&#13;
-  26%,&#13;
-  37.5% {&#13;
-    transform: translate(2px, 8px);&#13;
-  }&#13;
-  38%,&#13;
-  50% {&#13;
-    transform: translate(12px, -6px);&#13;
-  }&#13;
-  51%,&#13;
-  62.5% {&#13;
-    transform: translate(0, 12px);&#13;
-  }&#13;
-  63%,&#13;
-  75% {&#13;
-    transform: translate(-8px, -4px);&#13;
-  }&#13;
-  76%,&#13;
-  86.5% {&#13;
-    transform: translate(-12px, 6px);&#13;
-  }&#13;
-  87%,&#13;
-  100% {&#13;
-    transform: translate(6px, 0);&#13;
-  }&#13;
 }&#13;
 &#13;
 .action-bar {&#13;
@@ -237,14 +197,38 @@
   }&#13;
 }&#13;
 &#13;
-@keyframes animateFromTop {&#13;
-  0% {&#13;
-    opacity: 0;&#13;
-    translate: 0 -1rem;&#13;
+@keyframes l25 {&#13;
+  0%,&#13;
+  12.5% {&#13;
+    transform: translate(10px, 0);&#13;
   }&#13;
+  13%,&#13;
+  25% {&#13;
+    transform: translate(4px, -4px);&#13;
+  }&#13;
+  26%,&#13;
+  37.5% {&#13;
+    transform: translate(2px, 8px);&#13;
+  }&#13;
+  38%,&#13;
+  50% {&#13;
+    transform: translate(12px, -6px);&#13;
+  }&#13;
+  51%,&#13;
+  62.5% {&#13;
+    transform: translate(0, 12px);&#13;
+  }&#13;
+  63%,&#13;
+  75% {&#13;
+    transform: translate(-8px, -4px);&#13;
+  }&#13;
+  76%,&#13;
+  86.5% {&#13;
+    transform: translate(-12px, 6px);&#13;
+  }&#13;
+  87%,&#13;
   100% {&#13;
-    opacity: 1;&#13;
-    translate: 0 0;&#13;
+    transform: translate(6px, 0);&#13;
   }&#13;
 }&#13;
 </css>
@@ -320,21 +304,23 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-03 11:49:27</sys_created_on>
         <sys_id>71a30fb947ae421086ea87fe016d438e</sys_id>
-        <sys_mod_count>215</sys_mod_count>
+        <sys_mod_count>219</sys_mod_count>
         <sys_name>My reservations</sys_name>
         <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_widget_71a30fb947ae421086ea87fe016d438e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-05 08:21:55</sys_updated_on>
-        <template><![CDATA[<div class="container">
+        <sys_updated_on>2024-06-09 19:12:01</sys_updated_on>
+        <template><![CDATA[<section class="custom-container">
   <div class="action-bar">
     <h2 class="heading">My Reservations</h2>
     <div class="actions">
       <span class="actions__total"
         >Total reservations: {{c.reservationsList.length}}</span
       >
+      <!-- <button class="acctions__new">Newest ⬆</button>
+      <button class="actions__old">Oldest ⬇</button> -->
       <select
         name="state"
         id="state"
@@ -364,12 +350,38 @@
         class="reservation"
         ng-repeat="reservation in c.reservationsList"
         id="{{reservation.sysId}}"
-        ng-include="'request-list-item'"
       >
+        <h4 class="reservation__parking">{{reservation.parkingName}}</h4>
+        <span class="reservation__date">{{reservation.date}}</span>
+        <span class="reservation__status"
+          >Status: {{reservation.status}}
+          <span
+            ng-class="reservation.status === 'Canceled' ? 'reservation__status-orb canceled' : reservation.status === 'Approved' ? 'reservation__status-orb accepted' : reservation.status === 'Rejected' ? 'reservation__status-orb rejected' : 'reservation__status-orb submited'"
+          ></span
+        ></span>
+        <p class="reservation__plate">
+          Plate number: <b> {{reservation.plateNumber}} </b>
+        </p>
+        <p
+          class="reservation__rejection"
+          ng-if="reservation.status === 'Rejected'"
+        >
+          <b> Rejection Reason: </b>
+          <i> {{reservation.rejectionReason}} </i>
+        </p>
+        <button
+          ng-click="c.cancelReservation(reservation.sysId)"
+          ng-if="reservation.status === 'Approved'"
+          class="reservation__cancel"
+          type="button"
+          title="Cancel reservation"
+        >
+          Cancel
+        </button>
       </li>
     </ul>
   </div>
-</div>
+</section>
 ]]></template>
     </sp_widget>
 </record_update>

@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_portal">
     <sp_portal action="INSERT_OR_UPDATE">
-        <css_variables>$brand-primary:#428bca;
-$body-bg:#d8e5f3;
-$state-success-text:#5cb85c;
-$sp-homepage-bg:#fff;
-$sp-navbar-divider-color:#455464;
-$text-color:#717171;
-$sp-logo-margin-y:.5rem;
-$navbar-inverse-link-hover-color:#ffffff;
-$panel-bg:#fff;
-$brand-success:#5cb85c;
-$navbar-inverse-bg:#3a3f51;
-$brand-warning:#f0ad4e;
-$brand-danger:#d9534f;
-$sp-tagline-color:#717171;
-$navbar-inverse-link-color:#bdc0c4;
-$brand-info:#5bc0de;
-$link-color:#428bca;
-$sp-logo-margin-x:1rem;
-$btn-default-bg:#fff;
-$text-muted:#979797;
-</css_variables>
+        <css_variables/>
         <dark_theme/>
         <default>false</default>
         <enable_ais>false</enable_ais>
@@ -47,14 +27,14 @@ $text-muted:#979797;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-16 12:39:33</sys_created_on>
         <sys_id>e462e6c44756421086ea87fe016d4374</sys_id>
-        <sys_mod_count>15</sys_mod_count>
+        <sys_mod_count>16</sys_mod_count>
         <sys_name>Parking portal</sys_name>
         <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_portal_e462e6c44756421086ea87fe016d4374</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-22 07:41:13</sys_updated_on>
+        <sys_updated_on>2024-06-09 19:15:49</sys_updated_on>
         <theme display_value="Parking portal theme">4c2762404796421086ea87fe016d4389</theme>
         <title>Parking portal</title>
         <ts_index_group/>

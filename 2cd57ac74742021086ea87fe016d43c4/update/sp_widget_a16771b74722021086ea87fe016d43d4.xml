@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function () {
+  const dateField = document.querySelector("#date");
+  const resultEl = document.querySelector(".result");
+  const formMessageEl = document.querySelector(".form_message");
+
+  let c = this;
+  c.count = "";
+
+  c.getAvailableSpaces = (date, parking, event) => {
+    event.preventDefault();
+    if (!date || !parking)
+      return (c.formMessage = "You need to select date and parking!");
+
+    const dateString = buildDate(date);
+
+    const serverRequest = { action: "get_available_spaces" };
+    serverRequest.values = {
+      dateString,
+      parking,
+    };
+
+    c.server
+      .get(serverRequest)
+      .then(function (response) {
+        const spacesNumber = response.data.parkingSlots;
+        if (spacesNumber > 0) {
+          c.count = spacesNumber;
+          c.resultText =
+            spacesNumber > 1 ? "Available spaces" : "Available space";
+          resultEl.classList.add("free");
+        } else {
+          c.count = 0;
+          c.resultText = "All spaces are taken!";
+          resultEl.classList.add("full");
+        }
+      })
+      .catch((error) => {
+        console.error("Something went wrong with getAvailableSpaces: " + error);
+      });
+  };
+
+  c.checkIfDateInPast = (date) => {
+    /* Does not include today date. Might be improved!*/
+    const currentDate = new Date();
+
+    if (date < currentDate) {
+      formMessageEl.classList.add("message-active");
+      c.formMessage = "Date can't be in the past!";
+      dateField.value = "";
+    } else {
+      formMessageEl.classList.remove("message-active");
+      c.formMessage = "";
+    }
+  };
+
+  /**
+   * Helper to build date into yyyy-MM-dd format
+   * @param {object} datebject
+   * @returns {string}
+   */
+  function buildDate(datebject) {
+    const newDate = new Date(datebject);
+    let year = newDate.getFullYear();
+    let month = +newDate.getMonth() + 1;
+    let correctMonth = month < 10 ? "0" + month : month;
+    let day =
+      newDate.getDate() < 10 ? "0" + newDate.getDate() : newDate.getDate();
+
+    return year + "-" + correctMonth + "-" + day;
+  }
+};
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>*,&#13;
+*::before,&#13;
+*::after {&#13;
+  margin: 0;&#13;
+  padding: 0;&#13;
+  box-sizing: border-box;&#13;
+}&#13;
+&#13;
+.data {&#13;
+  display: flex;&#13;
+  justify-content: space-between;&#13;
+  gap: 1rem;&#13;
+  flex-wrap: wrap;&#13;
+}&#13;
+&#13;
+.form {&#13;
+  @media only screen and (max-width: 620px) {&#13;
+    margin: 0 auto;&#13;
+  }&#13;
+&#13;
+  .form__group {&#13;
+    margin-block-end: 2rem;&#13;
+    min-width: 10rem;&#13;
+    width: 25rem;&#13;
+    animation: animateFromBottom 0.2s ease-in forwards;&#13;
+&#13;
+    label {&#13;
+      color: $text-color-black-1;&#13;
+      opacity: 0.9;&#13;
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);&#13;
+      display: block;&#13;
+      margin-bottom: 0.5rem;&#13;
+    }&#13;
+&#13;
+    select,&#13;
+    input {&#13;
+      border: none;&#13;
+      border-radius: 2rem;&#13;
+      background: $background-color-blue-1;&#13;
+      padding: 0.5rem 1rem;&#13;
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);&#13;
+      transition: box-shadow 0.15s ease-in-out;&#13;
+      color: $text-color-black-1;&#13;
+      cursor: pointer;&#13;
+      width: 100%;&#13;
+&#13;
+      &amp;:focus,&#13;
+      &amp;:hover {&#13;
+        box-shadow: 0 0 0.3rem $background-color-blue-1,&#13;
+          0 0 0.6rem $background-color-blue-1,&#13;
+          0 0 0.9rem $background-color-blue-1;&#13;
+      }&#13;
+    }&#13;
+  }&#13;
+&#13;
+  .form__submit {&#13;
+    @include btn-mixin($red-color-1, $white-color-1, $red-color-1);&#13;
+    animation: animateFromBottom 0.2s ease-in forwards;&#13;
+  }&#13;
+&#13;
+  .form_message {&#13;
+    text-align: center;&#13;
+    color: ($red-color-1);&#13;
+    visibility: hidden;&#13;
+    translate: 1rem;&#13;
+    transition: all 0.2s ease-in;&#13;
+  }&#13;
+&#13;
+  .message-active {&#13;
+    visibility: visible;&#13;
+    translate: 0;&#13;
+  }&#13;
+}&#13;
+&#13;
+.result {&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  justify-content: center;&#13;
+  gap: 1rem;&#13;
+  flex-basis: 30rem;&#13;
+&#13;
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);&#13;
+  animation: animateFromBottom 0.2s ease-in forwards;&#13;
+  color: $text-color-black-1;&#13;
+&#13;
+  align-self: center;&#13;
+  padding: 0.5rem;&#13;
+&#13;
+  @media only screen and (max-width: 620px) {&#13;
+    margin: 0 auto;&#13;
+  }&#13;
+}&#13;
+.free {&#13;
+  text-shadow: 0 0 0.2rem $green-color-2, 0 0 0.4rem $green-color-2,&#13;
+    0 0 0.6rem $green-color-2, 0 0 0.8rem $green-color-2;&#13;
+}&#13;
+&#13;
+.full {&#13;
+  text-shadow: 0 0 0.2rem $red-color-1, 0 0 0.4rem $red-color-1,&#13;
+    0 0 0.6rem $red-color-1, 0 0 0.8rem $red-color-1;&#13;
+}&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>available_parking</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Chek available parking</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function () {
+  data.parkingList = new x_1230661_parking.parkingAppUtils().getParkingList();
+
+  if (input && input.action === "get_available_spaces") {
+    const { dateString, parking } = input.values;
+    const date =
+      new x_1230661_parking.parkingAppUtils().formatDateByUserPrefference(
+        dateString
+      );
+
+    const parkingSlotResult = getAvailableSlots(date, parking);
+
+    data.parkingSlots = parkingSlotResult;
+  }
+
+  /*Helper functions **********************************************************/
+
+  /**
+   * Calculates and returns available spaces for parking with positive or negative numebr
+   * @param {string} date : formated date string
+   * @param {string} parking : sysId of parking
+   * @returns {number}
+   */
+  function getAvailableSlots(date, parking) {
+    let parkingRequests;
+
+    const parkingRequestGr = new GlideAggregate("x_1230661_parking_requests");
+    parkingRequestGr.addEncodedQuery(
+      "reservation_date=" +
+        date +
+        "^parking_name=" +
+        parking +
+        "^approve_status=approved"
+    );
+    parkingRequestGr.addAggregate("COUNT");
+    parkingRequestGr.query();
+
+    if (parkingRequestGr.next()) {
+      parkingRequests = +parkingRequestGr.getAggregate("COUNT");
+    }
+
+    const parkingGr = new GlideRecord("x_1230661_parking_list");
+    parkingGr.get(parking);
+    const parkingSlots = +parkingGr.parking_places;
+
+    return parkingSlots - parkingRequests;
+  }
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-09 11:24:05</sys_created_on>
+        <sys_id>a16771b74722021086ea87fe016d43d4</sys_id>
+        <sys_mod_count>171</sys_mod_count>
+        <sys_name>Chek available parking</sys_name>
+        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sp_widget_a16771b74722021086ea87fe016d43d4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-09 19:30:54</sys_updated_on>
+        <template><![CDATA[<section class="custom-container">
+  <h2 class="heading">Check available parking spaces</h2>
+
+  <div class="data">
+    <form action="#" class="form">
+      <div class="form__group">
+        <label for="date">Choose date</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          ng-model="selectedDate"
+          ng-change="c.checkIfDateInPast(selectedDate)"
+        />
+      </div>
+      <div class="form__group">
+        <label for="parkings">Select parking</label>
+        <select id="parkings" name="parkings" ng-model="selectedParking">
+          <option value="" selected disabled hidden>Please select</option>
+          <option
+            ng-repeat="parking in data.parkingList"
+            value="{{parking.id}}"
+          >
+            {{parking.name}}
+          </option>
+        </select>
+      </div>
+      <button
+        class="form__submit"
+        type="submit"
+        ng-click="c.getAvailableSpaces(selectedDate, selectedParking, $event)"
+        title="Button to check available spaces"
+      >
+        <svg>
+          <rect x="0" y="0" fill="none" width="100%" height="100%" />
+        </svg>
+        Check
+      </button>
+
+      <p class="form_message">{{c.formMessage}}</p>
+    </form>
+
+    <div class="result" ng-show="c.count">
+      <span class="result__count">{{c.count}}</span>
+      <p class="result__text">{{c.resultText}}</p>
+    </div>
+  </div>
+</section>
+]]></template>
+    </sp_widget>
+</record_update>

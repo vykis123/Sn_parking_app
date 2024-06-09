@@ -37,7 +37,7 @@ parkingAppUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		
         //Check if registration already exists for that day and that palteNumber
         const reservationCount = this.checkIfReservationExists(plateNumber, reservationDate, parking);
-		gs.info("krv " + reservationCount)
+
         if (reservationCount > 0) {
             const result = {
                 ...responseObj,
@@ -85,19 +85,44 @@ parkingAppUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 
 			let parkingSlots = parkingGr.parking_places.toString()
 
-			// if(+parkingSlots <= + +parkingRequestGr.getAggregate('COUNT')) {
-			// 	gs.info("kokia helo2")
-			// }
-			gs.info("blet " + +parkingSlots)
-			gs.info("blet2 " + +parkingRequestGr.getAggregate('COUNT'))
-			gs.info("blet3 " + +parkingSlots > +parkingRequestGr.getAggregate('COUNT'))
-
-
-
-
             return +parkingSlots <= +parkingRequestGr.getAggregate('COUNT') ? false : true;
         }
 
+    },
+
+	/**
+	 * Formats date by user profile preference or if not set on user profile, by default yyy-MM-dd format
+	 * @param {object} date
+	 * @return {string}
+	 */
+    formatDateByUserPrefference:  function(date) {
+        const userGr = new GlideRecord("sys_user");
+        userGr.get(gs.getUserID());
+        const userPrefferedDateFormat = userGr.date_format || "yyyy-MM-dd";
+        const newDate = new GlideDate();
+        newDate.setValue(date);
+        const formatedDate = newDate.getByFormat(userPrefferedDateFormat);
+        return formatedDate;
+    },
+
+	/**
+	 * Gets all parkings and sets them to data.parkingList global variable
+	 */
+    getParkingList:  function() {
+        let  parkingList = [];
+
+        const parkingTableGr = new GlideRecord("x_1230661_parking_list");
+        parkingTableGr.query();
+
+        while (parkingTableGr.next()) {
+            let parkingObject = {};
+            parkingObject.name = parkingTableGr.name.toString();
+            parkingObject.id = parkingTableGr.sys_id.toString();
+
+            parkingList.push(parkingObject);
+        }
+
+		return parkingList;
     },
 
     type: 'parkingAppUtils'
@@ -106,13 +131,13 @@ parkingAppUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-15 18:24:47</sys_created_on>
         <sys_id>0de72e7f4702021086ea87fe016d431f</sys_id>
-        <sys_mod_count>51</sys_mod_count>
+        <sys_mod_count>54</sys_mod_count>
         <sys_name>parkingAppUtils</sys_name>
         <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_script_include_0de72e7f4702021086ea87fe016d431f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-30 09:01:09</sys_updated_on>
+        <sys_updated_on>2024-06-09 19:21:28</sys_updated_on>
     </sys_script_include>
 </record_update>
