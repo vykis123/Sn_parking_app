@@ -15,8 +15,8 @@
         <license_model>none</license_model>
         <logo/>
         <menu display_value="Parking Application">3286324b4742021086ea87fe016d43c6</menu>
-        <name>Parking App</name>
-        <package_json/>
+        <name>parking</name>
+        <package_json display_value="x_1230661_parking/parking/1.0.0/package.json" path="x_1230661_parking/parking/1.0.0/package.json">x_1230661_parking/parking/1.0.0/package.json</package_json>
         <private>false</private>
         <restrict_table_access>false</restrict_table_access>
         <runtime_access_tracking>permissive</runtime_access_tracking>

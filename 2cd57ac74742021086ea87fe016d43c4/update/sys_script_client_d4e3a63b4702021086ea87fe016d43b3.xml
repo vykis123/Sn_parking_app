@@ -15,9 +15,19 @@
         return;
     }
 
-    // if (g_form.getValue("plate_number") === "") return;
-	
+    //Check if date in the past
+    const currentDate = new Date();
+    const dateFormatedByUserPref = getDateFromFormat(newValue, g_user_date_format);
+    if (dateFormatedByUserPref < currentDate) {
+        g_form.setValue("reservation_date", "");
+        g_form.showFieldMsg('reservation_date', "Date can't be in the past!", 'error');
+        return;
+    };
+
+    g_form.hideFieldMsg("reservation_date");
+
     if (g_form.getValue("parking_name") === "") return;
+
 
     const parkingUtilAjax = new GlideAjax("x_1230661_parking.parkingAppUtils");
     parkingUtilAjax.addParam("sysparm_name", "validateDateChoice");
@@ -26,9 +36,7 @@
     parkingUtilAjax.addParam("sysparm_parking", g_form.getValue('parking_name'));
     parkingUtilAjax.getXMLAnswer(parkingUtilCallBack)
 
-    /**
-     * 
-     */
+	//Callback for Ajax
     function parkingUtilCallBack(answer) {
         const response = JSON.parse(answer);
 
@@ -55,15 +63,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>d4e3a63b4702021086ea87fe016d43b3</sys_id>
-        <sys_mod_count>17</sys_mod_count>
+        <sys_mod_count>27</sys_mod_count>
         <sys_name>reservation_date validation</sys_name>
         <sys_overrides/>
-        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
-        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_script_client_d4e3a63b4702021086ea87fe016d43b3</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-16 12:21:28</sys_updated_on>
+        <sys_updated_on>2024-06-14 13:19:57</sys_updated_on>
         <table>x_1230661_parking_requests</table>
         <type>onChange</type>
         <ui_type>10</ui_type>

@@ -26,9 +26,7 @@
     parkingUtilAjax.addParam("sysparm_parking", g_form.getValue('parking_name'));
     parkingUtilAjax.getXMLAnswer(parkingUtilCallBack)
 
-    /**
-     * 
-     */
+    //Callback for Ajax
     function parkingUtilCallBack(answer) {
         const response = JSON.parse(answer);
 
@@ -49,15 +47,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>ec1087bf4782021086ea87fe016d438e</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>5</sys_mod_count>
         <sys_name>plate_number validation</sys_name>
         <sys_overrides/>
-        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
-        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_script_client_ec1087bf4782021086ea87fe016d438e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-05-16 11:34:10</sys_updated_on>
+        <sys_updated_on>2024-06-14 13:20:07</sys_updated_on>
         <table>x_1230661_parking_requests</table>
         <type>onChange</type>
         <ui_type>10</ui_type>

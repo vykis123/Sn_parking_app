@@ -31,7 +31,7 @@
     <sys_translated_text action="DELETE" query="documentkey=cb92f139475e021086ea87fe016d437c"/>
     <sys_update_version action="INSERT_OR_UPDATE">
         <action>DELETE</action>
-        <application display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</application>
+        <application display_value="parking">2cd57ac74742021086ea87fe016d43c4</application>
         <file_path/>
         <instance_id>b44b05acdb9679584162684e139619cd</instance_id>
         <instance_name>dev199787</instance_name>
@@ -64,10 +64,10 @@
         <sys_metadata>cb92f139475e021086ea87fe016d437c</sys_metadata>
         <sys_mod_count>0</sys_mod_count>
         <sys_name/>
-        <sys_package display_value="Parking App" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_parent/>
         <sys_policy/>
-        <sys_scope display_value="Parking App">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_scope_delete display_value="">0dca61e1b1904fe3bb87f7886d66ff29</sys_scope_delete>
         <sys_update_name>sp_instance_cb92f139475e021086ea87fe016d437c</sys_update_name>
         <sys_update_version display_value="sp_instance_cb92f139475e021086ea87fe016d437c">8f92f139475e021086ea87fe016d437e</sys_update_version>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_module">
+    <sys_module action="INSERT_OR_UPDATE">
+        <content><![CDATA[{
+    "name": "parking",
+    "version": "1.0.0",
+    "description": "Application to manage companies parking places",
+    "license": "UNLICENSED",
+    "contributors": [],
+    "scripts": {
+        "build": "now-sdk build",
+        "deploy": "now-sdk deploy"
+    },
+    "now": {
+        "scope": "x_1230661_parking",
+        "scopeId": "2cd57ac74742021086ea87fe016d43c4",
+        "moduleDir": "src"
+    },
+    "devDependencies": {
+        "@servicenow/glide": "^25.0.3",
+        "eslint": "8.50.0",
+        "@servicenow/eslint-plugin-sdk-app-plugin": "*"
+    }
+}]]></content>
+        <external_source>false</external_source>
+        <path>x_1230661_parking/parking/1.0.0/package.json</path>
+        <sys_class_name>sys_module</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-14 13:35:27</sys_created_on>
+        <sys_id>ba85c82547b2021086ea87fe016d43c8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1230661_parking/parking/1.0.0/package.json</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sys_module_ba85c82547b2021086ea87fe016d43c8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-14 13:35:27</sys_updated_on>
+    </sys_module>
+</record_update>
