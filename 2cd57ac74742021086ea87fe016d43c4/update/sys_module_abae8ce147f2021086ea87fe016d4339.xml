@@ -2,8 +2,69 @@
     <sys_module action="INSERT_OR_UPDATE">
         <content><![CDATA[import { gs } from "@servicenow/glide";
 
-export function helloWorld() {
-  gs.addInfoMessage("Hello world from sdk");
+export function validateValues(current, parkingUtils) {
+  //Validate if some values are not empty
+  const { valid, message } = checkIfValueNonEmpty(current);
+
+  if (!valid) {
+    current.setAbortAction(true);
+    return gs.addErrorMessage(message);
+  }
+
+  const reservationCount = parkingUtils.checkIfReservationExists(
+    current.plate_number,
+    current.reservation_date,
+    current.parking_name
+  );
+
+  if (reservationCount > 0) {
+    current.setAbortAction(true);
+    return gs.addErrorMessage(
+      "Reservation already exists on selected date for this this palte number!"
+    );
+  }
+
+  const availableParking = parkingUtils.checkForAvailableParking(
+    current.reservation_date,
+    current.parking_name
+  );
+
+  if (!availableParking) {
+    current.setAbortAction(true);
+    return gs.addErrorMessage(
+      "There are no free spaces left for selected parking!"
+    );
+  }
+}
+
+/**
+ *
+ * @param {object} current: current record object
+ * @returns {object} responseObj: key values: valid {boolean}, message {string}
+ */
+function checkIfValueNonEmpty(current) {
+  const valueMap = {
+    reservation_date: "Reservation date",
+    parking_name: "Parking name",
+    plate_number: "Plate number",
+  };
+
+  const responseObj = {
+    valid: true,
+    message: "",
+  };
+
+  for (let key in valueMap) {
+    if (!current[key]) {
+      return {
+        ...responseObj,
+        valid: false,
+        message: `${valueMap[key]} can't be empty!`,
+      };
+    }
+  }
+
+  return responseObj;
 }
 ]]></content>
         <external_source>false</external_source>

@@ -15,7 +15,14 @@
         <condition/>
         <description/>
         <execute_function>false</execute_function>
-        <filter_condition/>
+        <filter_condition table="x_1230661_parking_requests">parking_nameVALCHANGES^parking_nameISNOTEMPTY^NQplate_numberVALCHANGES^plate_numberISEMPTY^NQreservation_dateVALCHANGES^reservation_dateISNOTEMPTY^EQ<item endquery="false" field="parking_name" goto="false" newquery="false" operator="VALCHANGES" or="false" value=""/>
+            <item endquery="false" field="parking_name" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+            <item endquery="false" field="plate_number" goto="false" newquery="true" operator="VALCHANGES" or="false" value=""/>
+            <item endquery="false" field="plate_number" goto="false" newquery="false" operator="ISEMPTY" or="false" value=""/>
+            <item endquery="false" field="reservation_date" goto="false" newquery="true" operator="VALCHANGES" or="false" value=""/>
+            <item endquery="false" field="reservation_date" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
         <is_rest>false</is_rest>
         <message/>
         <name> Validate fields before submiting </name>
@@ -27,9 +34,9 @@
         <rest_service_text/>
         <rest_variables/>
         <role_conditions/>
-        <script><![CDATA[       
-        const { helloWorld } = require('./src/myFunctions.js')
-	    helloWorld()
+        <script><![CDATA[const parkingUtils = new x_1230661_parking.parkingAppUtils();
+const { validateValues } = require('./src/myFunctions.js')
+validateValues(current, parkingUtils)
         ]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -37,7 +44,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>2d52082147b2021086ea87fe016d432a</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>4</sys_mod_count>
         <sys_name> Validate fields before submiting </sys_name>
         <sys_overrides/>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
@@ -45,7 +52,7 @@
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_script_2d52082147b2021086ea87fe016d432a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-14 13:37:13</sys_updated_on>
+        <sys_updated_on>2024-06-17 08:31:07</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
