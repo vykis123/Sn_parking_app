@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-18 09:24:13</sys_created_on>
+        <sys_id>5952bfa2473e421086ea87fe016d434c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>.x_1230661_parking_admin</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_security_acl display_value="Scripted Rest for Parking Apis">0e12bfa2473e421086ea87fe016d43fc</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_5952bfa2473e421086ea87fe016d434c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-18 09:24:13</sys_updated_on>
+        <sys_user_role display_value="x_1230661_parking_admin" name="x_1230661_parking_admin">e4f57a474742021086ea87fe016d43f1</sys_user_role>
+    </sys_security_acl_role>
+</record_update>

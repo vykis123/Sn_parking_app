@@ -1,19 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_operation">
     <sys_ws_operation action="INSERT_OR_UPDATE">
         <active>true</active>
-        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes>application/json</consumes>
         <consumes_customized>false</consumes_customized>
         <default_operation_uri/>
-        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <enforce_acl>0e12bfa2473e421086ea87fe016d43fc</enforce_acl>
         <http_method>GET</http_method>
         <name>Read single record</name>
-        <operation_script><![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+        <operation_script><![CDATA[(function process( /*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
 
-    // implement resource here
+    const specialChars = /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~ ]/;
+    const parkingNumber = request.pathParams.number;
+	const parkingUtils = new ScriptedRestParkingUtils();
+	const parkingErrorUtils = new ScriptedRestParkingErrorUtils();
 
+    try {
+        /******Validate parameter before quering******/
+        if (specialChars.test(parkingNumber)) {
+            throw (parkingErrorUtils.buildErrorResponse(404, "Invalid number param!", "Number param can consist only from numbers and letters!"));
+        }
+
+		/******Build response******/
+        const {
+            status,
+            body
+        } = parkingUtils.buildParkingResponse(parkingNumber);
+
+        response.setStatus(status);
+        response.setBody(body);
+
+    } catch (error) {
+        response.setError(error);
+    }
+    
 })(request, response);]]></operation_script>
         <operation_uri>/api/x_1230661_parking/parking_list/read/{number}</operation_uri>
-        <produces>application/json,application/xml,text/xml</produces>
+        <produces>application/json</produces>
         <produces_customized>false</produces_customized>
         <relative_path>/read/{number}</relative_path>
         <request_example/>
@@ -25,14 +47,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-17 10:55:22</sys_created_on>
         <sys_id>189dbe9647f2021086ea87fe016d436c</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>52</sys_mod_count>
         <sys_name>Read single record</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_ws_operation_189dbe9647f2021086ea87fe016d436c</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-17 10:59:22</sys_updated_on>
+        <sys_updated_on>2024-06-19 12:25:39</sys_updated_on>
         <web_service_definition display_value="Parking list">da1afa9247f2021086ea87fe016d4366</web_service_definition>
         <web_service_version/>
     </sys_ws_operation>

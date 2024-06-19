@@ -5,5 +5,8 @@
         <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <element label="Name" mandatory="true" max_length="50" name="name" type="string"/>
         <element label="Parking places" mandatory="true" max_length="40" name="parking_places" type="string"/>
+        <index name="index">
+            <element name="name"/>
+        </index>
     </element>
 </database>

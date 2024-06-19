@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_1230661_parking.ScriptedRestParkingUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description>Script include for Scripted rest apis related to Parking table</description>
+        <name>ScriptedRestParkingUtils</name>
+        <script><![CDATA[var ScriptedRestParkingUtils = Class.create();
+ScriptedRestParkingUtils.prototype = {
+    initialize: function() {
+        this.TABLE_NAME = 'x_1230661_parking_list';
+    },
+
+    /**
+     * Fetching parking record by provided number
+     * @param {string} number
+     * 
+     * @return {{number: string, name: string, location: string, parking_places: number}}
+     */
+    buildParkingResponse: function(number) {
+        const parkingTableGr = new GlideRecordSecure(this.TABLE_NAME);
+        parkingTableGr.addQuery("number", number);
+        parkingTableGr.addQuery("active", true);
+        parkingTableGr.setLimit(1);
+        parkingTableGr.query();
+
+        if (parkingTableGr.next()) {
+            const responseBody = {
+                "number": parkingTableGr.number.toString(),
+                "name": parkingTableGr.name.toString(),
+                "location": parkingTableGr.location.toString(),
+                "parking_places": parkingTableGr.parking_places
+            };
+
+            return {
+                status: 202,
+                body: responseBody
+            };
+        }
+
+
+        return {
+            status: 202,
+            body: {
+                "Details": "No parking found by this number."
+            }
+        };
+    },
+
+    /**
+     * Builds respone for readlist for all active parkings.
+     * Set limit at the moment for 50 parkings. Can be changed. Additionaly name field is indexed.
+     * 
+     * @return {Array.<{number: string, name: string, location: string, parking_places: number}>}
+     */
+    buildParkingListResponse: function() {
+        const resultArray = [];
+
+        const parkingListGr = new GlideRecordSecure(this.TABLE_NAME);
+        parkingListGr.addQuery("active", true);
+        parkingListGr.setLimit(50);
+        parkingListGr.orderBy("name");
+        parkingListGr.query();
+
+        while (parkingListGr.next()) {
+            const parkingObj = {
+                "number": parkingListGr.number.toString(),
+                "name": parkingListGr.name.toString(),
+                "location": parkingListGr.location.toString(),
+                "parking_places": parkingListGr.parking_places
+            };
+
+            resultArray.push(parkingObj);
+        }
+
+        return resultArray;
+    },
+
+	/**
+	 * Creates new parking record
+	 * 
+	 * @param {string} parkingName
+	 * @param {string} parkingLocation
+	 * @param {number} parkingSlots
+	 * 
+	 * @return {{message: string}}
+	 */
+    createNewParking: function(parkingName, parkingLocation, parkingSlots) {
+		const parkingErrorUtils = new ScriptedRestParkingErrorUtils();
+
+        const parkingRecordInit = new GlideRecordSecure(this.TABLE_NAME);
+        parkingRecordInit.initialize();
+        parkingRecordInit.name = parkingName;
+        parkingRecordInit.location = parkingLocation;
+        parkingRecordInit.parking_places = parkingSlots;
+        parkingRecordInit.active = true;
+
+        const newParkingSysId = parkingRecordInit.insert();
+
+        if (!newParkingSysId) {
+            throw (parkingErrorUtils.buildErrorResponse(400, "Something went wrong.", "New parking was not created!"));
+        }
+
+		return {
+			message: `New parking was created: ${parkingRecordInit.number}!`
+		};
+    },
+
+    type: 'ScriptedRestParkingUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-18 09:02:27</sys_created_on>
+        <sys_id>2d0d2b6647fa421086ea87fe016d43bf</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>ScriptedRestParkingUtils</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sys_script_include_2d0d2b6647fa421086ea87fe016d43bf</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-19 12:22:20</sys_updated_on>
+    </sys_script_include>
+</record_update>
