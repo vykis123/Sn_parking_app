@@ -4,12 +4,42 @@
         <consumes>application/json</consumes>
         <consumes_customized>false</consumes_customized>
         <default_operation_uri/>
-        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <enforce_acl>0e12bfa2473e421086ea87fe016d43fc</enforce_acl>
         <http_method>PATCH</http_method>
         <name>Update</name>
-        <operation_script><![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+        <operation_script><![CDATA[(function process( /*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
 
-    // implement resource here
+    const specialChars = /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~ ]/;
+    const parkingNumber = request.pathParams.number;
+    const parkingUtils = new ScriptedRestParkingUtils();
+    const parkingErrorUtils = new ScriptedRestParkingErrorUtils();
+
+    try {
+
+        /******Validate parameter before quering******/
+        /**Idealy also here we should validate for SQL injection code an sanitize the value from it :) */
+        if (specialChars.test(parkingNumber)) {
+            throw (parkingErrorUtils.buildErrorResponse(400, "Invalid number param!", "Number param can consist only from numbers and letters!"));
+        }
+
+        /*****Prevent empty body from initiatint logic*****/
+        if (Object.keys(request.body.data).length < 1) {
+            throw (parkingErrorUtils.buildErrorResponse(400, "Invalid request body.", "Request body can't be empty!"));
+        }
+
+        const requestData = request.body.data;
+
+		/**********Validating request data before starting to run logic **********/
+		new ScriptedRestParkingValidationUtils().validatePatchRequestData(requestData);
+
+		const result = parkingUtils.updateParkingRecord(parkingNumber, requestData);
+
+        response.setStatus(202);
+        response.setBody(result);
+
+    } catch (error) {
+        response.setError(error);
+    }
 
 })(request, response);]]></operation_script>
         <operation_uri>/api/x_1230661_parking/parking_list/update/{number}</operation_uri>
@@ -25,14 +55,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-17 10:42:25</sys_created_on>
         <sys_id>cf9a72d247f2021086ea87fe016d43ac</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>29</sys_mod_count>
         <sys_name>Update</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_ws_operation_cf9a72d247f2021086ea87fe016d43ac</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-19 11:37:44</sys_updated_on>
+        <sys_updated_on>2024-06-20 13:18:53</sys_updated_on>
         <web_service_definition display_value="Parking list">da1afa9247f2021086ea87fe016d4366</web_service_definition>
         <web_service_version/>
     </sys_ws_operation>
