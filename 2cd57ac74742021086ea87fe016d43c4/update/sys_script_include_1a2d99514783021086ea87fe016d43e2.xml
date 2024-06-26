@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_1230661_parking.ScriptedRestParkingRequestValidation</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>ScriptedRestParkingRequestValidation</name>
+        <script><![CDATA[var ScriptedRestParkingRequestValidation = Class.create();
+ScriptedRestParkingRequestValidation.prototype = {
+    initialize: function() {
+    },
+
+	/**
+	 * Validates getList params for Parking reauests
+	 * 
+	 * @params {Object} params
+	 * 
+	 * @returns {{userId: string, userSysId: string, limit: number}}
+	 */
+	validateGetListParams: function(params) {
+		const parkingErrorUtils = new ScriptedRestParkingErrorUtils();
+		const {userId, limit} = params;
+        const specialChars = /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~ ]/;
+		let useSysId = "";
+
+		if (!userId) {
+            throw (parkingErrorUtils.buildErrorResponse(404, "Invalid parameter.", "Missing required parameter: userId!"));
+        }
+
+		if(userId.toString().trim() === "") {
+			throw (parkingErrorUtils.buildErrorResponse(404, "Invalid parameter.", "Missing required parameter: userId!"));
+		}
+
+        if (specialChars.test(userId)) {
+            throw (parkingErrorUtils.buildErrorResponse(404, "Invalid parameter.", "User id can't contain special characters. Only number and letters."));
+        }
+
+        const userGr = new GlideRecord("sys_user");
+        userGr.addQuery("user_name", userId);
+        userGr.setLimit(1);
+        userGr.addActiveQuery();
+        userGr.query();
+        if (userGr.next()) {
+            userSysId = userGr.sys_id.toString();
+        } else {
+            throw (parkingErrorUtils.buildErrorResponse(404, "Invalid parameter.", "User does not exist with this id!"));
+        }
+
+        if (limit) {
+            if (isNaN(limit)) {
+                throw (parkingErrorUtils.buildErrorResponse(404, "Invalid parameter.", "Limit can be only number!"));
+            }
+        }
+
+		return {
+			userId,
+			userSysId: userSysId,
+			limit
+		}
+	},
+
+    type: 'ScriptedRestParkingRequestValidation'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-26 11:35:49</sys_created_on>
+        <sys_id>1a2d99514783021086ea87fe016d43e2</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>ScriptedRestParkingRequestValidation</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sys_script_include_1a2d99514783021086ea87fe016d43e2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-26 12:28:57</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl>0e12bfa2473e421086ea87fe016d43fc</enforce_acl>
+        <http_method>GET</http_method>
+        <name>Read parking requests list</name>
+        <operation_script><![CDATA[(function process( /*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+    const parkingErrorUtils = new ScriptedRestParkingErrorUtils();
+
+    try {
+        let queryLimit = 100;
+
+		const params = request.queryParams;
+		const validationUtils = new ScriptedRestParkingRequestValidation();
+		
+		/****************Validates params and returns values if all good *************/
+		const {userId, userSysId, limit} = validationUtils.validateGetListParams(request.queryParams);
+
+        if (limit) {
+            queryLimit = limit;
+        }
+
+		/****Building result*********/
+		const parkingRequestUtils = new ScriptedRestParkingRequestUtil();
+		const result = parkingRequestUtils.buildGetListResponse(userSysId, queryLimit);
+
+        // const parkingRequestGr = new GlideRecordSecure("x_1230661_parking_requests");
+        // parkingRequestGr.addQuery("requested_by", userSysId)
+        // parkingRequestGr
+        //     .addQuery("reservation_date", gs.beginningOfToday())
+        //     .addOrCondition("reservation_date", ">", gs.beginningOfToday());
+        // parkingRequestGr.orderBy("reservation_date");
+        // parkingRequestGr.setLimit(queryLimit);
+        // parkingRequestGr.query();
+
+        // const responseListArray = [];
+
+        // while (parkingRequestGr.next()) {
+        //     const obj = {
+        //         "requestNumber": parkingRequestGr.number.toString(),
+        //         "requestor": parkingRequestGr.requested_by.user_name.toString(),
+        //         "parking": parkingRequestGr.parking_name.name.toString(),
+        //         "status": parkingRequestGr.approve_status,
+        //         "carPlate": parkingRequestGr.plate_number,
+        //         "reservationDate": parkingRequestGr.reservation_date
+        //     };
+
+        //     if (parkingRequestGr.rejection_reason) {
+        //         obj.rejection = parkingRequestGr.rejection_reason;
+        //     }
+        //     if (parkingRequestGr.additional_details) {
+        //         obj.additionalInfo = parkingRequestGr.additional_details.toString();
+        //     }
+			
+        //     responseListArray.push(obj);
+        // }
+
+        response.setStatus(202);
+        response.setBody(result);
+
+    } catch (error) {
+        response.setError(error);
+    }
+
+})(request, response);]]></operation_script>
+        <operation_uri>/api/x_1230661_parking/parking_requests/readlist</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/readlist</relative_path>
+        <request_example/>
+        <requires_acl_authorization>true</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <requires_snc_internal_role>true</requires_snc_internal_role>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-26 10:16:47</sys_created_on>
+        <sys_id>390bcd594703021086ea87fe016d432b</sys_id>
+        <sys_mod_count>32</sys_mod_count>
+        <sys_name>Read parking requests list</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sys_ws_operation_390bcd594703021086ea87fe016d432b</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-26 11:58:39</sys_updated_on>
+        <web_service_definition display_value="Parking requests">252ac9194703021086ea87fe016d43e8</web_service_definition>
+        <web_service_version/>
+    </sys_ws_operation>
+</record_update>
