@@ -9,7 +9,19 @@
         <name>ScriptedRestParkingRequestUtil</name>
         <script><![CDATA[var ScriptedRestParkingRequestUtil = Class.create();
 ScriptedRestParkingRequestUtil.prototype = {
-    initialize: function() {},
+    initialize: function() {
+        this.parkingErrorUtils = new ScriptedRestParkingErrorUtils();
+        this.PARKING_REQUEST_FIELD_MAP = {
+            reqNumber: "number",
+            requestor: "requested_by.user_name",
+            parking: "parking_name.name",
+            status: "approve_status",
+            plateNumber: "plate_number",
+            date: "reservation_date",
+            details: "additional_details",
+            rejection: "rejection_reason"
+        };
+    },
 
     /**
      * Builds response for get list method
@@ -17,14 +29,43 @@ ScriptedRestParkingRequestUtil.prototype = {
      * @param {number} queryLimit
      * @param {string} userSisId
      * 
-     * @return {Array.<{requestNumber: string, requestor: string, parking: string, status: string, carPalte: string, reservatioDate: string}>}
+     * @return {Array.<{requestNumber: string, requestor: string, parking: string, status: string, carPalte: string, reservatioDate: string, details: string, rejection: string}>}
      */
-    buildGetListResponse: function(userSysId, queryLimit) {
+    buildGetListResponse: function(queryLimit, queryParams) {
         const parkingRequestGr = new GlideRecordSecure("x_1230661_parking_requests");
-        parkingRequestGr.addQuery("requested_by", userSysId)
-        parkingRequestGr
-            .addQuery("reservation_date", gs.beginningOfToday())
-            .addOrCondition("reservation_date", ">", gs.beginningOfToday());
+
+        if (queryParams.userId) {
+            const userGr = new GlideRecordSecure("sys_user");
+            userGr.addQuery("user_name", queryParams.userId);
+            userGr.setLimit(1);
+            userGr.addActiveQuery();
+            userGr.query();
+            if (userGr.next()) {
+                parkingRequestGr.addQuery("requested_by", userGr.sys_id);
+            }
+        }
+
+        if (queryParams.request_date) {
+            parkingRequestGr
+                .addQuery("reservation_date", queryParams.request_date);
+        } else {
+            parkingRequestGr
+                .addQuery("reservation_date", gs.beginningOfToday())
+                .addOrCondition("reservation_date", ">", gs.beginningOfToday());
+        }
+
+        if (queryParams.parking_name) {
+            const parkingGr = new GlideRecordSecure("x_1230661_parking_list");
+            parkingGr.addQuery("name", queryParams.parking_name);
+            parkingGr.setLimit(1);
+            parkingGr.addActiveQuery();
+            parkingGr.query();
+            if (parkingGr.next()) {
+                parkingRequestGr
+                    .addQuery("parking_name", parkingGr.sys_id);
+            }
+        }
+
         parkingRequestGr.orderBy("reservation_date");
         parkingRequestGr.setLimit(queryLimit);
         parkingRequestGr.query();
@@ -33,19 +74,8 @@ ScriptedRestParkingRequestUtil.prototype = {
 
         while (parkingRequestGr.next()) {
             const obj = {};
-			
-            obj.requestNumber = parkingRequestGr.number
-            obj.requestor = parkingRequestGr.requested_by.user_name
-            obj.parking = parkingRequestGr.parking_name.name
-            obj.status = parkingRequestGr.approve_status
-            obj.carPalte = parkingRequestGr.plate_number
-            obj.reservationDate = parkingRequestGr.reservation_date
-
-            if (parkingRequestGr.rejection_reason) {
-                obj.rejection = parkingRequestGr.rejection_reason;
-            }
-            if (parkingRequestGr.additional_details) {
-                obj.additionalInfo = parkingRequestGr.additional_details.toString();
+            for (const key in this.PARKING_REQUEST_FIELD_MAP) {
+                obj[key] = parkingRequestGr.getDisplayValue(this.PARKING_REQUEST_FIELD_MAP[key]);
             }
 
             requestListArray.push(obj);
@@ -54,19 +84,54 @@ ScriptedRestParkingRequestUtil.prototype = {
         return requestListArray;
     },
 
+    /**
+     * Builds response for single parking request
+     * 
+     * @param {string} requestNumber
+     * @param {array} responseFields
+     * 
+     * @return {object}
+     */
+    buildGetSingleRequestResponse: function(requestNumber, responseFields) {
+        const parkingRequestGr = new GlideRecordSecure("x_1230661_parking_requests");
+        parkingRequestGr.addQuery("number", requestNumber);
+        parkingRequestGr.setLimit(1);
+        parkingRequestGr.query();
+
+        if (parkingRequestGr.next()) {
+            const responseObj = {};
+
+            /**Either returning all fields or if query params passed, only what was specified */
+            if (responseFields.length < 1) {
+                for (const key in this.PARKING_REQUEST_FIELD_MAP) {
+                    responseObj[key] = parkingRequestGr.getDisplayValue(this.PARKING_REQUEST_FIELD_MAP[key]);
+                }
+            } else {
+                for (let i = 0; i < responseFields.length; i++) {
+                    if (this.PARKING_REQUEST_FIELD_MAP[responseFields[i]]) {
+                        responseObj[responseFields[i]] = parkingRequestGr.getDisplayValue(this.PARKING_REQUEST_FIELD_MAP[responseFields[i]]);
+                    }
+                }
+            }
+            return responseObj;
+        }
+
+        throw (this.parkingErrorUtils.buildErrorResponse(404, "Not found.", "No parking request was found!"));
+    },
+
     type: 'ScriptedRestParkingRequestUtil'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-26 11:57:03</sys_created_on>
         <sys_id>36602d954783021086ea87fe016d4320</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>55</sys_mod_count>
         <sys_name>ScriptedRestParkingRequestUtil</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_script_include_36602d954783021086ea87fe016d4320</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-26 12:29:08</sys_updated_on>
+        <sys_updated_on>2024-06-28 14:15:38</sys_updated_on>
     </sys_script_include>
 </record_update>

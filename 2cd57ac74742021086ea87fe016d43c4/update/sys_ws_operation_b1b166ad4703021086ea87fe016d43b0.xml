@@ -6,25 +6,27 @@
         <default_operation_uri/>
         <enforce_acl>0e12bfa2473e421086ea87fe016d43fc</enforce_acl>
         <http_method>GET</http_method>
-        <name>Read parking requests list</name>
+        <name>Read single request</name>
         <operation_script><![CDATA[(function process( /*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
 
+    const requestNumber = request.pathParams.requestNumber;
+    const validationUtils = new ScriptedRestParkingRequestValidation();
+    const parkingRequestUtils = new ScriptedRestParkingRequestUtil();
+    let responseFields = [];
+
     try {
-        let queryLimit = 100;
 
-		const params = request.queryParams;
-		const validationUtils = new ScriptedRestParkingRequestValidation();
-		
-		/****************Validates params and returns values if all good *************/
-		validationUtils.validateGetListQueryParams(request.queryParams);
+        /******Validate parameter before quering******/
+        validationUtils.validateGetParkingReqParam(requestNumber);
 
-        if (request.queryParams.limit) {
-            queryLimit = request.queryParams.limit;
+        /***Do validation for query params if they are passed******/
+        if (Object.keys(request.queryParams).length > 0) {
+            const queryFields = validationUtils.validateGetParkingReqQueryParam(request.queryParams);
+            responseFields = queryFields;
         }
 		
-		// /****Building result*********/
-		const parkingRequestUtils = new ScriptedRestParkingRequestUtil();
-		const result = parkingRequestUtils.buildGetListResponse(queryLimit, request.queryParams);
+		/**Building response ***********/
+        const result = parkingRequestUtils.buildGetSingleRequestResponse(requestNumber, responseFields);
 
         response.setStatus(202);
         response.setBody(result);
@@ -34,10 +36,10 @@
     }
 
 })(request, response);]]></operation_script>
-        <operation_uri>/api/x_1230661_parking/parking_requests/readlist</operation_uri>
+        <operation_uri>/api/x_1230661_parking/parking_requests/read/{requestNumber}</operation_uri>
         <produces>application/json,application/xml,text/xml</produces>
         <produces_customized>false</produces_customized>
-        <relative_path>/readlist</relative_path>
+        <relative_path>/read/{requestNumber}</relative_path>
         <request_example/>
         <requires_acl_authorization>true</requires_acl_authorization>
         <requires_authentication>true</requires_authentication>
@@ -45,16 +47,16 @@
         <short_description/>
         <sys_class_name>sys_ws_operation</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-06-26 10:16:47</sys_created_on>
-        <sys_id>390bcd594703021086ea87fe016d432b</sys_id>
-        <sys_mod_count>52</sys_mod_count>
-        <sys_name>Read parking requests list</sys_name>
+        <sys_created_on>2024-06-27 11:15:03</sys_created_on>
+        <sys_id>b1b166ad4703021086ea87fe016d43b0</sys_id>
+        <sys_mod_count>22</sys_mod_count>
+        <sys_name>Read single request</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
-        <sys_update_name>sys_ws_operation_390bcd594703021086ea87fe016d432b</sys_update_name>
+        <sys_update_name>sys_ws_operation_b1b166ad4703021086ea87fe016d43b0</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-28 14:20:39</sys_updated_on>
+        <sys_updated_on>2024-06-28 09:03:11</sys_updated_on>
         <web_service_definition display_value="Parking requests">252ac9194703021086ea87fe016d43e8</web_service_definition>
         <web_service_version/>
     </sys_ws_operation>
