@@ -12,7 +12,7 @@
         <sys_update_name>sys_ws_query_parameter_map_dd09aee54743021086ea87fe016d4339</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2024-06-27 11:45:30</sys_updated_on>
-        <web_service_operation display_value="Read single request">b1b166ad4703021086ea87fe016d43b0</web_service_operation>
+        <web_service_operation display_value="Read record">b1b166ad4703021086ea87fe016d43b0</web_service_operation>
         <web_service_query_parameter display_value="fields">0ba8aae54743021086ea87fe016d43c4</web_service_query_parameter>
     </sys_ws_query_parameter_map>
 </record_update>

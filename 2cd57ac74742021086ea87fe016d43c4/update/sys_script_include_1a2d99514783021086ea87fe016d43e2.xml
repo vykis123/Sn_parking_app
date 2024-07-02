@@ -12,7 +12,8 @@ ScriptedRestParkingRequestValidation.prototype = {
     initialize: function() {
         this.SPECIAL_CHARS = /[`!@#$%^&*()_\-+=\[\]{};':"\\|.<>\/?~]/;
         this.parkingErrorUtils = new ScriptedRestParkingErrorUtils();
-		this.PARKING_REQUEST_FIELD_MAP = {
+		/**Maybe could combine these two maps but.... For now leaving seperate ones :D */
+        this.PARKING_REQUEST_FIELD_MAP_READ = {
             reqNumber: "number",
             requestor: "requested_by.user_name",
             parking: "parking_name.name",
@@ -22,6 +23,16 @@ ScriptedRestParkingRequestValidation.prototype = {
             details: "additional_details",
             rejection: "rejection_reason"
         };
+        this.PARKING_REQUEST_FIELD_MAP_CREATE_PATCH = {
+            requestor: "requested_by.user_name",
+            parking: "parking_name.name",
+            plateNumber: "plate_number",
+            date: "reservation_date",
+            details: "additional_details",
+            status: "approve_status"
+        };
+		this.PARKING_LIST_TABLE = "x_1230661_parking_list";
+		this.PARKING_REQUEST_TABLE = "x_1230661_parking_requests";
     },
 
     /**
@@ -31,9 +42,6 @@ ScriptedRestParkingRequestValidation.prototype = {
      * 
      */
     validateGetListQueryParams: function(params) {
-
-        let userSysId = "";
-        let parkingSysId = "";
 
         for (let key in params) {
             switch (key) {
@@ -54,7 +62,7 @@ ScriptedRestParkingRequestValidation.prototype = {
                     userGr.query();
                     if (!userGr.next()) {
                         throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid query parameter.", "User does not exist with this id!"));
-                    } 
+                    }
                     break;
 
                 case "request_date":
@@ -68,7 +76,7 @@ ScriptedRestParkingRequestValidation.prototype = {
 
                     break;
 
-                case "parking_name":
+                case "parking_nr":
                     if (params[key].toString().trim() === "") {
                         throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid query parameter.", "Parking name passed but is empty!"));
                     }
@@ -77,13 +85,13 @@ ScriptedRestParkingRequestValidation.prototype = {
                         throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid query parameter.", "Parking name can't contain special characters. Only letters and numbers!"));
                     }
 
-                    const parkingGr = new GlideRecordSecure("x_1230661_parking_list");
-                    parkingGr.addQuery("name", params[key]);
+                    const parkingGr = new GlideRecordSecure(this.PARKING_LIST_TABLE);
+                    parkingGr.addQuery("number", params[key]);
                     parkingGr.setLimit(1);
                     parkingGr.addActiveQuery();
                     parkingGr.query();
                     if (!parkingGr.next()) {
-                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid query parameter.", "There is no parking with this name!"));
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid query parameter.", "There is no parking with this number!"));
                     }
                     break;
 
@@ -92,26 +100,38 @@ ScriptedRestParkingRequestValidation.prototype = {
                         throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid parameter.", "Limit can be only number!"));
                     }
                     break;
-				
-				default:
-					break;
+
+                default:
+                    break;
             }
         }
     },
 
     /**
-     * Validates GET request number is not empty or is invalid with special characters for single read reacord
+     * General validation for path parameter in Rest api
      * 
-     * @param {string} requestNumber 
+     * @param {string} param
      */
-    validateGetParkingReqParam: function(requestNumber) {
+    validatePathParam: function(param, nameOfParameter) {
 
-        if (this.SPECIAL_CHARS.test(requestNumber)) {
-            throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid parameter!", "Request number can consist only from numbers and letters!"));
+        if (this.SPECIAL_CHARS.test(param)) {
+            throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid parameter!", `${nameOfParameter} can consist only from numbers and letters!`));
         }
 
-        if (requestNumber.toString().trim() === "") {
-            throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid parameter!", "Request number can't be empty!"));
+        if (param.toString().trim() === "") {
+            throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid parameter!", `${nameOfParameter} can't be empty!`));
+        }
+
+        if (nameOfParameter === "requestNumber") {
+            const parkingRequestGr = new GlideRecord(this.PARKING_REQUEST_TABLE);
+            parkingRequestGr.addQuery("number", param);
+            parkingRequestGr.addQuery("approve_status", "approved");
+            parkingRequestGr.setLimit(1);
+            parkingRequestGr.query();
+
+            if (!parkingRequestGr.next()) {
+                throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid parameter!", `${nameOfParameter} was not found.`));
+            }
         }
 
     },
@@ -124,7 +144,7 @@ ScriptedRestParkingRequestValidation.prototype = {
      * @return {array}
      */
     validateGetParkingReqQueryParam: function(param) {
-       
+
 
         if (this.SPECIAL_CHARS.test(param.fields)) {
             throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid query parameter.", "Fields can't contain special characters. Only letters."));
@@ -132,12 +152,12 @@ ScriptedRestParkingRequestValidation.prototype = {
 
         const queryFieldsArray = param.fields[0].split(",");
 
-        if (queryFieldsArray.length > Object.keys(this.PARKING_REQUEST_FIELD_MAP).length) {
+        if (queryFieldsArray.length > Object.keys(this.PARKING_REQUEST_FIELD_MAP_READ).length) {
             throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid query parameter.", "Fields query param contains in-valid data."));
         }
 
         for (let i = 0; i < queryFieldsArray.length; i++) {
-            if (!this.PARKING_REQUEST_FIELD_MAP[queryFieldsArray[i]]) {
+            if (!this.PARKING_REQUEST_FIELD_MAP_READ[queryFieldsArray[i]]) {
                 throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid query parameter.", "Invalind field value passed in query parameter: fields."));
             }
         }
@@ -145,8 +165,163 @@ ScriptedRestParkingRequestValidation.prototype = {
         return queryFieldsArray;
     },
 
-	
+    /**
+     * Validates request body data for POST method creating request in parking list table
+     * 
+     * @param {object} requestBody
+     */
+    validateCreateRequestBody: function(requestBody) {
 
+        const parkingSysId = this._requestBodyValidationPostPatch(requestBody)
+
+        if (!requestBody.requestor || !requestBody.date || !requestBody.parking || !requestBody.plateNumber) {
+            throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Missing required fields: requestor, date, parking, plateNumber!"));
+        }
+
+        //Validate if reservation exists?
+        const parkingRequestGr = new GlideAggregate(this.PARKING_REQUEST_TABLE);
+        parkingRequestGr.addEncodedQuery(`plate_number=${requestBody.plateNumber}^parking_name=${parkingSysId}^reservation_date=${requestBody.date}^approve_status=approved`)
+        parkingRequestGr.addAggregate('COUNT');
+        parkingRequestGr.query();
+
+        if (parkingRequestGr.next()) {
+            if (parkingRequestGr.getAggregate('COUNT') > 0) {
+                throw (this.parkingErrorUtils.buildErrorResponse(202, "Invalid request.", `There is already reservation approved for: ${requestBody.parking}, ${requestBody.date}, ${requestBody.plateNumber}.`));
+            }
+        }
+    },
+
+    /**
+     * Validates request body for PATCH parking request
+     * 
+     * @param {object} requestBody
+     */
+    validateParkingRequestPatchBody: function(requestBody) {
+        this._requestBodyValidationPostPatch(requestBody);
+    },
+
+    /**
+     * Helper function with generic validation for POST and PATCH methods for parking requests
+     * 
+     * @param {object} requestBody
+     * 
+     * @return {string} parkingSysId
+     */
+    _requestBodyValidationPostPatch: function(requestBody) {
+
+        let parkingSysId = "";
+
+        if (Object.keys(requestBody).length === 0) {
+            throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request.", "Body is empty!"));
+        }
+
+        for (let key in requestBody) {
+            if (!(key in this.PARKING_REQUEST_FIELD_MAP_CREATE_PATCH)) {
+                throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request.", "Values passed in body are invalid!"));
+            }
+
+            switch (key) {
+                case "requestor":
+
+                    if (requestBody[key].trim() === "") {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Requestor is empty!"));
+                    }
+
+                    if (this.SPECIAL_CHARS.test(requestBody[key])) {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Requestor can't contain special characters. Only number and letters."));
+                    }
+
+                    const userGr = new GlideRecordSecure("sys_user");
+                    userGr.addQuery("user_name", requestBody[key]);
+                    userGr.setLimit(1);
+                    userGr.addActiveQuery();
+                    userGr.query();
+                    if (!userGr.next()) {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", `No user found with: ${requestBody[key]} id!`));
+                    }
+
+                    break;
+
+                case "parking":
+
+                    if (requestBody[key].trim() === "") {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Parking is empty!"));
+                    }
+
+                    if (this.SPECIAL_CHARS.test(requestBody[key])) {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Parking can't contain special characters. Only number and letters."));
+                    }
+
+                    const parkingGr = new GlideRecordSecure(this.PARKING_LIST_TABLE);
+                    parkingGr.addQuery("number", requestBody[key]);
+                    parkingGr.setLimit(1);
+                    parkingGr.addActiveQuery();
+                    parkingGr.query();
+                    if (!parkingGr.next()) {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", `There is no parking with name: ${requestBody[key]}!`));
+                    }
+                    parkingSysId = parkingGr.sys_id.toString();
+                    break;
+
+                case "plateNumber":
+                    if (requestBody[key].trim() === "") {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Plate number is empty!"));
+                    }
+
+                    if (this.SPECIAL_CHARS.test(requestBody[key])) {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Plate number can't contain special characters. Only number and letters."));
+                    }
+
+                    if (requestBody[key].length > 10) {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Plate number can't be longer than 10 symbols."));
+                    }
+
+                    break;
+
+                case "date":
+                    if (!requestBody[key]) {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Date is empty!"));
+                    }
+
+                    if (new Date(requestBody[key]) == "Invalid Date") {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Invalid date passed! Format should be yyyy-MM-dd!"));
+                    }
+
+                    const currentDate = new GlideDate();
+                    const date2 = new GlideDate();
+                    date2.setValue(requestBody[key]);
+
+                    if (currentDate > date2.getByFormat("yyyy-MM-dd")) {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Date can't be in the past!"));
+                    }
+                    break;
+                case "details":
+
+                    if (this.SPECIAL_CHARS.test(requestBody[key])) {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Details can't contain special characters."));
+                    }
+
+                    if (requestBody[key].length > 10) {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Details can't be longer than 1000 symbols."));
+                    }
+
+                    break;
+
+                case "status":
+
+                    if (requestBody[key] !== "canceled") {
+                        throw (this.parkingErrorUtils.buildErrorResponse(404, "Invalid request body.", "Invalid value for status."));
+                    }
+					break;
+
+                default:
+                    break;
+            }
+        }
+
+        return parkingSysId;
+
+    },
 
     type: 'ScriptedRestParkingRequestValidation'
 };]]></script>
@@ -154,13 +329,13 @@ ScriptedRestParkingRequestValidation.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-26 11:35:49</sys_created_on>
         <sys_id>1a2d99514783021086ea87fe016d43e2</sys_id>
-        <sys_mod_count>94</sys_mod_count>
+        <sys_mod_count>116</sys_mod_count>
         <sys_name>ScriptedRestParkingRequestValidation</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_script_include_1a2d99514783021086ea87fe016d43e2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-28 14:19:44</sys_updated_on>
+        <sys_updated_on>2024-07-02 12:29:23</sys_updated_on>
     </sys_script_include>
 </record_update>

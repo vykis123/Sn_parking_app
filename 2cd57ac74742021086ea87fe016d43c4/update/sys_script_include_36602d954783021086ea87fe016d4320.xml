@@ -21,6 +21,16 @@ ScriptedRestParkingRequestUtil.prototype = {
             details: "additional_details",
             rejection: "rejection_reason"
         };
+        this.PARKING_REQUEST_FIELD_MAP_PATCH = {
+            requestor: "requested_by",
+            parking: "parking_name",
+            status: "approve_status",
+            plateNumber: "plate_number",
+            date: "reservation_date",
+            details: "additional_details",
+        };
+        this.PARKING_REQUEST_TABLE = "x_1230661_parking_requests";
+        this.PARKING_LIST_TABLE = "x_1230661_parking_list";
     },
 
     /**
@@ -32,17 +42,10 @@ ScriptedRestParkingRequestUtil.prototype = {
      * @return {Array.<{requestNumber: string, requestor: string, parking: string, status: string, carPalte: string, reservatioDate: string, details: string, rejection: string}>}
      */
     buildGetListResponse: function(queryLimit, queryParams) {
-        const parkingRequestGr = new GlideRecordSecure("x_1230661_parking_requests");
+        const parkingRequestGr = new GlideRecordSecure(this.PARKING_REQUEST_TABLE);
 
         if (queryParams.userId) {
-            const userGr = new GlideRecordSecure("sys_user");
-            userGr.addQuery("user_name", queryParams.userId);
-            userGr.setLimit(1);
-            userGr.addActiveQuery();
-            userGr.query();
-            if (userGr.next()) {
-                parkingRequestGr.addQuery("requested_by", userGr.sys_id);
-            }
+            parkingRequestGr.addQuery("requested_by", this._getUserSysId(queryParams.userId));
         }
 
         if (queryParams.request_date) {
@@ -54,16 +57,9 @@ ScriptedRestParkingRequestUtil.prototype = {
                 .addOrCondition("reservation_date", ">", gs.beginningOfToday());
         }
 
-        if (queryParams.parking_name) {
-            const parkingGr = new GlideRecordSecure("x_1230661_parking_list");
-            parkingGr.addQuery("name", queryParams.parking_name);
-            parkingGr.setLimit(1);
-            parkingGr.addActiveQuery();
-            parkingGr.query();
-            if (parkingGr.next()) {
-                parkingRequestGr
-                    .addQuery("parking_name", parkingGr.sys_id);
-            }
+        if (queryParams.parking_nr) {
+            parkingRequestGr
+                .addQuery("parking_name", this._getParkingSysId(queryParams.parking_nr));
         }
 
         parkingRequestGr.orderBy("reservation_date");
@@ -93,7 +89,7 @@ ScriptedRestParkingRequestUtil.prototype = {
      * @return {object}
      */
     buildGetSingleRequestResponse: function(requestNumber, responseFields) {
-        const parkingRequestGr = new GlideRecordSecure("x_1230661_parking_requests");
+        const parkingRequestGr = new GlideRecordSecure(this.PARKING_REQUEST_TABLE);
         parkingRequestGr.addQuery("number", requestNumber);
         parkingRequestGr.setLimit(1);
         parkingRequestGr.query();
@@ -119,19 +115,141 @@ ScriptedRestParkingRequestUtil.prototype = {
         throw (this.parkingErrorUtils.buildErrorResponse(404, "Not found.", "No parking request was found!"));
     },
 
+    /**
+     * Inserts new request record via POST method
+     * 
+     * @param {{requestor: string, parking: string, date:string|number, details: string}} requestBody
+     * 
+     * @return {{message: string}}
+     */
+    createNewRequest: function(requestBody) {
+        const {
+            requestor,
+            parking,
+            plateNumber,
+            date,
+            details
+        } = requestBody;
+
+        const userSysId = this._getUserSysId(requestor);
+        const parkingSysId = this._getParkingSysId(parking);
+
+        const parkingRequestGr = new GlideRecordSecure(this.PARKING_REQUEST_TABLE);
+        parkingRequestGr.initialize();
+        parkingRequestGr.requested_by = userSysId;
+        parkingRequestGr.parking_name = parkingSysId;
+        parkingRequestGr.plate_number = plateNumber;
+        parkingRequestGr.reservation_date = date;
+        const newReservation = parkingRequestGr.insert();
+
+        if (!newReservation) {
+            throw (this.parkingErrorUtils.buildErrorResponse(404, "Failed to insert.", "New request was not created!"));
+        }
+
+        return {
+            "message": `New parking request created: ${parkingRequestGr.number}.`
+        };
+    },
+
+    /**
+     * Updates specified parking request for PATCH method
+     * 
+     * @param {string} requestNumber
+     * @param {object} data
+     * 
+     * @return {object}
+     */
+    updateParkingRequestRecord: function(requestNumber, data) {
+
+        const parkingRequestGr = new GlideRecordSecure(this.PARKING_REQUEST_TABLE);
+        parkingRequestGr.addQuery("number", requestNumber);
+        parkingRequestGr.setLimit(1);
+        parkingRequestGr.query();
+
+        if (parkingRequestGr.next()) {
+
+            for (let key in data) {
+
+                if (key === "requestor") {
+                    const userSysId = this._getUserSysId(data[key]);
+                    const fieldValue = this.PARKING_REQUEST_FIELD_MAP_PATCH[key];
+                    parkingRequestGr.setValue(fieldValue, userSysId)
+                    continue;
+                }
+
+                if (key === "parking") {
+                    const parkingSysId = this._getParkingSysId(data[key]);
+                    const fieldValue = this.PARKING_REQUEST_FIELD_MAP_PATCH[key];
+                    parkingRequestGr.setValue(fieldValue, parkingSysId);
+                    continue;
+                }
+
+                if (this.PARKING_REQUEST_FIELD_MAP_PATCH[key]) {
+                    parkingRequestGr.setValue(this.PARKING_REQUEST_FIELD_MAP_PATCH[key], data[key]);
+                }
+
+            }
+
+            parkingRequestGr.update();
+        }
+
+        const resultObject = {};
+        for (const key in this.PARKING_REQUEST_FIELD_MAP) {
+            resultObject[key] = parkingRequestGr.getDisplayValue(this.PARKING_REQUEST_FIELD_MAP[key]);
+        }
+
+        return resultObject;
+    },
+
+    /**
+     * Helper function to get user sysId
+     * 
+     * @param {string} userId
+     * 
+     * @return {string}
+     */
+    _getUserSysId: function(userId) {
+
+        const userGr = new GlideRecord("sys_user");
+        userGr.addQuery("user_name", userId);
+        userGr.setLimit(1);
+        userGr.query();
+        if (userGr.next()) {
+            return userGr.sys_id;
+        }
+
+    },
+
+    /**
+     * Helper function to get parking sysId
+     * 
+     * @param {string} parkingName
+     * 
+     * @return {string}
+     */
+    _getParkingSysId: function(parkingNumber) {
+        const parkingGr = new GlideRecord(this.PARKING_LIST_TABLE);
+        parkingGr.addQuery("number", parkingNumber);
+        parkingGr.setLimit(1);
+        parkingGr.query();
+        if (parkingGr.next()) {
+            return parkingGr.sys_id;
+        }
+    },
+
     type: 'ScriptedRestParkingRequestUtil'
 };]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-26 11:57:03</sys_created_on>
         <sys_id>36602d954783021086ea87fe016d4320</sys_id>
-        <sys_mod_count>55</sys_mod_count>
+        <sys_mod_count>99</sys_mod_count>
         <sys_name>ScriptedRestParkingRequestUtil</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_script_include_36602d954783021086ea87fe016d4320</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-28 14:15:38</sys_updated_on>
+        <sys_updated_on>2024-07-02 12:30:47</sys_updated_on>
     </sys_script_include>
 </record_update>

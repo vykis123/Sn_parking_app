@@ -5,39 +5,34 @@
         <consumes_customized>false</consumes_customized>
         <default_operation_uri/>
         <enforce_acl>0e12bfa2473e421086ea87fe016d43fc</enforce_acl>
-        <http_method>GET</http_method>
-        <name>Read list</name>
+        <http_method>POST</http_method>
+        <name>Create request</name>
         <operation_script><![CDATA[(function process( /*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+	const validationUtils = new ScriptedRestParkingRequestValidation();
+	const parkingRequestUtils = new ScriptedRestParkingRequestUtil();
+	const requestBody = request.body.data;
 
     try {
-        let queryLimit = 100;
-
-		const params = request.queryParams;
-		const validationUtils = new ScriptedRestParkingRequestValidation();
 		
-		/****************Validates params and returns values if all good *************/
-		validationUtils.validateGetListQueryParams(request.queryParams);
+		/**Validate request body*/
+		validationUtils.validateCreateRequestBody(requestBody);
+       
+		/**Create request*/
+		const result = parkingRequestUtils.createNewRequest(requestBody);
 
-        if (request.queryParams.limit) {
-            queryLimit = request.queryParams.limit;
-        }
-		
-		// /****Building result*********/
-		const parkingRequestUtils = new ScriptedRestParkingRequestUtil();
-		const result = parkingRequestUtils.buildGetListResponse(queryLimit, request.queryParams);
+		response.setStatus(201);
+		response.setBody(result);
 
-        response.setStatus(202);
-        response.setBody(result);
 
     } catch (error) {
         response.setError(error);
     }
 
 })(request, response);]]></operation_script>
-        <operation_uri>/api/x_1230661_parking/parking_requests/readlist</operation_uri>
+        <operation_uri>/api/x_1230661_parking/parking_requests/create</operation_uri>
         <produces>application/json</produces>
         <produces_customized>false</produces_customized>
-        <relative_path>/readlist</relative_path>
+        <relative_path>/create</relative_path>
         <request_example/>
         <requires_acl_authorization>true</requires_acl_authorization>
         <requires_authentication>true</requires_authentication>
@@ -45,14 +40,14 @@
         <short_description/>
         <sys_class_name>sys_ws_operation</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-06-26 10:16:47</sys_created_on>
-        <sys_id>390bcd594703021086ea87fe016d432b</sys_id>
-        <sys_mod_count>54</sys_mod_count>
-        <sys_name>Read list</sys_name>
+        <sys_created_on>2024-07-01 07:27:28</sys_created_on>
+        <sys_id>1a44de3e4703021086ea87fe016d439b</sys_id>
+        <sys_mod_count>65</sys_mod_count>
+        <sys_name>Create request</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
-        <sys_update_name>sys_ws_operation_390bcd594703021086ea87fe016d432b</sys_update_name>
+        <sys_update_name>sys_ws_operation_1a44de3e4703021086ea87fe016d439b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2024-07-02 12:47:33</sys_updated_on>
         <web_service_definition display_value="Parking requests">252ac9194703021086ea87fe016d43e8</web_service_definition>
