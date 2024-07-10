@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="DELETE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="V1">874156f34707021086ea87fe016d4302</macroponent>
+        <name>radio_buttons_1/value</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+	if(api.item.value.active.value === true){
+	return "disabled";
+  } else {
+    return "disabled";
+  }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-07-08 08:22:09</sys_created_on>
+        <sys_id>f433eec14793021086ea87fe016d4308</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>radio_buttons_1/value</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sys_ux_client_script_f433eec14793021086ea87fe016d4308</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-07-08 08:22:54</sys_updated_on>
+        <target>macroponent</target>
+        <type>transform</type>
+    </sys_ux_client_script>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="parking">2cd57ac74742021086ea87fe016d43c4</application>
+        <file_path/>
+        <instance_id>b44b05acdb9679584162684e139619cd</instance_id>
+        <instance_name>dev199787</instance_name>
+        <name>sys_ux_client_script_f433eec14793021086ea87fe016d4308</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_client_script"&gt;&lt;sys_ux_client_script action="INSERT_OR_UPDATE"&gt;&lt;controller_preset/&gt;&lt;includes/&gt;&lt;macroponent display_value="V1"&gt;874156f34707021086ea87fe016d4302&lt;/macroponent&gt;&lt;name&gt;radio_buttons_1/value&lt;/name&gt;&lt;preset/&gt;&lt;required_translations&gt;[
+    
+]&lt;/required_translations&gt;&lt;script&gt;&lt;![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+	if(api.item.value.active.value === true){
+	return "disabled";
+  } else {
+    return "disabled";
+  }
+}]]&gt;&lt;/script&gt;&lt;script_api_version&gt;2.0.0&lt;/script_api_version&gt;&lt;sys_class_name&gt;sys_ux_client_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-07-08 08:22:09&lt;/sys_created_on&gt;&lt;sys_id&gt;f433eec14793021086ea87fe016d4308&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_name&gt;radio_buttons_1/value&lt;/sys_name&gt;&lt;sys_package display_value="parking" source="x_1230661_parking"&gt;2cd57ac74742021086ea87fe016d43c4&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="parking"&gt;2cd57ac74742021086ea87fe016d43c4&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ux_client_script_f433eec14793021086ea87fe016d4308&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-07-08 08:22:54&lt;/sys_updated_on&gt;&lt;target&gt;macroponent&lt;/target&gt;&lt;type&gt;transform&lt;/type&gt;&lt;/sys_ux_client_script&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-42467337</payload_hash>
+        <record_name>radio_buttons_1/value</record_name>
+        <reverted_from/>
+        <source>d79613474706021086ea87fe016d430a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-07-08 08:22:54</sys_created_on>
+        <sys_id>5e24e2494793021086ea87fe016d4311</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19091704c960000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-07-08 08:22:54</sys_updated_on>
+        <type>UX Client Script</type>
+        <update_guid>d224e2498f930210234706e24dbaa211</update_guid>
+        <update_guid_history>d224e2498f930210234706e24dbaa211:-42467337,dff3ee09de9302100381967ffad95b51:386869185</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-07-08 08:42:04</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_client_script">sys_ux_client_script</sys_db_object>
+        <sys_id>0798235712bd471c877108ba3d046df9</sys_id>
+        <sys_metadata>f433eec14793021086ea87fe016d4308</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>radio_buttons_1/value</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_scope_delete display_value="">0dca61e1b1904fe3bb87f7886d66ff29</sys_scope_delete>
+        <sys_update_name>sys_ux_client_script_f433eec14793021086ea87fe016d4308</sys_update_name>
+        <sys_update_version display_value="sys_ux_client_script_f433eec14793021086ea87fe016d4308">5e24e2494793021086ea87fe016d4311</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-07-08 08:42:04</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -4,40 +4,38 @@
         <application display_value="Parking Application">3286324b4742021086ea87fe016d43c6</application>
         <assessment/>
         <device_type/>
-        <filter table="sys_ws_definition">nameSTARTSWITHParking^EQ<item endquery="false" field="name" goto="false" newquery="false" operator="STARTSWITH" or="false" value="Parking"/>
-            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
-        </filter>
-        <hint>Link to Scripted Rest apis for parking application</hint>
+        <filter/>
+        <hint>Link to admin page for Parking App</hint>
         <homepage/>
         <image/>
-        <link_type>LIST</link_type>
+        <link_type>DIRECT</link_type>
         <map_page/>
-        <mobile_title>Parking Scripted Apis</mobile_title>
+        <mobile_title>Parking admin</mobile_title>
         <mobile_view_name>Mobile</mobile_view_name>
-        <name>sys_ws_definition</name>
-        <order>300</order>
+        <name/>
+        <order>400</order>
         <override_menu_roles>false</override_menu_roles>
-        <query/>
+        <query>x/1230661/parking-app/home</query>
         <report/>
         <require_confirmation>true</require_confirmation>
-        <roles>admin,x_1230661_parking_admin,x_1230661_parking_user</roles>
+        <roles>x_1230661_parking_admin,x_1230661_parking_user,admin</roles>
         <sys_class_name>sys_app_module</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2024-07-01 10:44:37</sys_created_on>
+        <sys_created_on>2024-07-08 12:25:37</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>baf08ffe4707021086ea87fe016d4395</sys_id>
-        <sys_mod_count>1</sys_mod_count>
-        <sys_name>Parking Scripted Apis 💾</sys_name>
+        <sys_id>915b9f8147d7021086ea87fe016d4309</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Parking admin 🔌</sys_name>
         <sys_overrides/>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
-        <sys_update_name>sys_app_module_baf08ffe4707021086ea87fe016d4395</sys_update_name>
+        <sys_update_name>sys_app_module_915b9f8147d7021086ea87fe016d4309</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-08 12:34:34</sys_updated_on>
+        <sys_updated_on>2024-07-08 12:34:57</sys_updated_on>
         <timeline_page/>
-        <title>Parking Scripted Apis 💾</title>
+        <title>Parking admin 🔌</title>
         <uncancelable>false</uncancelable>
         <view_name/>
         <window_name/>

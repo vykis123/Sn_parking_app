@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="DELETE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="V1">874156f34707021086ea87fe016d4302</macroponent>
+        <name>status_value_true/isHidden</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+	if(api.item.value.active.value === true){
+	return true;
+  } else {
+    return false;
+  }
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-07-08 07:16:37</sys_created_on>
+        <sys_id>dbb29a4d4713021086ea87fe016d4371</sys_id>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>status_value_true/isHidden</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sys_ux_client_script_dbb29a4d4713021086ea87fe016d4371</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-07-08 07:28:25</sys_updated_on>
+        <target>macroponent</target>
+        <type>transform</type>
+    </sys_ux_client_script>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="parking">2cd57ac74742021086ea87fe016d43c4</application>
+        <file_path/>
+        <instance_id>b44b05acdb9679584162684e139619cd</instance_id>
+        <instance_name>dev199787</instance_name>
+        <name>sys_ux_client_script_dbb29a4d4713021086ea87fe016d4371</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_client_script"&gt;&lt;sys_ux_client_script action="INSERT_OR_UPDATE"&gt;&lt;controller_preset/&gt;&lt;includes/&gt;&lt;macroponent display_value="V1"&gt;874156f34707021086ea87fe016d4302&lt;/macroponent&gt;&lt;name&gt;status_value_true/isHidden&lt;/name&gt;&lt;preset/&gt;&lt;required_translations&gt;[
+    
+]&lt;/required_translations&gt;&lt;script&gt;&lt;![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+	if(api.item.value.active.value === true){
+	return true;
+  } else {
+    return false;
+  }
+}]]&gt;&lt;/script&gt;&lt;script_api_version&gt;2.0.0&lt;/script_api_version&gt;&lt;sys_class_name&gt;sys_ux_client_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-07-08 07:16:37&lt;/sys_created_on&gt;&lt;sys_id&gt;dbb29a4d4713021086ea87fe016d4371&lt;/sys_id&gt;&lt;sys_mod_count&gt;13&lt;/sys_mod_count&gt;&lt;sys_name&gt;status_value_true/isHidden&lt;/sys_name&gt;&lt;sys_package display_value="parking" source="x_1230661_parking"&gt;2cd57ac74742021086ea87fe016d43c4&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="parking"&gt;2cd57ac74742021086ea87fe016d43c4&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ux_client_script_dbb29a4d4713021086ea87fe016d4371&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-07-08 07:28:25&lt;/sys_updated_on&gt;&lt;target&gt;macroponent&lt;/target&gt;&lt;type&gt;transform&lt;/type&gt;&lt;/sys_ux_client_script&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1300040766</payload_hash>
+        <record_name>status_value_true/isHidden</record_name>
+        <reverted_from/>
+        <source>d79613474706021086ea87fe016d430a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-07-08 07:28:25</sys_created_on>
+        <sys_id>0cb7d2094753021086ea87fe016d4336</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>190913e6b910000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-07-08 07:28:25</sys_updated_on>
+        <type>UX Client Script</type>
+        <update_guid>80b7d209945302108efd6d9b599bdd36</update_guid>
+        <update_guid_history>80b7d209945302108efd6d9b599bdd36:1300040766,bd77960916530210bbe6befb6d60ab19:-1030187918,bd5792c5165302103d6bfd3d36b9054c:1300040766,7e179ec584530210cc2d60f26711ce0b:-691494541,7855d6454f530210bbe3824358b2a282:43658044,9125d2457b530210ec9da679012a2cff:1199231911,d7f4de058a53021000df63269d7a5df1:212072438</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-07-08 07:30:07</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_client_script">sys_ux_client_script</sys_db_object>
+        <sys_id>391b3a0cc6874803a66aa888d1aaeec9</sys_id>
+        <sys_metadata>dbb29a4d4713021086ea87fe016d4371</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>status_value_true/isHidden</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_scope_delete display_value="">0dca61e1b1904fe3bb87f7886d66ff29</sys_scope_delete>
+        <sys_update_name>sys_ux_client_script_dbb29a4d4713021086ea87fe016d4371</sys_update_name>
+        <sys_update_version display_value="sys_ux_client_script_dbb29a4d4713021086ea87fe016d4371">0cb7d2094753021086ea87fe016d4336</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-07-08 07:30:07</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
