@@ -49,14 +49,13 @@
 	
 	
 	 /**
-   * Helper to check if selected date in past
+   * Helper to check if selected date in past 24h
    * @param {object} datebject
    */
   c.checkIfDateInPast = (date) => {
-    /* Does not include today date. Might be improved!*/
     const currentDate = new Date();
 
-    if (date < currentDate) {
+		if (86400000 < currentDate.getTime()-date.getTime()) {
       formMessageEl.classList.add("message-active");
       c.formMessage = "Date can't be in the past!";
       dateField.value = "";
@@ -64,6 +63,7 @@
       formMessageEl.classList.remove("message-active");
       c.formMessage = "";
     }
+	
   };
 
   /**
@@ -255,14 +255,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-09 11:24:05</sys_created_on>
         <sys_id>a16771b74722021086ea87fe016d43d4</sys_id>
-        <sys_mod_count>172</sys_mod_count>
+        <sys_mod_count>175</sys_mod_count>
         <sys_name>Chek available parking</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_widget_a16771b74722021086ea87fe016d43d4</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-14 12:49:41</sys_updated_on>
+        <sys_updated_on>2024-07-16 07:51:21</sys_updated_on>
         <template><![CDATA[<section class="custom-container">
   <h2 class="heading">Check available parking spaces</h2>
 

@@ -203,55 +203,13 @@
                             },
                             {
                                 "definition": {
-                                    "id": "d37ce8abca89d02905fed903c8e34d8e",
+                                    "id": "9c2e48402c6c25d281faeb20637f6106",
                                     "type": "MACROPONENT"
                                 },
-                                "elementId": "home_btn",
-                                "elementLabel": "Home btn",
+                                "elementId": "breadcrumbs_1",
+                                "elementLabel": "Breadcrumbs 1",
                                 "eventMappings": [
-                                    {
-                                        "eventMappingId": "clydaaiifaamaacclyccahhibbzhhfffowd",
-                                        "isConfiguration": false,
-                                        "offRowStorageId": null,
-                                        "sourceEventApiName": "sn_button.NOW_BUTTON#CLICKED",
-                                        "sourceEventCorrelationId": null,
-                                        "sourceEventDefinition": {
-                                            "apiName": "sn_button.NOW_BUTTON#CLICKED",
-                                            "id": null,
-                                            "type": "UXEVENT"
-                                        },
-                                        "sourceEventSysId": null,
-                                        "targets": [
-                                            {
-                                                "broker": null,
-                                                "clientScript": null,
-                                                "conditional": null,
-                                                "declarativeAction": null,
-                                                "event": {
-                                                    "apiName": "x_1230661_parking.NAV_ITEM_SELECTED_RELAY_d7f8dbcd4797021086ea87fe016d4314",
-                                                    "payload": {
-                                                        "type": "JSON_LITERAL",
-                                                        "value": {
-                                                            "external": null,
-                                                            "fields": null,
-                                                            "multiInstField": null,
-                                                            "navigationOptions": null,
-                                                            "params": null,
-                                                            "passiveNavigation": null,
-                                                            "redirect": null,
-                                                            "route": "home",
-                                                            "targetRoute": null,
-                                                            "title": "Move to home page"
-                                                        }
-                                                    },
-                                                    "sysId": "68e0af4947d7021086ea87fe016d43cd"
-                                                },
-                                                "operation": null,
-                                                "targetId": "clydaaiifaamaacclzccahhioiizpvkye",
-                                                "type": "EVENT"
-                                            }
-                                        ]
-                                    }
+                                    
                                 ],
                                 "isHidden": {
                                     "type": "JSON_LITERAL",
@@ -259,41 +217,64 @@
                                 },
                                 "preset": null,
                                 "propertyValues": {
-                                    "configAria": {
+                                    "delimiter": {
                                         "type": "JSON_LITERAL",
-                                        "value": {}
+                                        "value": "arrow"
                                     },
-                                    "disabled": {
+                                    "items": {
+                                        "container": [
+                                            {
+                                                "container": {
+                                                    "hideLabel": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": false
+                                                    },
+                                                    "href": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": "x/1230661/parking-app/home"
+                                                    },
+                                                    "icon": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": "home-outline"
+                                                    },
+                                                    "label": {
+                                                        "type": "TRANSLATION_LITERAL",
+                                                        "value": {
+                                                            "code": null,
+                                                            "comment": "",
+                                                            "message": "Home"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "MAP_CONTAINER"
+                                            },
+                                            {
+                                                "container": {
+                                                    "hideLabel": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": false
+                                                    },
+                                                    "icon": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": "document-outline"
+                                                    },
+                                                    "label": {
+                                                        "type": "TRANSLATION_LITERAL",
+                                                        "value": {
+                                                            "code": null,
+                                                            "comment": "",
+                                                            "message": "Requests"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "MAP_CONTAINER"
+                                            }
+                                        ],
+                                        "type": "LIST_CONTAINER"
+                                    },
+                                    "overflow": {
                                         "type": "JSON_LITERAL",
-                                        "value": false
-                                    },
-                                    "icon": {
-                                        "type": "JSON_LITERAL",
-                                        "value": "home-fill"
-                                    },
-                                    "label": {
-                                        "type": "TRANSLATION_LITERAL",
-                                        "value": {
-                                            "code": null,
-                                            "comment": "",
-                                            "message": "Return Home"
-                                        }
-                                    },
-                                    "size": {
-                                        "type": "JSON_LITERAL",
-                                        "value": "md"
-                                    },
-                                    "tooltipContent": {
-                                        "type": "TRANSLATION_LITERAL",
-                                        "value": {
-                                            "code": null,
-                                            "comment": "",
-                                            "message": "Return to home page"
-                                        }
-                                    },
-                                    "variant": {
-                                        "type": "JSON_LITERAL",
-                                        "value": "secondary-negative"
+                                        "value": "wrap"
                                     }
                                 },
                                 "slot": null,
@@ -311,9 +292,9 @@
                                         }
                                     },
                                     {
-                                        "element_id": "home_btn",
+                                        "element_id": "breadcrumbs_1",
                                         "styles": {
-                                            "margin-left": "15px"
+                                            "padding": "15px"
                                         }
                                     }
                                 ],
@@ -1296,6 +1277,51 @@
                                     "type": "CLIENT_SCRIPT"
                                 }
                             ]
+                        },
+                        {
+                            "eventMappingId": "clymviojiaaeeeevccahhifccubbseeyc",
+                            "isConfiguration": false,
+                            "offRowStorageId": null,
+                            "sourceEventApiName": "sn_record_list_con.NOW_RECORD_LIST_CONNECTED#ROW_CLICKED",
+                            "sourceEventCorrelationId": null,
+                            "sourceEventDefinition": {
+                                "apiName": "sn_record_list_con.NOW_RECORD_LIST_CONNECTED#ROW_CLICKED",
+                                "id": null,
+                                "type": "UXEVENT"
+                            },
+                            "sourceEventSysId": null,
+                            "targets": [
+                                {
+                                    "broker": null,
+                                    "clientScript": null,
+                                    "conditional": null,
+                                    "declarativeAction": null,
+                                    "event": {
+                                        "apiName": "sn_uxf.MACROPONENT_STATE_UPDATE_REQUESTED",
+                                        "payload": {
+                                            "container": {
+                                                "propName": {
+                                                    "type": "JSON_LITERAL",
+                                                    "value": "recordSysId"
+                                                },
+                                                "value": {
+                                                    "binding": {
+                                                        "address": [
+                                                            "sys_id"
+                                                        ]
+                                                    },
+                                                    "type": "EVENT_PAYLOAD_BINDING"
+                                                }
+                                            },
+                                            "type": "MAP_CONTAINER"
+                                        },
+                                        "sysId": "32408b42ff7a10109046e490703bf176"
+                                    },
+                                    "operation": null,
+                                    "targetId": "clymviojiaaeeeewccahhizeffhycddb",
+                                    "type": "EVENT"
+                                }
+                            ]
                         }
                     ],
                     "isHidden": {
@@ -1538,7 +1564,7 @@
             "type": "GRAPHQL"
         },
         "elementId": "aggregation_query_1",
-        "elementLabel": "Aggregation Query 1",
+        "elementLabel": "Look up total parking requests",
         "eventMappings": [
             
         ],
@@ -1603,7 +1629,7 @@
                 "value": "x_1230661_parking_requests"
             }
         },
-        "readEvaluationMode": "EXPLICIT"
+        "readEvaluationMode": "EAGER"
     },
     {
         "definition": {
@@ -1611,7 +1637,7 @@
             "type": "COMPOSITE"
         },
         "elementId": "look_up_a_single_record_1",
-        "elementLabel": "Look up a single record 1",
+        "elementLabel": "Look up parking",
         "eventMappings": [
             
         ],
@@ -1650,7 +1676,7 @@
             "type": "GRAPHQL"
         },
         "elementId": "aggregation_query_2",
-        "elementLabel": "Aggregation Query 2",
+        "elementLabel": "Look up for request for today",
         "eventMappings": [
             {
                 "eventMappingId": "clyflhhdgoaaccdbbccahhitdobggnwhh",
@@ -1733,7 +1759,7 @@
     }
 ]</data>
         <description/>
-        <dispatched_events>68e0af4947d7021086ea87fe016d43cd</dispatched_events>
+        <dispatched_events>68e0af4947d7021086ea87fe016d43cd,867683d347d3021086ea87fe016d4362</dispatched_events>
         <ext_controller_dep/>
         <extends display_value="Page Template">19be392623033300f4b4c50947bf65ba</extends>
         <extension_point/>
@@ -1839,13 +1865,13 @@
   "message" : "Free places for today",
   "comment" : ""
 }, {
+  "message" : "Home",
+  "comment" : ""
+}, {
   "message" : "Parking Requests:",
   "comment" : ""
 }, {
-  "message" : "Return Home",
-  "comment" : ""
-}, {
-  "message" : "Return to home page",
+  "message" : "Requests",
   "comment" : ""
 }, {
   "message" : "Total parking places:",
@@ -1896,14 +1922,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-07-08 12:13:43</sys_created_on>
         <sys_id>d7f8dbcd4797021086ea87fe016d4314</sys_id>
-        <sys_mod_count>115</sys_mod_count>
+        <sys_mod_count>143</sys_mod_count>
         <sys_name>V1</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_ux_macroponent_d7f8dbcd4797021086ea87fe016d4314</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-10 08:50:45</sys_updated_on>
+        <sys_updated_on>2024-07-15 11:56:13</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=d7f8dbcd4797021086ea87fe016d4314"/>
 </record_update>
