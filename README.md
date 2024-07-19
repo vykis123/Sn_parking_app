@@ -1,7 +1,11 @@
 # Parking Application
+![Parking portal home](https://github.com/user-attachments/assets/96363261-9005-4e27-bdbd-8c8a00388132)
 
 A cusotom parking appliaction in servicenow, to help you manage your parking system in company more easly and consistently. This app is integratable with other systems via Api's and can support multiple parkings. Bellow is the in depth techical documentation about it.
-![Parking portal home](https://github.com/user-attachments/assets/96363261-9005-4e27-bdbd-8c8a00388132)
+
+<br/>
+
+![schema](https://github.com/user-attachments/assets/f35362e2-ef0b-4dc9-8671-9fba9fbe1065)
 
 There are two main roles needed to works with this application:
 **x_1230661_parking_user, x_1230661_parking_user.**
@@ -543,7 +547,7 @@ response
 
 <details>
 <summary style="color: #e1b91d; font-size: 21px">Notifications</summary>
-  
+ <br /> 
 ![email-exm](https://github.com/user-attachments/assets/4032a4bb-b812-4208-ad3d-4e8bca400929)
 
 <p>There is a scheduled job <b>Triger parking notification daily</b> which is running daily and triggers custom <b>"x_1230661_parking.upcoming.parking</b> event every day for requests which are 1 day prior before reservation date. It trrigers then notification and sends email to requestor reminding that there is parking upcoming. You can chnage/update data/design in it. Additionaly there is parking template and layout created whre you can do changes to.</p>
@@ -556,9 +560,11 @@ response
 
 <details>
 <summary style="color: #e1b91d; font-size: 21px">Portal</summary>
-
+<br/>
 ![Parking portal home](https://github.com/user-attachments/assets/6fca1ef0-6ce2-4a9d-a857-c322c1e47287)
+ <br/> 
 ![Reservation widget](https://github.com/user-attachments/assets/aca0af5e-300a-401e-a597-8c0f7bd16116)
+ <br /> 
 ![My reservations page](https://github.com/user-attachments/assets/67ae498e-0451-48c6-bdfa-55240caf1b6c)
 
 <p>There is custom portal created <b>Parking portal</b>. You can update it change it. Details bellow:</p>
