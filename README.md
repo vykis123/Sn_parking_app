@@ -543,6 +543,8 @@ response
 
 <details>
 <summary style="color: #e1b91d; font-size: 21px">Notifications</summary>
+  
+![email-exm](https://github.com/user-attachments/assets/4032a4bb-b812-4208-ad3d-4e8bca400929)
 
 <p>There is a scheduled job <b>Triger parking notification daily</b> which is running daily and triggers custom <b>"x_1230661_parking.upcoming.parking</b> event every day for requests which are 1 day prior before reservation date. It trrigers then notification and sends email to requestor reminding that there is parking upcoming. You can chnage/update data/design in it. Additionaly there is parking template and layout created whre you can do changes to.</p>
 
@@ -554,6 +556,10 @@ response
 
 <details>
 <summary style="color: #e1b91d; font-size: 21px">Portal</summary>
+
+![Parking portal home](https://github.com/user-attachments/assets/6fca1ef0-6ce2-4a9d-a857-c322c1e47287)
+![Reservation widget](https://github.com/user-attachments/assets/aca0af5e-300a-401e-a597-8c0f7bd16116)
+![My reservations page](https://github.com/user-attachments/assets/67ae498e-0451-48c6-bdfa-55240caf1b6c)
 
 <p>There is custom portal created <b>Parking portal</b>. You can update it change it. Details bellow:</p>
 
@@ -604,6 +610,9 @@ ACL's
 <summary style="color: #e1b91d; font-size: 21px">
 UI Builder
 </summary>
+
+![UIB home](https://github.com/user-attachments/assets/15809fc2-5934-4858-adc4-75359f1084c1)
+![UIB requests](https://github.com/user-attachments/assets/dc51262c-e066-40f5-b30c-2f152c21dde4)
 
 <p>There are couple pages created in core UI for admin to managed Parkings and requests on them. It has rather limited options now, but it can be improved in future. You can update it. You can access it ALL - Parking Application - Parking Admin. Pages bellow:</p>
 
