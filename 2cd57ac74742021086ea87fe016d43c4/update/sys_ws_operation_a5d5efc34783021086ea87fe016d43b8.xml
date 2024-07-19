@@ -19,7 +19,7 @@
 		validationUtils.validatePathParam(numberParam, "requestNumber");
 
 		/**Validate request body******/
-		validationUtils.validateParkingRequestPatchBody(requestBody);
+		validationUtils.requestBodyValidationPostPatch(requestBody);
 
 		/***Update record******/
 		const result = parkingRequestUtils.updateParkingRequestRecord(numberParam, requestBody);
@@ -45,14 +45,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-07-02 08:06:21</sys_created_on>
         <sys_id>a5d5efc34783021086ea87fe016d43b8</sys_id>
-        <sys_mod_count>13</sys_mod_count>
+        <sys_mod_count>14</sys_mod_count>
         <sys_name>Update request</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_ws_operation_a5d5efc34783021086ea87fe016d43b8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-02 12:47:33</sys_updated_on>
+        <sys_updated_on>2024-07-17 11:09:59</sys_updated_on>
         <web_service_definition display_value="Parking requests">252ac9194703021086ea87fe016d43e8</web_service_definition>
         <web_service_version/>
     </sys_ws_operation>

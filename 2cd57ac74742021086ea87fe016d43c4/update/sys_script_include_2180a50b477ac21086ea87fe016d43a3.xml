@@ -5,7 +5,7 @@
         <api_name>x_1230661_parking.ScriptedRestParkingValidationUtils</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description/>
+        <description>Script include for storing all methods related to validation for parking api.</description>
         <name>ScriptedRestParkingValidationUtils</name>
         <script><![CDATA[var ScriptedRestParkingValidationUtils = Class.create();
 ScriptedRestParkingValidationUtils.prototype = {
@@ -35,7 +35,7 @@ ScriptedRestParkingValidationUtils.prototype = {
             throw (this.parkingErrorUtils.buildErrorResponse(400, "Invalid parkingLocation.", "Parking location can't be empty!"));
         }
 
-        if (!parkingSlots || parkingSlots.trim() === "") {
+        if (!parkingSlots) {
             throw (this.parkingErrorUtils.buildErrorResponse(400, "Invalid parkingSlots.", "Parking slots can't be empty!"));
         }
 
@@ -120,13 +120,13 @@ ScriptedRestParkingValidationUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-19 12:04:08</sys_created_on>
         <sys_id>2180a50b477ac21086ea87fe016d43a3</sys_id>
-        <sys_mod_count>13</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>ScriptedRestParkingValidationUtils</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_script_include_2180a50b477ac21086ea87fe016d43a3</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-02 12:46:39</sys_updated_on>
+        <sys_updated_on>2024-07-19 07:33:10</sys_updated_on>
     </sys_script_include>
 </record_update>

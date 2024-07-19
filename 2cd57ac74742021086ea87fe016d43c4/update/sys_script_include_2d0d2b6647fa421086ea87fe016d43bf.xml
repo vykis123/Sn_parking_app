@@ -5,12 +5,12 @@
         <api_name>x_1230661_parking.ScriptedRestParkingUtils</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
-        <description>Script include for Scripted rest apis related to Parking table</description>
+        <description>Script include for Scripted rest apis related to Parking table, for handling response logic.</description>
         <name>ScriptedRestParkingUtils</name>
         <script><![CDATA[var ScriptedRestParkingUtils = Class.create();
 ScriptedRestParkingUtils.prototype = {
     initialize: function() {
-        this.TABLE_NAME = 'x_1230661_parking_list';
+        this.PARKING_LIST_TABLE = 'x_1230661_parking_list';
         this.PARKING_FIELD_VALUE_MAP = {
             "parkingName": "name",
             "parkingLocation": "location",
@@ -27,7 +27,7 @@ ScriptedRestParkingUtils.prototype = {
      * @return {{number: string, name: string, location: string, parking_places: number}}
      */
     buildParkingResponse: function(number) {
-        const parkingTableGr = new GlideRecordSecure(this.TABLE_NAME);
+        const parkingTableGr = new GlideRecordSecure(this.PARKING_LIST_TABLE);
         parkingTableGr.addQuery("number", number);
         parkingTableGr.addQuery("active", true);
         parkingTableGr.setLimit(1);
@@ -66,7 +66,7 @@ ScriptedRestParkingUtils.prototype = {
     buildParkingListResponse: function() {
         const resultArray = [];
 
-        const parkingListGr = new GlideRecordSecure(this.TABLE_NAME);
+        const parkingListGr = new GlideRecordSecure(this.PARKING_LIST_TABLE);
         parkingListGr.addQuery("active", true);
         parkingListGr.setLimit(50);
         parkingListGr.orderBy("name");
@@ -98,7 +98,7 @@ ScriptedRestParkingUtils.prototype = {
     createNewParking: function(parkingName, parkingLocation, parkingSlots) {
         const parkingErrorUtils = new ScriptedRestParkingErrorUtils();
 
-        const parkingRecordInit = new GlideRecordSecure(this.TABLE_NAME);
+        const parkingRecordInit = new GlideRecordSecure(this.PARKING_LIST_TABLE);
         parkingRecordInit.initialize();
         parkingRecordInit.name = parkingName;
         parkingRecordInit.location = parkingLocation;
@@ -157,13 +157,13 @@ ScriptedRestParkingUtils.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-18 09:02:27</sys_created_on>
         <sys_id>2d0d2b6647fa421086ea87fe016d43bf</sys_id>
-        <sys_mod_count>19</sys_mod_count>
+        <sys_mod_count>21</sys_mod_count>
         <sys_name>ScriptedRestParkingUtils</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_script_include_2d0d2b6647fa421086ea87fe016d43bf</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-20 12:48:03</sys_updated_on>
+        <sys_updated_on>2024-07-19 07:33:49</sys_updated_on>
     </sys_script_include>
 </record_update>

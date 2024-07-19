@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="DELETE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-13 12:10:46</sys_created_on>
+        <sys_id>633f7e074782021086ea87fe016d4378</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1230661_parking_list.admin</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_security_acl display_value="x_1230661_parking_list">ba86324b4742021086ea87fe016d43d6</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_633f7e074782021086ea87fe016d4378</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-13 12:10:46</sys_updated_on>
+        <sys_user_role display_value="admin" name="admin">2831a114c611228501d4ea6c309d626d</sys_user_role>
+    </sys_security_acl_role>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="parking">2cd57ac74742021086ea87fe016d43c4</application>
+        <file_path/>
+        <instance_id>b44b05acdb9679584162684e139619cd</instance_id>
+        <instance_name>dev199787</instance_name>
+        <name>sys_security_acl_role_633f7e074782021086ea87fe016d4378</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-05-13 12:10:46</sys_created_on>
+        <sys_id>633f7e074782021086ea87fe016d4378</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1230661_parking_list.admin</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_security_acl display_value="x_1230661_parking_list">ba86324b4742021086ea87fe016d43d6</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_633f7e074782021086ea87fe016d4378</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-05-13 12:10:46</sys_updated_on>
+        <sys_user_role display_value="admin" name="admin">2831a114c611228501d4ea6c309d626d</sys_user_role>
+    </sys_security_acl_role>
+</record_update>]]></payload>
+        <payload_hash>327268746</payload_hash>
+        <record_name>x_1230661_parking_list.admin</record_name>
+        <reverted_from/>
+        <source>96ae0ce147f2021086ea87fe016d43b6</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-06-14 14:15:23</sys_created_on>
+        <sys_id>bfae8ce147f2021086ea87fe016d43f3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>190171a63260000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-06-14 14:15:23</sys_updated_on>
+        <type>Access Roles</type>
+        <update_guid>7bae8ce128f202103ba3794258c924f3</update_guid>
+        <update_guid_history>7bae8ce128f202103ba3794258c924f3:0,0f850c25ffb2021078be2e0cb6ef4553:0,564ffe07a58202100bddee96ec140cc7:-241854915</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="x_1230661_parking_list.admin">4113172847a7c21086ea87fe016d43ea</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-07-19 08:46:37</sys_created_on>
+        <sys_db_object display_value="" name="sys_security_acl_role">sys_security_acl_role</sys_db_object>
+        <sys_id>437f3947654249709c46d5da48836100</sys_id>
+        <sys_metadata>633f7e074782021086ea87fe016d4378</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1230661_parking_list.admin</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_parent display_value="x_1230661_parking_list">ba86324b4742021086ea87fe016d43d6</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_scope_delete display_value="">0dca61e1b1904fe3bb87f7886d66ff29</sys_scope_delete>
+        <sys_update_name>sys_security_acl_role_633f7e074782021086ea87fe016d4378</sys_update_name>
+        <sys_update_version display_value="sys_security_acl_role_633f7e074782021086ea87fe016d4378">bfae8ce147f2021086ea87fe016d43f3</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-07-19 08:46:37</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
