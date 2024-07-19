@@ -8,8 +8,7 @@ There are two main roles needed to works with this application:
 
 To navigate in app in Core UI go to: All -> Parking Application. Like in picture bellow:
 <<br/>
-![image](https://github.com/user-attachments/assets/a6d745f5-8b68-45db-90c2-9b6e1904e430)
-
+![image](https://github.com/user-attachments/assets/f93cace0-a580-4248-b72a-7d4ecabccc7f)
 
 Bellow is the general scheme of obstract overview how application is set up (yea, not proffesional but I hope yyou get the idea :D):
 
