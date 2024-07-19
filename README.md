@@ -7,7 +7,8 @@ There are two main roles needed to works with this application:
 **x_1230661_parking_user, x_1230661_parking_user.**
 
 To navigate in app in Core UI go to: All -> Parking Application. Like in picture bellow:
-<<br/>
+
+<br/>
 ![image](https://github.com/user-attachments/assets/f93cace0-a580-4248-b72a-7d4ecabccc7f)
 
 Bellow is the general scheme of obstract overview how application is set up (yea, not proffesional but I hope yyou get the idea :D):
