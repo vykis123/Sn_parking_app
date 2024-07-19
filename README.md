@@ -3,14 +3,14 @@
 
 A cusotom parking appliaction in servicenow, to help you manage your parking system in company more easly and consistently. This app is integratable with other systems via Api's and can support multiple parkings. Bellow is the in depth techical documentation about it.
 
-<br/>
-
-![schema](https://github.com/user-attachments/assets/f35362e2-ef0b-4dc9-8671-9fba9fbe1065)
-
 There are two main roles needed to works with this application:
 **x_1230661_parking_user, x_1230661_parking_user.**
 
 Bellow is the general scheme of obstract overview how application is set up (yea, not proffesional but I hope yyou get the idea :D):
+
+<br/>
+
+![schema](https://github.com/user-attachments/assets/f35362e2-ef0b-4dc9-8671-9fba9fbe1065)
 
 <details>
 <summary style="color: #e1b91d; font-size: 21px">Tables</summary>
