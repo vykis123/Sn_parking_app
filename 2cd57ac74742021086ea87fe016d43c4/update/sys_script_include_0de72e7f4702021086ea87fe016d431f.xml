@@ -11,7 +11,9 @@
 parkingAppUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 
     /**
-     * 
+     * Function called via glide ajax, to validate form data by date
+	 * 
+	 * @return {{reseractionExists: boolean, availableParkingPlace: boolean}} 
      */
     validateDateChoice: function() {
         const responseObj = {
@@ -52,7 +54,13 @@ parkingAppUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
     },
 
     /**
-     * 
+     * Checks if reservation for selected parking on selected date with selected plate nr exists
+	 * 
+	 * @param {string} plateNumber
+	 * @param {string} reservationDate
+	 * @param {string} parking: sys Id of parking
+	 * 
+	 * @return {number}
      */
     checkIfReservationExists: function(plateNumber, reservationDate, parking) {
         const parkingRequestGr = new GlideAggregate("x_1230661_parking_requests");
@@ -68,7 +76,12 @@ parkingAppUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
     },
 
     /**
-     * 
+     * Checks if for selected parking on selected date there is any free places
+	 * 
+	 * @param {reservationDate} string
+	 * @param {parking} string: sysid of parking
+	 * 
+	 * @return {boolean}
      */
     checkForAvailableParking: function(reservationDate, parking) {
 
@@ -105,7 +118,9 @@ parkingAppUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
     },
 
 	/**
-	 * Gets all parkings and sets them to data.parkingList global variable
+	 * Gets all parkings which are active
+	 * 
+	 * @return {Array.<{name: string, id:string}>}: parkingList
 	 */
     getParkingList:  function() {
         let  parkingList = [];
@@ -131,13 +146,13 @@ parkingAppUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-15 18:24:47</sys_created_on>
         <sys_id>0de72e7f4702021086ea87fe016d431f</sys_id>
-        <sys_mod_count>56</sys_mod_count>
+        <sys_mod_count>57</sys_mod_count>
         <sys_name>parkingAppUtils</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_script_include_0de72e7f4702021086ea87fe016d431f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-06-17 11:03:18</sys_updated_on>
+        <sys_updated_on>2024-07-21 17:59:05</sys_updated_on>
     </sys_script_include>
 </record_update>
