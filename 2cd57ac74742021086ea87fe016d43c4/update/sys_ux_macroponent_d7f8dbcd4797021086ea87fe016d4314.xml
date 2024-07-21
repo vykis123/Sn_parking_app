@@ -59,7 +59,7 @@
                                                 "type": "MACROPONENT"
                                             },
                                             "elementId": "stylized_text_1",
-                                            "elementLabel": "Stylized text 1",
+                                            "elementLabel": "Heading text",
                                             "eventMappings": [
                                                 
                                             ],
@@ -99,7 +99,7 @@
                                                 "type": "MACROPONENT"
                                             },
                                             "elementId": "stylized_text_4",
-                                            "elementLabel": "Stylized text 4",
+                                            "elementLabel": "Heading parking name",
                                             "eventMappings": [
                                                 
                                             ],
@@ -504,7 +504,7 @@
                                     "type": "MACROPONENT"
                                 },
                                 "elementId": "stylized_text_2",
-                                "elementLabel": "Stylized text 2",
+                                "elementLabel": "Total parking header",
                                 "eventMappings": [
                                     
                                 ],
@@ -544,7 +544,7 @@
                                     "type": "MACROPONENT"
                                 },
                                 "elementId": "stylized_text_3",
-                                "elementLabel": "Stylized text 3",
+                                "elementLabel": "Total places count",
                                 "eventMappings": [
                                     
                                 ],
@@ -675,7 +675,7 @@
                                     "type": "MACROPONENT"
                                 },
                                 "elementId": "stylized_text_5",
-                                "elementLabel": "Stylized text 5",
+                                "elementLabel": "Free for today",
                                 "eventMappings": [
                                     
                                 ],
@@ -715,7 +715,7 @@
                                     "type": "MACROPONENT"
                                 },
                                 "elementId": "stylized_text_7",
-                                "elementLabel": "Stylized text 7",
+                                "elementLabel": "Free for today value",
                                 "eventMappings": [
                                     
                                 ],
@@ -843,7 +843,7 @@
                                     "type": "MACROPONENT"
                                 },
                                 "elementId": "stylized_text_6",
-                                "elementLabel": "Stylized text 6",
+                                "elementLabel": "Check by date",
                                 "eventMappings": [
                                     
                                 ],
@@ -883,7 +883,7 @@
                                     "type": "MACROPONENT"
                                 },
                                 "elementId": "date_time_1",
-                                "elementLabel": "Date-Time 1",
+                                "elementLabel": "Date input",
                                 "eventMappings": [
                                     {
                                         "eventMappingId": "clyeccccjjmeaacchbccahhigbgajddvdd",
@@ -1245,7 +1245,7 @@
                         "type": "MACROPONENT"
                     },
                     "elementId": "list___simple_1",
-                    "elementLabel": "List - Simple 1",
+                    "elementLabel": "Parking request list",
                     "eventMappings": [
                         {
                             "eventMappingId": "clyczrddvqaaccjjoccahhiaaztgqdem",
@@ -1922,14 +1922,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-07-08 12:13:43</sys_created_on>
         <sys_id>d7f8dbcd4797021086ea87fe016d4314</sys_id>
-        <sys_mod_count>143</sys_mod_count>
+        <sys_mod_count>144</sys_mod_count>
         <sys_name>V1</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_ux_macroponent_d7f8dbcd4797021086ea87fe016d4314</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-15 11:56:13</sys_updated_on>
+        <sys_updated_on>2024-07-21 18:08:23</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=d7f8dbcd4797021086ea87fe016d4314"/>
 </record_update>

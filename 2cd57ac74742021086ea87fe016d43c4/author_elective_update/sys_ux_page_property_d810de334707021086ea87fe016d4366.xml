@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_page_property">
+    <sys_ux_page_property action="DELETE">
+        <choices/>
+        <description/>
+        <name>chrome_header</name>
+        <page display_value="Parking application">b700de734707021086ea87fe016d4351</page>
+        <required_translations>[ ]</required_translations>
+        <route/>
+        <suffix/>
+        <sys_class_name>sys_ux_page_property</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-07-04 09:42:42</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>global</sys_domain_path>
+        <sys_id>d810de334707021086ea87fe016d4366</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>chrome_header</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_update_name>sys_ux_page_property_d810de334707021086ea87fe016d4366</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-07-04 09:42:42</sys_updated_on>
+        <type>json</type>
+        <unique_name>x_1230661_parking.b700de734707021086ea87fe016d4351.root.chrome_header</unique_name>
+        <value>{
+    "privatePage": {
+        "userPrefsEnabled": false,
+        "searchEnabled": false,
+        "currentScreenLinkConfiguration": {},
+        "globalTools": {
+            "collapsingMenuId": 0,
+            "primaryItems": [
+                
+            ],
+            "secondaryItems": [
+                
+            ]
+        }
+    },
+    "publicPage": {
+        "menuEnabled": false,
+        "searchEnabled": false,
+        "logoRoute": {},
+        "actionButtons": [
+            
+        ]
+    }
+}</value>
+    </sys_ux_page_property>
+    <sys_translated_text action="DELETE" query="documentkey=d810de334707021086ea87fe016d4366"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="parking">2cd57ac74742021086ea87fe016d43c4</application>
+        <file_path/>
+        <instance_id>b44b05acdb9679584162684e139619cd</instance_id>
+        <instance_name>dev199787</instance_name>
+        <name>sys_ux_page_property_d810de334707021086ea87fe016d4366</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ux_page_property"><sys_ux_page_property action="INSERT_OR_UPDATE"><choices/><description/><name>chrome_header</name><page display_value="Parking application">b700de734707021086ea87fe016d4351</page><required_translations>[ ]</required_translations><route/><suffix/><sys_class_name>sys_ux_page_property</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2024-07-04 09:42:42</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>global</sys_domain_path><sys_id>d810de334707021086ea87fe016d4366</sys_id><sys_mod_count>0</sys_mod_count><sys_name>chrome_header</sys_name><sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package><sys_policy/><sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope><sys_update_name>sys_ux_page_property_d810de334707021086ea87fe016d4366</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2024-07-04 09:42:42</sys_updated_on><type>json</type><unique_name>x_1230661_parking.b700de734707021086ea87fe016d4351.root.chrome_header</unique_name><value>{
+    "privatePage": {
+        "userPrefsEnabled": false,
+        "searchEnabled": false,
+        "currentScreenLinkConfiguration": {},
+        "globalTools": {
+            "collapsingMenuId": 0,
+            "primaryItems": [
+                
+            ],
+            "secondaryItems": [
+                
+            ]
+        }
+    },
+    "publicPage": {
+        "menuEnabled": false,
+        "searchEnabled": false,
+        "logoRoute": {},
+        "actionButtons": [
+            
+        ]
+    }
+}</value></sys_ux_page_property><sys_translated_text action="delete_multiple" query="documentkey=d810de334707021086ea87fe016d4366"/></record_update>]]></payload>
+        <payload_hash>-635268826</payload_hash>
+        <record_name>chrome_header</record_name>
+        <reverted_from/>
+        <source>d79613474706021086ea87fe016d430a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-07-04 09:42:42</sys_created_on>
+        <sys_id>6410de734707021086ea87fe016d43bc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1907d1fedfa0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-07-04 09:42:42</sys_updated_on>
+        <type>UX Page Property</type>
+        <update_guid>2810de73ce070210836162dbd667f8bb</update_guid>
+        <update_guid_history>2810de73ce070210836162dbd667f8bb:-635268826</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-07-21 18:11:19</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_page_property">sys_ux_page_property</sys_db_object>
+        <sys_id>30b93319b2e94a009a745d42474d1000</sys_id>
+        <sys_metadata>d810de334707021086ea87fe016d4366</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>chrome_header</sys_name>
+        <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
+        <sys_scope_delete display_value="">0dca61e1b1904fe3bb87f7886d66ff29</sys_scope_delete>
+        <sys_update_name>sys_ux_page_property_d810de334707021086ea87fe016d4366</sys_update_name>
+        <sys_update_version display_value="sys_ux_page_property_d810de334707021086ea87fe016d4366">6410de734707021086ea87fe016d43bc</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-07-21 18:11:19</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
