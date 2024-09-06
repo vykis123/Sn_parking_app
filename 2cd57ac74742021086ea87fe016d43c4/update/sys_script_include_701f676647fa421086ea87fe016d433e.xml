@@ -6,6 +6,7 @@
         <caller_access/>
         <client_callable>false</client_callable>
         <description>Script include  meant to build error message in Scripted rest apis, related to parking application.</description>
+        <mobile_callable>false</mobile_callable>
         <name>ScriptedRestParkingErrorUtils</name>
         <script><![CDATA[var ScriptedRestParkingErrorUtils = Class.create();
 ScriptedRestParkingErrorUtils.prototype = {

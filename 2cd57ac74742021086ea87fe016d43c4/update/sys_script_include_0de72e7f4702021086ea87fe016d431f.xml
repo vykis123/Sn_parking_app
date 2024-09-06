@@ -6,6 +6,7 @@
         <caller_access/>
         <client_callable>true</client_callable>
         <description/>
+        <mobile_callable>false</mobile_callable>
         <name>parkingAppUtils</name>
         <script><![CDATA[var parkingAppUtils = Class.create();
 parkingAppUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {

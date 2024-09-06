@@ -6,6 +6,7 @@
         <caller_access/>
         <client_callable>false</client_callable>
         <description>Script include meant for Parking requests api logic validation methods</description>
+        <mobile_callable>false</mobile_callable>
         <name>ScriptedRestParkingRequestValidation</name>
         <script><![CDATA[var ScriptedRestParkingRequestValidation = Class.create();
 ScriptedRestParkingRequestValidation.prototype = {

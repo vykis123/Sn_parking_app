@@ -58,7 +58,7 @@
         <update_guid_history>bbae8ce1e2f202105f0d8f465c52faf5:0,0f850c258cb20210eaf1673925c1f255:0,eae24b8b338202109d9872fdc3ece3fa:912524985</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="x_1230661_parking_requests.admin">6ae2532847a7c21086ea87fe016d437a</sys_audit_delete>
+        <sys_audit_delete display_value="">6ae2532847a7c21086ea87fe016d437a</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-07-19 08:45:55</sys_created_on>

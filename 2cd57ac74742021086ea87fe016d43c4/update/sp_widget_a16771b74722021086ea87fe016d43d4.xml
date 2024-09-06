@@ -16,8 +16,15 @@
    */
   c.getAvailableSpaces = (date, parking, event) => {
     event.preventDefault();
-    if (!date || !parking)
-      return (c.formMessage = "You need to select date and parking!");
+		
+		formMessageEl.classList.remove("message-active");
+		c.formMessage = ""
+		
+    if (!date || !parking){
+			formMessageEl.classList.add("message-active");
+			c.formMessage = "You need to select date and parking!"
+			return;
+		}
 
     const dateString = buildDate(date);
 
@@ -84,107 +91,109 @@
 };
 ]]></client_script>
         <controller_as>c</controller_as>
-        <css>*,&#13;
-*::before,&#13;
-*::after {&#13;
-  margin: 0;&#13;
-  padding: 0;&#13;
-  box-sizing: border-box;&#13;
-}&#13;
-&#13;
-.data {&#13;
-  display: flex;&#13;
-  justify-content: space-between;&#13;
-  gap: 1rem;&#13;
-  flex-wrap: wrap;&#13;
-}&#13;
-&#13;
-.form {&#13;
-  @media only screen and (max-width: 620px) {&#13;
-    margin: 0 auto;&#13;
-  }&#13;
-&#13;
-  .form__group {&#13;
-    margin-block-end: 2rem;&#13;
-    min-width: 10rem;&#13;
-    width: 25rem;&#13;
-    animation: animateFromBottom 0.2s ease-in forwards;&#13;
-&#13;
-    label {&#13;
-      color: $text-color-black-1;&#13;
-      opacity: 0.9;&#13;
-      font-size: clamp(1.1rem, 2.5vw, 1.35rem);&#13;
-      display: block;&#13;
-      margin-bottom: 0.5rem;&#13;
-    }&#13;
-&#13;
-    select,&#13;
-    input {&#13;
-      border: none;&#13;
-      border-radius: 2rem;&#13;
-      background: $background-color-blue-1;&#13;
-      padding: 0.5rem 1rem;&#13;
-      font-size: clamp(1.15rem, 2.5vw, 1.45rem);&#13;
-      transition: box-shadow 0.15s ease-in-out;&#13;
-      color: $text-color-black-1;&#13;
-      cursor: pointer;&#13;
-      width: 100%;&#13;
-&#13;
-      &amp;:focus,&#13;
-      &amp;:hover {&#13;
-        box-shadow: 0 0 0.3rem $background-color-blue-1,&#13;
-          0 0 0.6rem $background-color-blue-1,&#13;
-          0 0 0.9rem $background-color-blue-1;&#13;
-      }&#13;
-    }&#13;
-  }&#13;
-&#13;
-  .form__submit {&#13;
-    @include btn-mixin($red-color-1, $white-color-1, $red-color-1);&#13;
-    animation: animateFromBottom 0.2s ease-in forwards;&#13;
-  }&#13;
-&#13;
-  .form_message {&#13;
-    text-align: center;&#13;
-    color: ($red-color-1);&#13;
-    visibility: hidden;&#13;
-    translate: 1rem;&#13;
-    transition: all 0.2s ease-in;&#13;
-  }&#13;
-&#13;
-  .message-active {&#13;
-    visibility: visible;&#13;
-    translate: 0;&#13;
-  }&#13;
-}&#13;
-&#13;
-.result {&#13;
-  display: flex;&#13;
-  align-items: center;&#13;
-  justify-content: center;&#13;
-  gap: 1rem;&#13;
-  flex-basis: 30rem;&#13;
-&#13;
-  font-size: clamp(1.75rem, 2.5vw, 2.25rem);&#13;
-  animation: animateFromBottom 0.2s ease-in forwards;&#13;
-  color: $text-color-black-1;&#13;
-&#13;
-  align-self: center;&#13;
-  padding: 0.5rem;&#13;
-&#13;
-  @media only screen and (max-width: 620px) {&#13;
-    margin: 0 auto;&#13;
-  }&#13;
-}&#13;
-.free {&#13;
-  text-shadow: 0 0 0.2rem $green-color-2, 0 0 0.4rem $green-color-2,&#13;
-    0 0 0.6rem $green-color-2, 0 0 0.8rem $green-color-2;&#13;
-}&#13;
-&#13;
-.full {&#13;
-  text-shadow: 0 0 0.2rem $red-color-1, 0 0 0.4rem $red-color-1,&#13;
-    0 0 0.6rem $red-color-1, 0 0 0.8rem $red-color-1;&#13;
-}&#13;
+        <css>*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.data {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form {
+  @media only screen and (max-width: 620px) {
+    margin: 0 auto;
+  }
+
+  .form__group {
+    margin-block-end: 2rem;
+    min-width: 10rem;
+    width: 25rem;
+    animation: animateFromBottom 0.2s ease-in forwards;
+
+    label {
+      color: $text-color-black-1;
+      opacity: 0.9;
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    select,
+    input {
+      border: none;
+      border-radius: 2rem;
+      background: $background-color-blue-1;
+      padding: 0.5rem 1rem;
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      transition: box-shadow 0.15s ease-in-out;
+      color: $text-color-black-1;
+      cursor: pointer;
+      width: 100%;
+
+      &amp;:focus,
+      &amp;:hover {
+        box-shadow: 0 0 0.3rem $background-color-blue-1,
+          0 0 0.6rem $background-color-blue-1,
+          0 0 0.9rem $background-color-blue-1;
+      }
+    }
+  }
+
+  .form__submit {
+    @include btn-mixin($red-color-1, $white-color-1, $red-color-1);
+    animation: animateFromBottom 0.2s ease-in forwards;
+  }
+
+  .form_message {
+    text-align: center;
+    color: ($red-color-1);
+    visibility: hidden;
+    translate: 1rem;
+    transition: all 0.2s ease-in;
+  }
+
+  .message-active {
+    visibility: visible;
+    position: absolute;
+    max-width: 24rem;
+    translate: 0;
+  }
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-basis: 30rem;
+
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  animation: animateFromBottom 0.2s ease-in forwards;
+  color: $text-color-black-1;
+
+  align-self: center;
+  padding: 0.5rem;
+
+  @media only screen and (max-width: 620px) {
+    margin: 0 auto;
+  }
+}
+.free {
+  text-shadow: 0 0 0.2rem $green-color-2, 0 0 0.4rem $green-color-2,
+    0 0 0.6rem $green-color-2, 0 0 0.8rem $green-color-2;
+}
+
+.full {
+  text-shadow: 0 0 0.2rem $red-color-1, 0 0 0.4rem $red-color-1,
+    0 0 0.6rem $red-color-1, 0 0 0.8rem $red-color-1;
+}
 </css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -255,14 +264,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-09 11:24:05</sys_created_on>
         <sys_id>a16771b74722021086ea87fe016d43d4</sys_id>
-        <sys_mod_count>175</sys_mod_count>
+        <sys_mod_count>181</sys_mod_count>
         <sys_name>Chek available parking</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_widget_a16771b74722021086ea87fe016d43d4</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-16 07:51:21</sys_updated_on>
+        <sys_updated_on>2024-09-06 13:27:00</sys_updated_on>
         <template><![CDATA[<section class="custom-container">
   <h2 class="heading">Check available parking spaces</h2>
 
@@ -302,7 +311,7 @@
         Check
       </button>
 
-      <p class="form_message">{{c.formMessage}}</p>
+      <p class="form_message" id="form_message">{{c.formMessage}}</p>
     </form>
 
     <div class="result" ng-show="c.count">

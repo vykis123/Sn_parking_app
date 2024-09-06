@@ -6,6 +6,7 @@
         <caller_access/>
         <client_callable>false</client_callable>
         <description>Script include for Scripted rest apis related to Parking table, for handling response logic.</description>
+        <mobile_callable>false</mobile_callable>
         <name>ScriptedRestParkingUtils</name>
         <script><![CDATA[var ScriptedRestParkingUtils = Class.create();
 ScriptedRestParkingUtils.prototype = {

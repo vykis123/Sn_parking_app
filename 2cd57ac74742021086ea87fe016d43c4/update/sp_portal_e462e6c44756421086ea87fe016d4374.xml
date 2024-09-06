@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_portal">
     <sp_portal action="INSERT_OR_UPDATE">
+        <alternate_portal/>
         <css_variables/>
         <dark_theme/>
         <default>false</default>
@@ -9,6 +10,7 @@
         <hide_portal_name>false</hide_portal_name>
         <homepage display_value="home">1805228c4756421086ea87fe016d4351</homepage>
         <icon>a70cc7d0479e821086ea87fe016d43b8</icon>
+        <inactive>false</inactive>
         <kb_knowledge_base/>
         <kb_knowledge_page/>
         <login_page display_value="login">6995a144cb11120000f8d856634c9c25</login_page>

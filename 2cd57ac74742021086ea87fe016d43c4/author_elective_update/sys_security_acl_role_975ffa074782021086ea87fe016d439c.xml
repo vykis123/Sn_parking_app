@@ -58,7 +58,7 @@
         <update_guid_history>7fae8ce146f20210cdb2ca57b0b38ef9:0,4f850c25eeb2021020cb88f782040a59:0,496fb247c182021088b4b384f69e9bae:1845634680</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="x_1230661_parking_list.admin">15231b2847a7c21086ea87fe016d437d</sys_audit_delete>
+        <sys_audit_delete display_value="">15231b2847a7c21086ea87fe016d437d</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-07-19 08:46:55</sys_created_on>
