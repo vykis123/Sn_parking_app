@@ -264,14 +264,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-06-09 11:24:05</sys_created_on>
         <sys_id>a16771b74722021086ea87fe016d43d4</sys_id>
-        <sys_mod_count>181</sys_mod_count>
+        <sys_mod_count>182</sys_mod_count>
         <sys_name>Chek available parking</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sp_widget_a16771b74722021086ea87fe016d43d4</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-09-06 13:27:00</sys_updated_on>
+        <sys_updated_on>2024-09-10 12:42:25</sys_updated_on>
         <template><![CDATA[<section class="custom-container">
   <h2 class="heading">Check available parking spaces</h2>
 
@@ -290,7 +290,8 @@
       <div class="form__group">
         <label for="parkings">Select parking</label>
         <select id="parkings" name="parkings" ng-model="selectedParking">
-          <option value="" selected disabled hidden>Please select</option>
+          <option value="" selected disabled hidden ng-if="data.parkingList.length > 0">Please select</option>
+          <option value="" selected disabled hidden ng-if="data.parkingList.length === 0">No parkings</option>
           <option
             ng-repeat="parking in data.parkingList"
             value="{{parking.id}}"
