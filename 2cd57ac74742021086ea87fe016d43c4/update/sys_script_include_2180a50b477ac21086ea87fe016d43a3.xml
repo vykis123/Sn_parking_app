@@ -8,6 +8,7 @@
         <description>Script include for storing all methods related to validation for parking api.</description>
         <mobile_callable>false</mobile_callable>
         <name>ScriptedRestParkingValidationUtils</name>
+        <sandbox_callable>false</sandbox_callable>
         <script><![CDATA[var ScriptedRestParkingValidationUtils = Class.create();
 ScriptedRestParkingValidationUtils.prototype = {
     initialize: function() {

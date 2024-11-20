@@ -8,6 +8,7 @@
         <description>Script include for Scripted rest apis related to Parking table, for handling response logic.</description>
         <mobile_callable>false</mobile_callable>
         <name>ScriptedRestParkingUtils</name>
+        <sandbox_callable>false</sandbox_callable>
         <script><![CDATA[var ScriptedRestParkingUtils = Class.create();
 ScriptedRestParkingUtils.prototype = {
     initialize: function() {

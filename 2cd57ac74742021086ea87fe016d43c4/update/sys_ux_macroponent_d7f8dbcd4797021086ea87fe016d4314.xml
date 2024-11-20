@@ -12,9 +12,7 @@
         },
         "elementId": "column_layout_1",
         "elementLabel": "Column layout 1",
-        "eventMappings": [
-            
-        ],
+        "eventMappings": [],
         "isHidden": {
             "type": "JSON_LITERAL",
             "value": null
@@ -28,9 +26,7 @@
                     },
                     "elementId": "__clycyccqjjiaahhthhccahhiihvemsjja__column_1",
                     "elementLabel": "Column 1",
-                    "eventMappings": [
-                        
-                    ],
+                    "eventMappings": [],
                     "isHidden": {
                         "type": "JSON_LITERAL",
                         "value": null
@@ -44,9 +40,7 @@
                                 },
                                 "elementId": "container_3",
                                 "elementLabel": "Container 3",
-                                "eventMappings": [
-                                    
-                                ],
+                                "eventMappings": [],
                                 "isHidden": {
                                     "type": "JSON_LITERAL",
                                     "value": null
@@ -60,9 +54,7 @@
                                             },
                                             "elementId": "stylized_text_1",
                                             "elementLabel": "Heading text",
-                                            "eventMappings": [
-                                                
-                                            ],
+                                            "eventMappings": [],
                                             "isHidden": {
                                                 "type": "JSON_LITERAL",
                                                 "value": null
@@ -100,9 +92,7 @@
                                             },
                                             "elementId": "stylized_text_4",
                                             "elementLabel": "Heading parking name",
-                                            "eventMappings": [
-                                                
-                                            ],
+                                            "eventMappings": [],
                                             "isHidden": {
                                                 "type": "JSON_LITERAL",
                                                 "value": null
@@ -208,9 +198,7 @@
                                 },
                                 "elementId": "breadcrumbs_1",
                                 "elementLabel": "Breadcrumbs 1",
-                                "eventMappings": [
-                                    
-                                ],
+                                "eventMappings": [],
                                 "isHidden": {
                                     "type": "JSON_LITERAL",
                                     "value": null
@@ -384,9 +372,7 @@
                         "layout": {
                             "children": null,
                             "isInline": null,
-                            "items": [
-                                
-                            ],
+                            "items": [],
                             "root": null,
                             "rules": null,
                             "styles": {
@@ -473,9 +459,7 @@
         },
         "elementId": "dashboards",
         "elementLabel": "Dashboards",
-        "eventMappings": [
-            
-        ],
+        "eventMappings": [],
         "isHidden": {
             "type": "JSON_LITERAL",
             "value": false
@@ -489,9 +473,7 @@
                     },
                     "elementId": "container_2",
                     "elementLabel": "Container 2",
-                    "eventMappings": [
-                        
-                    ],
+                    "eventMappings": [],
                     "isHidden": {
                         "type": "JSON_LITERAL",
                         "value": null
@@ -505,9 +487,7 @@
                                 },
                                 "elementId": "stylized_text_2",
                                 "elementLabel": "Total parking header",
-                                "eventMappings": [
-                                    
-                                ],
+                                "eventMappings": [],
                                 "isHidden": {
                                     "type": "JSON_LITERAL",
                                     "value": null
@@ -545,9 +525,7 @@
                                 },
                                 "elementId": "stylized_text_3",
                                 "elementLabel": "Total places count",
-                                "eventMappings": [
-                                    
-                                ],
+                                "eventMappings": [],
                                 "isHidden": {
                                     "type": "JSON_LITERAL",
                                     "value": null
@@ -660,9 +638,7 @@
                     },
                     "elementId": "container_4",
                     "elementLabel": "Container 4",
-                    "eventMappings": [
-                        
-                    ],
+                    "eventMappings": [],
                     "isHidden": {
                         "type": "JSON_LITERAL",
                         "value": null
@@ -676,9 +652,7 @@
                                 },
                                 "elementId": "stylized_text_5",
                                 "elementLabel": "Free for today",
-                                "eventMappings": [
-                                    
-                                ],
+                                "eventMappings": [],
                                 "isHidden": {
                                     "type": "JSON_LITERAL",
                                     "value": null
@@ -702,7 +676,7 @@
                                         "value": {
                                             "code": null,
                                             "comment": "",
-                                            "message": "Free places for today"
+                                            "message": "Free places for selected date"
                                         }
                                     }
                                 },
@@ -716,9 +690,7 @@
                                 },
                                 "elementId": "stylized_text_7",
                                 "elementLabel": "Free for today value",
-                                "eventMappings": [
-                                    
-                                ],
+                                "eventMappings": [],
                                 "isHidden": {
                                     "type": "JSON_LITERAL",
                                     "value": null
@@ -828,9 +800,7 @@
                     },
                     "elementId": "container_5",
                     "elementLabel": "Container 5",
-                    "eventMappings": [
-                        
-                    ],
+                    "eventMappings": [],
                     "isHidden": {
                         "type": "JSON_LITERAL",
                         "value": false
@@ -844,9 +814,7 @@
                                 },
                                 "elementId": "stylized_text_6",
                                 "elementLabel": "Check by date",
-                                "eventMappings": [
-                                    
-                                ],
+                                "eventMappings": [],
                                 "isHidden": {
                                     "type": "JSON_LITERAL",
                                     "value": null
@@ -927,6 +895,40 @@
                                                 "operation": null,
                                                 "targetId": "clyeccccjjmeaacchcccahhijfeednbbeei",
                                                 "type": "EVENT"
+                                            },
+                                            {
+                                                "broker": null,
+                                                "clientScript": {
+                                                    "payload": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": {}
+                                                    },
+                                                    "sysId": "08e0a8754713021086ea87fe016d43a3"
+                                                },
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": null,
+                                                "operation": null,
+                                                "targetId": "cmddpleewbvaabbzbbccahhuxxaaasixdd",
+                                                "type": "CLIENT_SCRIPT"
+                                            },
+                                            {
+                                                "broker": null,
+                                                "clientScript": null,
+                                                "conditional": null,
+                                                "declarativeAction": null,
+                                                "event": null,
+                                                "operation": {
+                                                    "dataBrokerId": "546cccd25310101024e5ddeeff7b123b",
+                                                    "operationName": "REFRESH",
+                                                    "parentResourceId": "aggregation_query_2",
+                                                    "payload": {
+                                                        "type": "JSON_LITERAL",
+                                                        "value": {}
+                                                    }
+                                                },
+                                                "targetId": "cmddplffagraabbzccccahhuewzeggbbwl",
+                                                "type": "DATABROKER_OP"
                                             }
                                         ]
                                     }
@@ -955,9 +957,7 @@
                                     },
                                     "disabledItems": {
                                         "type": "JSON_LITERAL",
-                                        "value": [
-                                            
-                                        ]
+                                        "value": []
                                     },
                                     "firstDayOfWeek": {
                                         "type": "JSON_LITERAL",
@@ -965,9 +965,7 @@
                                     },
                                     "footerActions": {
                                         "type": "JSON_LITERAL",
-                                        "value": [
-                                            
-                                        ]
+                                        "value": []
                                     },
                                     "format": {
                                         "type": "JSON_LITERAL",
@@ -1011,9 +1009,7 @@
                                     },
                                     "messages": {
                                         "type": "JSON_LITERAL",
-                                        "value": [
-                                            
-                                        ]
+                                        "value": []
                                     },
                                     "name": {
                                         "type": "JSON_LITERAL",
@@ -1230,9 +1226,7 @@
         },
         "elementId": "container_1",
         "elementLabel": "Container 1",
-        "eventMappings": [
-            
-        ],
+        "eventMappings": [],
         "isHidden": {
             "type": "JSON_LITERAL",
             "value": null
@@ -1428,9 +1422,7 @@
                             "type": "JSON_LITERAL",
                             "value": {
                                 "color": "",
-                                "patterns": [
-                                    
-                                ]
+                                "patterns": []
                             }
                         },
                         "highlightedValueConfigId": {
@@ -1565,9 +1557,7 @@
         },
         "elementId": "aggregation_query_1",
         "elementLabel": "Look up total parking requests",
-        "eventMappings": [
-            
-        ],
+        "eventMappings": [],
         "inputValues": {
             "avgField": {
                 "type": "JSON_LITERAL"
@@ -1638,9 +1628,7 @@
         },
         "elementId": "look_up_a_single_record_1",
         "elementLabel": "Look up parking",
-        "eventMappings": [
-            
-        ],
+        "eventMappings": [],
         "inputValues": {
             "recordId": {
                 "binding": {
@@ -1864,7 +1852,7 @@
   "message" : "Filters bellow filter by selected date. If empty, shows all records approved on this parking",
   "comment" : ""
 }, {
-  "message" : "Free places for today",
+  "message" : "Free places for selected date",
   "comment" : ""
 }, {
   "message" : "Home",
@@ -1925,14 +1913,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-07-08 12:13:43</sys_created_on>
         <sys_id>d7f8dbcd4797021086ea87fe016d4314</sys_id>
-        <sys_mod_count>144</sys_mod_count>
+        <sys_mod_count>148</sys_mod_count>
         <sys_name>V1</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
         <sys_update_name>sys_ux_macroponent_d7f8dbcd4797021086ea87fe016d4314</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2024-07-21 18:08:23</sys_updated_on>
+        <sys_updated_on>2024-11-20 07:54:21</sys_updated_on>
     </sys_ux_macroponent>
     <sys_translated_text action="delete_multiple" query="documentkey=d7f8dbcd4797021086ea87fe016d4314"/>
 </record_update>

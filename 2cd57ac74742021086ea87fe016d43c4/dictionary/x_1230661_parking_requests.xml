@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="44304b874782021086ea87fe016d43b5" label="Parking requests" max_length="40" name="x_1230661_parking_requests" type="collection">
-        <element label="Reservation date" mandatory="true" max_length="40" name="reservation_date" type="glide_date"/>
-        <element label="Plate number" mandatory="true" max_length="10" name="plate_number" type="string"/>
         <element label="Requested by" mandatory="true" max_length="32" name="requested_by" reference="sys_user" type="reference"/>
-        <element label="Parking name" mandatory="true" max_length="32" name="parking_name" reference="x_1230661_parking_list" type="reference"/>
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" mandatory="true" max_length="40" name="number" type="string"/>
         <element choice="3" default="submited" label="Approve status" max_length="40" name="approve_status" type="choice">
             <choice>
+                <element inactive_on_update="false" label="Canceled" sequence="3" value="canceled"/>
+                <element inactive_on_update="false" label="Submited" sequence="1" value="submited"/>
                 <element inactive_on_update="false" label="Rejected" sequence="3" value="rejected"/>
                 <element inactive_on_update="false" label="Approved" sequence="2" value="approved"/>
-                <element inactive_on_update="false" label="Submited" sequence="1" value="submited"/>
-                <element inactive_on_update="false" label="Canceled" sequence="3" value="canceled"/>
             </choice>
         </element>
-        <element label="Rejection reason" max_length="1500" name="rejection_reason" type="string"/>
+        <element label="Reservation date" mandatory="true" max_length="40" name="reservation_date" type="glide_date"/>
         <element label="Additional details" max_length="1000" name="additional_details" type="string"/>
+        <element label="Parking name" mandatory="true" max_length="32" name="parking_name" reference="x_1230661_parking_list" type="reference"/>
+        <element label="Rejection reason" max_length="1500" name="rejection_reason" type="string"/>
+        <element label="Plate number" mandatory="true" max_length="10" name="plate_number" type="string"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" mandatory="true" max_length="40" name="number" type="string"/>
         <index name="index">
             <element name="parking_name"/>
         </index>

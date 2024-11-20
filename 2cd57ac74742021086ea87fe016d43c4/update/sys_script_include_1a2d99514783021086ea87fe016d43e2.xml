@@ -8,6 +8,7 @@
         <description>Script include meant for Parking requests api logic validation methods</description>
         <mobile_callable>false</mobile_callable>
         <name>ScriptedRestParkingRequestValidation</name>
+        <sandbox_callable>false</sandbox_callable>
         <script><![CDATA[var ScriptedRestParkingRequestValidation = Class.create();
 ScriptedRestParkingRequestValidation.prototype = {
     initialize: function() {
