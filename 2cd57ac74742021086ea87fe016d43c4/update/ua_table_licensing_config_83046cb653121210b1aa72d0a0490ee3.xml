@@ -12,13 +12,13 @@
         <sys_class_name>ua_table_licensing_config</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2024-05-13 11:32:36</sys_created_on>
-        <sys_id>8517616883021210456ec7e0deaad3e5</sys_id>
+        <sys_id>83046cb653121210b1aa72d0a0490ee3</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name>x_1230661_parking_list</sys_name>
         <sys_package display_value="parking" source="x_1230661_parking">2cd57ac74742021086ea87fe016d43c4</sys_package>
         <sys_policy/>
         <sys_scope display_value="parking">2cd57ac74742021086ea87fe016d43c4</sys_scope>
-        <sys_update_name>ua_table_licensing_config_8517616883021210456ec7e0deaad3e5</sys_update_name>
+        <sys_update_name>ua_table_licensing_config_83046cb653121210b1aa72d0a0490ee3</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2024-05-13 11:32:36</sys_updated_on>
     </ua_table_licensing_config>
